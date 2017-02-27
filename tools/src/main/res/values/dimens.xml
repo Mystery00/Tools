@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--spinner layout-->
+    <dimen name="mystery0_spinner_head_height">36dp</dimen>
+    <dimen name="mystery0_spinner_head_padding">10dp</dimen>
+    <dimen name="mystery0_spinner_head_text_size">20sp</dimen>
+
+    <dimen name="i_picture_chooser_item_size">180dp</dimen>
+    <dimen name="i_picture_chooser_item_margin">5dp</dimen>
+
+    <dimen name="float_menu_menu_size">50dp</dimen>
+    <dimen name="float_menu_margin">16dp</dimen>
+</resources>

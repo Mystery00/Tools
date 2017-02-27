@@ -1,1 +1,1 @@
-include ':app', ':ifloatmenu', ':ipicturechooser', ':ispinner'
+include ':app', ':tools'
