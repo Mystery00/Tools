@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".FloatMenuDemoActivity"/>
         <activity android:name=".PictureChooserDemoActivity"/>
+        <activity android:name=".SpinnerDemoActivity">
+        </activity>
     </application>
 
 </manifest>

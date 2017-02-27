@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--spinner layout-->
+    <dimen name="mystery0_spinner_head_height">36dp</dimen>
+    <dimen name="mystery0_spinner_head_padding">10dp</dimen>
+    <dimen name="mystery0_spinner_head_text_size">20sp</dimen>
+</resources>

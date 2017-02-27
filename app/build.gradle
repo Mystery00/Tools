@@ -27,5 +27,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile project(":ifloatmenu")
     compile project(":ipicturechooser")
+    compile project(":ispinner")
     testCompile 'junit:junit:4.12'
 }
