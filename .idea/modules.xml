@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToolsDemo.iml" filepath="$PROJECT_DIR$/ToolsDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ifloatmenu/ifloatmenu.iml" filepath="$PROJECT_DIR$/ifloatmenu/ifloatmenu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ipicturechooser/ipicturechooser.iml" filepath="$PROJECT_DIR$/ipicturechooser/ipicturechooser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ispinner/ispinner.iml" filepath="$PROJECT_DIR$/ispinner/ispinner.iml" />
     </modules>
   </component>
 </project>
