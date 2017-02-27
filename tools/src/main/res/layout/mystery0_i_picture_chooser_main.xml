@@ -8,6 +8,6 @@
         android:id="@+id/i_picture_chooser_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/i_picture_chooser_item_margin"/>
+        android:layout_margin="@dimen/mystery0_i_picture_chooser_item_margin"/>
 
 </RelativeLayout>

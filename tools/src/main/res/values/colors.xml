@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="mystery0_spinner_background">#5a000000</color>
-    <color name="float_menu_button_color">#ABABAB</color>
+    <color name="mystery0_spinner_background_color">#FFFFFF</color>
+    <color name="mystery0_float_menu_button_color">#ABABAB</color>
 </resources>

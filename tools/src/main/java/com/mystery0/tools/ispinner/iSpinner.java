@@ -26,6 +26,7 @@ public class iSpinner extends LinearLayout
     private LinearLayout head;
     private View view_spinner;
     private LinearLayout layout;
+    private View line;
     private Animation animation_in;
     private Animation animation_out;
     private int index = 0;
@@ -35,6 +36,7 @@ public class iSpinner extends LinearLayout
         super(context, attrs);
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.mystery0_ispinner, this);
+        line = findViewById(R.id.line);
         head = (LinearLayout) findViewById(R.id.i_spinner);
         text = (TextView) findViewById(R.id.head_text);
         listView = (ListView) findViewById(R.id.list);
@@ -66,6 +68,7 @@ public class iSpinner extends LinearLayout
     public void setListBackground(int color)
     {
         listView.setBackgroundColor(color);
+        line.setBackgroundColor(color);
     }
 
     public void setViewBackground(int color)
@@ -83,16 +86,21 @@ public class iSpinner extends LinearLayout
         return layout;
     }
 
+    public boolean isOpen()
+    {
+        return isOpen;
+    }
+
     public void setLayoutVisiblity(int visibility)
     {
-        setViewVisibility(layout,visibility);
+        setViewVisibility(layout, visibility);
         switch (visibility)
         {
             case GONE:
-                isOpen=false;
+                isOpen = false;
                 break;
             case VISIBLE:
-                isOpen=true;
+                isOpen = true;
                 break;
         }
     }
@@ -111,6 +119,7 @@ public class iSpinner extends LinearLayout
             {
                 text.setText(strings[position]);
                 layout.setVisibility(GONE);
+                line.setVisibility(GONE);
                 isOpen = false;
                 index = position;
                 spinnerItemClickListener.onItemClick(position);
@@ -157,11 +166,15 @@ public class iSpinner extends LinearLayout
         {
             case GONE:
                 view.setVisibility(visibility);
+                line.setVisibility(visibility);
                 view.startAnimation(animation_out);
+                line.startAnimation(animation_out);
                 break;
             case VISIBLE:
                 view.setVisibility(visibility);
+                line.setVisibility(visibility);
                 view.startAnimation(animation_in);
+                line.startAnimation(animation_in);
                 break;
         }
     }

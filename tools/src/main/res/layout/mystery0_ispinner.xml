@@ -8,6 +8,7 @@
         android:id="@+id/i_spinner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mystery0_spinner_head_height"
+        android:background="@color/mystery0_spinner_background_color"
         android:gravity="center_horizontal">
 
         <TextView
@@ -20,6 +21,13 @@
             android:textSize="@dimen/mystery0_spinner_head_text_size"/>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1.2dp"
+        android:background="@drawable/mystery0_ispinner_view"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/layout"

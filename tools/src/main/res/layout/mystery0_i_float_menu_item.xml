@@ -8,10 +8,10 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="@dimen/float_menu_menu_size"
-        android:layout_height="@dimen/float_menu_menu_size"
+        android:layout_width="@dimen/mystery0_float_menu_menu_size"
+        android:layout_height="@dimen/mystery0_float_menu_menu_size"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/float_menu_margin"
+        android:layout_margin="@dimen/mystery0_float_menu_margin"
         app:borderWidth="0dp"/>
 
     <TextView
@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/fab"
-        android:textSize="@dimen/float_menu_text_size"/>
+        android:textSize="@dimen/mystery0_float_menu_text_size"/>
 
 </RelativeLayout>

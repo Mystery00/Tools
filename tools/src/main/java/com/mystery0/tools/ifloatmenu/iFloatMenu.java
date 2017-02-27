@@ -45,7 +45,7 @@ public class iFloatMenu extends RelativeLayout
         super(context, attrs);
         menuList = new ArrayList<>();
         number = 4;
-        LayoutInflater.from(context).inflate(R.layout.i_float_menu, this);
+        LayoutInflater.from(context).inflate(R.layout.mystery0_i_float_menu, this);
         button = (FloatingActionButton) findViewById(R.id.fab_menu);
         menuList.add(new Menu(findViewById(R.id.item1)));
         menuList.add(new Menu(findViewById(R.id.item2)));
@@ -53,10 +53,10 @@ public class iFloatMenu extends RelativeLayout
         menuList.add(new Menu(findViewById(R.id.item4)));
         menuList.add(new Menu(findViewById(R.id.item5)));
 
-        animation_in = AnimationUtils.loadAnimation(context, R.anim.float_menu_transform_in);
-        animation_out = AnimationUtils.loadAnimation(context, R.anim.float_menu_transform_out);
-        button_in = AnimationUtils.loadAnimation(context, R.anim.float_button_transform_in);
-        button_out = AnimationUtils.loadAnimation(context, R.anim.float_button_transform_out);
+        animation_in = AnimationUtils.loadAnimation(context, R.anim.mystery0_float_menu_transform_in);
+        animation_out = AnimationUtils.loadAnimation(context, R.anim.mystery0_float_menu_transform_out);
+        button_in = AnimationUtils.loadAnimation(context, R.anim.mystery0_float_button_transform_in);
+        button_out = AnimationUtils.loadAnimation(context, R.anim.mystery0_float_button_transform_out);
 
         monitor();
     }

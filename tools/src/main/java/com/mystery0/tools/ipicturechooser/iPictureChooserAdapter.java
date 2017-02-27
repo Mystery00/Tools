@@ -32,7 +32,7 @@ public class iPictureChooserAdapter extends RecyclerView.Adapter<iPictureChooser
 
     public iPictureChooserAdapter(List<String> pathList, Context context, iPictureChooserListener listener)
     {
-        this(pathList, R.drawable.i_picture_chooser_add, context, listener);
+        this(pathList, R.drawable.mystery0_i_picture_chooser_add, context, listener);
     }
 
     public iPictureChooserAdapter(List<String> pathList, int add_img, Context context, iPictureChooserListener listener)
@@ -46,7 +46,7 @@ public class iPictureChooserAdapter extends RecyclerView.Adapter<iPictureChooser
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType)
     {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.i_picture_chooser_item, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mystery0_i_picture_chooser_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         if (pathList.size() == 0)
         {
