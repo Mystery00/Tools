@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/activity_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.mystery0.toolsdemo.MainActivity">
+
+    <Button
+        android:id="@+id/float_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/float_menu"/>
+
+    <Button
+        android:id="@+id/picture_chooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/picture_chooser"/>
+
+    <Button
+        android:id="@+id/m_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/m_spinner"/>
+
+</LinearLayout>
