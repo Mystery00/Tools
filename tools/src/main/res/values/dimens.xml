@@ -10,4 +10,5 @@
 
     <dimen name="float_menu_menu_size">50dp</dimen>
     <dimen name="float_menu_margin">16dp</dimen>
+    <dimen name="float_menu_text_size">18sp</dimen>
 </resources>

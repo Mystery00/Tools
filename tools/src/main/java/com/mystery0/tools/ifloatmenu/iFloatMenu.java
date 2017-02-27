@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mystery0.tools.R;
 
@@ -16,43 +17,46 @@ import java.util.List;
 
 public class iFloatMenu extends RelativeLayout
 {
-    private Context context;
     private FloatingActionButton button;
-    private List<FloatingActionButton> menuList;
+    private List<Menu> menuList;
     private int number;
-    private int openIcon;
-    private int closeIcon;
     private Animation animation_in;
     private Animation animation_out;
-    private Animation alpha_in;
-    private Animation alpha_out;
+    private Animation button_in;
+    private Animation button_out;
     private boolean isOpen = false;
+
+    private class Menu
+    {
+        View fullView;
+        FloatingActionButton button;
+        TextView text;
+
+        Menu(View layout)
+        {
+            fullView = layout;
+            button = (FloatingActionButton) layout.findViewById(R.id.fab);
+            text = (TextView) layout.findViewById(R.id.text);
+        }
+    }
 
     public iFloatMenu(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        this.context = context;
         menuList = new ArrayList<>();
-        number = 5;
-        openIcon = R.drawable.float_menu_default_open;
-        closeIcon = R.drawable.float_menu_default_close;
+        number = 4;
         LayoutInflater.from(context).inflate(R.layout.i_float_menu, this);
         button = (FloatingActionButton) findViewById(R.id.fab_menu);
-        FloatingActionButton menu1 = (FloatingActionButton) findViewById(R.id.fab1);
-        FloatingActionButton menu2 = (FloatingActionButton) findViewById(R.id.fab2);
-        FloatingActionButton menu3 = (FloatingActionButton) findViewById(R.id.fab3);
-        FloatingActionButton menu4 = (FloatingActionButton) findViewById(R.id.fab4);
-        FloatingActionButton menu5 = (FloatingActionButton) findViewById(R.id.fab5);
-        menuList.add(menu1);
-        menuList.add(menu2);
-        menuList.add(menu3);
-        menuList.add(menu4);
-        menuList.add(menu5);
+        menuList.add(new Menu(findViewById(R.id.item1)));
+        menuList.add(new Menu(findViewById(R.id.item2)));
+        menuList.add(new Menu(findViewById(R.id.item3)));
+        menuList.add(new Menu(findViewById(R.id.item4)));
+        menuList.add(new Menu(findViewById(R.id.item5)));
 
-        animation_in= AnimationUtils.loadAnimation(context,R.anim.float_menu_transform_in);
-        animation_out=AnimationUtils.loadAnimation(context,R.anim.float_menu_transform_out);
-        alpha_in=AnimationUtils.loadAnimation(context,R.anim.float_menu_alpha_in);
-        alpha_out=AnimationUtils.loadAnimation(context,R.anim.float_menu_alpha_out);
+        animation_in = AnimationUtils.loadAnimation(context, R.anim.float_menu_transform_in);
+        animation_out = AnimationUtils.loadAnimation(context, R.anim.float_menu_transform_out);
+        button_in = AnimationUtils.loadAnimation(context, R.anim.float_button_transform_in);
+        button_out = AnimationUtils.loadAnimation(context, R.anim.float_button_transform_out);
 
         monitor();
     }
@@ -69,29 +73,35 @@ public class iFloatMenu extends RelativeLayout
 
     public void setIcons(int[] ids)
     {
+        if (ids.length > number)
+            throw new NumberFormatException("Number error! Please check the value! ");
         for (int i = 0; i < number; i++)
         {
-            menuList.get(i).setImageResource(ids[i]);
+            menuList.get(i).button.setImageResource(ids[i]);
         }
     }
 
-    public void setOpenIcon(int resId)
+    public void setTexts(String[] texts)
     {
-        openIcon = resId;
+        if (texts.length > number)
+            throw new NumberFormatException("Number error! Please check the value! ");
+        for (int i = 0; i < number; i++)
+        {
+            menuList.get(i).text.setText(texts[i]);
+        }
     }
 
-    public void setCloseIcon(int resId)
+    public void setIcon(int resId)
     {
-        closeIcon = resId;
         button.setImageResource(resId);
     }
 
     public void setMenuClickListener(final MenuClick menuClick)
     {
-        for(int i=0;i<number;i++)
+        for (int i = 0; i < number; i++)
         {
             final int finalI = i;
-            menuList.get(i).setOnClickListener(new OnClickListener()
+            menuList.get(i).fullView.setOnClickListener(new OnClickListener()
             {
                 @Override
                 public void onClick(View v)
@@ -108,16 +118,12 @@ public class iFloatMenu extends RelativeLayout
         {
             case GONE:
                 isOpen = false;
-                button.startAnimation(alpha_in);
-                button.setImageResource(closeIcon);
-                button.startAnimation(alpha_out);
+                button.startAnimation(button_out);
                 setMenuListVisibility(GONE);
                 break;
             case VISIBLE:
                 isOpen = true;
-                button.startAnimation(alpha_in);
-                button.setImageResource(openIcon);
-                button.startAnimation(alpha_out);
+                button.startAnimation(button_in);
                 setMenuListVisibility(VISIBLE);
                 break;
         }
@@ -133,16 +139,12 @@ public class iFloatMenu extends RelativeLayout
                 if (isOpen)
                 {
                     isOpen = false;
-                    button.startAnimation(alpha_in);
-                    button.setImageResource(closeIcon);
-                    button.startAnimation(alpha_out);
+                    button.startAnimation(button_out);
                     setMenuListVisibility(GONE);
                 } else
                 {
                     isOpen = true;
-                    button.startAnimation(alpha_in);
-                    button.setImageResource(openIcon);
-                    button.startAnimation(alpha_out);
+                    button.startAnimation(button_in);
                     setMenuListVisibility(VISIBLE);
                 }
             }
@@ -153,19 +155,20 @@ public class iFloatMenu extends RelativeLayout
     {
         for (int i = 0; i < number; i++)
         {
-            setViewVisibility(menuList.get(i), visibility, i + 1);
+            setViewVisibility(menuList.get(i).fullView, visibility, i);
         }
     }
 
     private void setViewVisibility(View view, int visibility, int index)
     {
-        if (index <= number)
+        if (index < number)
         {
             view.setVisibility(visibility);
             switch (visibility)
             {
                 case GONE:
                     view.startAnimation(animation_out);
+
                     break;
                 case VISIBLE:
                     view.startAnimation(animation_in);

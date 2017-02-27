@@ -7,68 +7,37 @@
               android:gravity="bottom"
               android:orientation="vertical">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab1"
-        android:layout_width="@dimen/float_menu_menu_size"
-        android:layout_height="@dimen/float_menu_menu_size"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/float_menu_margin"
-        android:backgroundTint="@color/float_menu_button_color"
-        android:src="@drawable/float_menu_default_close"
-        android:visibility="gone"
-        app:borderWidth="0dp"/>
+    <include
+        android:id="@+id/item1"
+        layout="@layout/i_float_menu_item"
+        android:visibility="gone"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
-        android:layout_width="@dimen/float_menu_menu_size"
-        android:layout_height="@dimen/float_menu_menu_size"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/float_menu_margin"
-        android:backgroundTint="@color/float_menu_button_color"
-        android:src="@drawable/float_menu_default_close"
-        android:visibility="gone"
-        app:borderWidth="0dp"/>
+    <include
+        android:id="@+id/item2"
+        layout="@layout/i_float_menu_item"
+        android:visibility="gone"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab3"
-        android:layout_width="@dimen/float_menu_menu_size"
-        android:layout_height="@dimen/float_menu_menu_size"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/float_menu_margin"
-        android:backgroundTint="@color/float_menu_button_color"
-        android:src="@drawable/float_menu_default_close"
-        android:visibility="gone"
-        app:borderWidth="0dp"/>
+    <include
+        android:id="@+id/item3"
+        layout="@layout/i_float_menu_item"
+        android:visibility="gone"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab4"
-        android:layout_width="@dimen/float_menu_menu_size"
-        android:layout_height="@dimen/float_menu_menu_size"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/float_menu_margin"
-        android:backgroundTint="@color/float_menu_button_color"
-        android:src="@drawable/float_menu_default_close"
-        android:visibility="gone"
-        app:borderWidth="0dp"/>
+    <include
+        android:id="@+id/item4"
+        layout="@layout/i_float_menu_item"
+        android:visibility="gone"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab5"
-        android:layout_width="@dimen/float_menu_menu_size"
-        android:layout_height="@dimen/float_menu_menu_size"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/float_menu_margin"
-        android:backgroundTint="@color/float_menu_button_color"
-        android:src="@drawable/float_menu_default_close"
-        android:visibility="gone"
-        app:borderWidth="0dp"/>
+    <include
+        android:id="@+id/item5"
+        layout="@layout/i_float_menu_item"
+        android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/float_menu_margin"
-        android:backgroundTint="@color/float_menu_button_color"
-        android:src="@drawable/float_menu_default_close"
+        android:src="@drawable/float_menu_default_icon"
         app:borderWidth="0dp"/>
 
 </LinearLayout>

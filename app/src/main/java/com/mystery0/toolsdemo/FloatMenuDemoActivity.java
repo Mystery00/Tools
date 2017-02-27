@@ -17,9 +17,10 @@ public class FloatMenuDemoActivity extends AppCompatActivity
         setContentView(R.layout.activity_float_menu);
 
         iFloatMenu iFloatMenu = (iFloatMenu) findViewById(R.id.ifloat);
-        iFloatMenu.setNumber(4);
-        iFloatMenu.setCloseIcon(R.drawable.ic_android);
-        iFloatMenu.setIcons(new int[]{R.drawable.ic_android, R.drawable.ic_android, R.drawable.ic_android, R.drawable.ic_android});
+        iFloatMenu.setNumber(5);
+        iFloatMenu.setIcon(R.drawable.ic_android);
+        iFloatMenu.setTexts(new String[]{"1","ssss","test","1","456"});
+        iFloatMenu.setIcons(new int[]{R.drawable.ic_android, R.drawable.ic_android, R.drawable.ic_android, R.drawable.ic_android, R.drawable.ic_android});
         iFloatMenu.setMenuClickListener(new MenuClick()
         {
             @Override

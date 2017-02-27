@@ -5,8 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.mystery0.ispinner.SpinnerItemClickListener;
-import com.mystery0.ispinner.iSpinner;
+import com.mystery0.tools.ispinner.SpinnerItemClickListener;
+import com.mystery0.tools.ispinner.iSpinner;
+
 
 public class SpinnerDemoActivity extends AppCompatActivity
 {
@@ -17,7 +18,7 @@ public class SpinnerDemoActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spinner_demo);
 
-        iSpinner spinner=(com.mystery0.ispinner.iSpinner)findViewById(R.id.spinner);
+        iSpinner spinner=(iSpinner)findViewById(R.id.spinner);
         String[] strings=new String[]{"dasdasd","dsddfff","123456","456798"};
         spinner.setStrings(strings);
         spinner.setSelected(0);
