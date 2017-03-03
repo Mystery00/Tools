@@ -3,4 +3,6 @@
     <string name="float_menu">FloatMenu</string>
     <string name="picture_chooser">PictureChooser</string>
     <string name="m_spinner">Spinner</string>
+    <string name="sendHttp">SendHttp</string>
+    <string name="sendHttpGetJson">SendHttpGetJson</string>
 </resources>

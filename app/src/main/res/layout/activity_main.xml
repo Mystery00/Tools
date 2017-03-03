@@ -30,4 +30,16 @@
         android:layout_height="wrap_content"
         android:text="@string/m_spinner"/>
 
+    <Button
+        android:id="@+id/sendHttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sendHttp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/sendHttpGetJson"
+        android:text="@string/sendHttpGetJson"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
