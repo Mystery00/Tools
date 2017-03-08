@@ -6,4 +6,5 @@
     <string name="sendHttp">SendHttp</string>
     <string name="sendHttpGetJson">SendHttpGetJson</string>
     <string name="testlog">TestLog</string>
+    <string name="testcrash">TestCrash</string>
 </resources>
