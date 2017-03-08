@@ -1,4 +1,4 @@
-package com.mystery0.tools.ispinner;
+package com.mystery0.tools.iSpinner;
 
 public interface SpinnerItemClickListener
 {

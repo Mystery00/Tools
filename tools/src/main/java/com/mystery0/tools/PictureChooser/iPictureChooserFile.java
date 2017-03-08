@@ -1,4 +1,4 @@
-package com.mystery0.tools.ipicturechooser;
+package com.mystery0.tools.PictureChooser;
 
 import android.content.ContentUris;
 import android.content.Context;

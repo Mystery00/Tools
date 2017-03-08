@@ -3,11 +3,11 @@ package com.mystery0.toolsdemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         Button spinner = (Button) findViewById(R.id.m_spinner);
         Button send = (Button) findViewById(R.id.sendHttp);
         Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
+        Button testLog = (Button) findViewById(R.id.testLog);
 
         float_menu.setOnClickListener(new View.OnClickListener()
         {
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void onResponse(int code, String message)
                             {
-                                Log.i(TAG, "onResponse: " + message);
+                                Logs.i(TAG, "onResponse: " + message);
                                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT)
                                         .show();
                             }
@@ -101,12 +102,25 @@ public class MainActivity extends AppCompatActivity
                             public void onResponse(int code, String message)
                             {
                                 Response response = httpUtil.fromJson(message, Response.class);
-                                Log.i(TAG, "onResponse: " + response);
+                                Logs.i(TAG, "onResponse: " + response);
                                 Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG)
                                         .show();
                             }
                         })
                         .open();
+            }
+        });
+
+        testLog.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Logs.v(TAG, "verbose");
+                Logs.i(TAG, "info");
+                Logs.d(TAG, "debug");
+                Logs.w(TAG, "warning");
+                Logs.e(TAG, "error");
             }
         });
     }

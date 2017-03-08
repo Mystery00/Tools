@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.mystery0.tools.ipicturechooser.iPictureChooser;
-import com.mystery0.tools.ipicturechooser.iPictureChooserListener;
+import com.mystery0.tools.PictureChooser.iPictureChooser;
+import com.mystery0.tools.PictureChooser.iPictureChooserListener;
 
 public class PictureChooserDemoActivity extends AppCompatActivity
 {

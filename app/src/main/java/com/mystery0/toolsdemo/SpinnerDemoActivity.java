@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.mystery0.tools.ispinner.SpinnerItemClickListener;
-import com.mystery0.tools.ispinner.iSpinner;
+import com.mystery0.tools.iSpinner.SpinnerItemClickListener;
+import com.mystery0.tools.iSpinner.iSpinner;
 
 
 public class SpinnerDemoActivity extends AppCompatActivity

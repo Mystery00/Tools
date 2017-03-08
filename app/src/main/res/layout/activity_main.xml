@@ -37,9 +37,15 @@
         android:text="@string/sendHttp"/>
 
     <Button
-        android:layout_width="match_parent"
         android:id="@+id/sendHttpGetJson"
-        android:text="@string/sendHttpGetJson"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sendHttpGetJson"/>
+
+    <Button
+        android:id="@+id/testLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/testlog"/>
 
 </LinearLayout>

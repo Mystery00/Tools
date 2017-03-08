@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mystery0.toolsdemo.FloatMenuDemoActivity">
 
-    <com.mystery0.tools.ifloatmenu.iFloatMenu
+    <com.mystery0.tools.FloatMenu.iFloatMenu
         android:id="@+id/ifloat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

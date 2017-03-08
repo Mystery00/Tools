@@ -1,4 +1,4 @@
-package com.mystery0.tools.ifloatmenu;
+package com.mystery0.tools.FloatMenu;
 
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;

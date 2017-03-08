@@ -1,4 +1,4 @@
-package com.mystery0.tools.ipicturechooser;
+package com.mystery0.tools.PictureChooser;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

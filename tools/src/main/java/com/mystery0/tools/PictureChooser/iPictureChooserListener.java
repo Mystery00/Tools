@@ -1,4 +1,4 @@
-package com.mystery0.tools.ipicturechooser;
+package com.mystery0.tools.PictureChooser;
 
 public interface iPictureChooserListener
 {

@@ -5,4 +5,5 @@
     <string name="m_spinner">Spinner</string>
     <string name="sendHttp">SendHttp</string>
     <string name="sendHttpGetJson">SendHttpGetJson</string>
+    <string name="testlog">TestLog</string>
 </resources>

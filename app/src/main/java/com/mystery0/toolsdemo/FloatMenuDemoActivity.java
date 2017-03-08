@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.mystery0.tools.ifloatmenu.MenuClick;
-import com.mystery0.tools.ifloatmenu.iFloatMenu;
+import com.mystery0.tools.FloatMenu.MenuClick;
+import com.mystery0.tools.FloatMenu.iFloatMenu;
 
 public class FloatMenuDemoActivity extends AppCompatActivity
 {
