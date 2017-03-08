@@ -19,16 +19,17 @@ import java.util.Locale;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler
 {
+    private static CrashHandler crashHandler;
+
     private static final String TAG = "CrashHandler";
     private static final boolean DEBUG = true;
 
-    private static final String PATH = Environment.getExternalStorageDirectory().getPath() + "/log/";
-    private static final String FILE_NAME = "crash";
+    private static final String PATH = Environment.getExternalStorageDirectory().getPath();
+    private static String DIR = "log";
+    private static String FILE_NAME = "crash";
 
     //log文件的后缀名
     private static final String FILE_NAME_SUFFIX = ".txt";
-
-    private static CrashHandler crashHandler;
 
     //系统默认的异常处理（默认情况下，系统会终止当前的异常程序）
     private Thread.UncaughtExceptionHandler mDefaultCrashHandler;
@@ -47,6 +48,18 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler
             crashHandler = new CrashHandler();
         }
         return crashHandler;
+    }
+
+    public CrashHandler setDirectory(String name)
+    {
+        DIR = name;
+        return this;
+    }
+
+    public CrashHandler setCustomFileName(String fileName)
+    {
+        FILE_NAME = fileName;
+        return this;
     }
 
     //这里主要完成初始化工作
@@ -104,7 +117,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler
             }
         }
 
-        File dir = new File(PATH);
+        File dir = new File(PATH + "/" + DIR + "/");
         if (!dir.exists())
         {
             //noinspection ResultOfMethodCallIgnored
@@ -113,7 +126,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
                 .format(Calendar.getInstance().getTime());
         //以当前时间创建log文件
-        File file = new File(PATH + FILE_NAME + time + FILE_NAME_SUFFIX);
+        File file = new File(PATH + "/" + DIR + "/" + FILE_NAME + time + FILE_NAME_SUFFIX);
 
         try
         {

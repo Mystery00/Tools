@@ -98,6 +98,7 @@ public class iFloatMenu extends RelativeLayout
 
     public void setMenuClickListener(final MenuClick menuClick)
     {
+        setMenuListVisibility(GONE);
         for (int i = 0; i < number; i++)
         {
             final int finalI = i;

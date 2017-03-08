@@ -12,6 +12,9 @@ public class App extends Application
     {
         super.onCreate();
         Logs.setLevel(Logs.LogLevel.Debug);
-        CrashHandler.getInstance().init(this);
+        CrashHandler.getInstance()
+                .setDirectory("test")
+                .setCustomFileName("log")
+                .init(this);
     }
 }
