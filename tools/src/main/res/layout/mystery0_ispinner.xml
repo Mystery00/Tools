@@ -17,6 +17,7 @@
             android:layout_height="match_parent"
             android:drawableEnd="@drawable/mystery0_spinner_more"
             android:drawablePadding="@dimen/mystery0_spinner_head_padding"
+            android:drawableRight="@drawable/mystery0_spinner_more"
             android:gravity="center"
             android:textSize="@dimen/mystery0_spinner_head_text_size"/>
 

@@ -4,4 +4,4 @@
     android:layout_width="@dimen/mystery0_i_picture_chooser_item_size"
     android:layout_height="@dimen/mystery0_i_picture_chooser_item_size"
     android:layout_margin="@dimen/mystery0_i_picture_chooser_item_margin"
-    android:contentDescription="@string/app_name"/>
+    android:contentDescription="@string/appbar_scrolling_view_behavior"/>
