@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.mystery0.tools.TextDialogPreference.TextDialogPreference
+        android:title="@string/testPreference"
+        android:key="@string/testPreference"/>
+</PreferenceScreen>

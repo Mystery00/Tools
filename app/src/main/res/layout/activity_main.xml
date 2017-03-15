@@ -46,12 +46,18 @@
         android:id="@+id/testLog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/testlog"/>
+        android:text="@string/testLog"/>
 
     <Button
         android:id="@+id/testCrash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/testcrash"/>
+        android:text="@string/testCrash"/>
+
+    <Button
+        android:id="@+id/testPreference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/testPreference"/>
 
 </LinearLayout>

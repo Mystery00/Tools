@@ -11,10 +11,7 @@ import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
@@ -34,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
         Button testLog = (Button) findViewById(R.id.testLog);
         Button testCrash = (Button) findViewById(R.id.testCrash);
+        Button testPreference = (Button) findViewById(R.id.testPreference);
 
         float_menu.setOnClickListener(new View.OnClickListener()
         {
@@ -135,6 +133,15 @@ public class MainActivity extends AppCompatActivity
             {
                 int temp = Integer.parseInt("test");
                 Logs.i(TAG, String.valueOf(temp));
+            }
+        });
+
+        testPreference.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this,PreferenceActivity.class));
             }
         });
     }
