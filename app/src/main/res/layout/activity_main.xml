@@ -54,10 +54,4 @@
         android:layout_height="wrap_content"
         android:text="@string/testCrash"/>
 
-    <Button
-        android:id="@+id/testPreference"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/testPreference"/>
-
 </LinearLayout>

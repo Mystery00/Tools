@@ -8,7 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import java.util.Map;
 
@@ -87,15 +86,5 @@ public class HttpUtil
             }
         };
         requestQueue.add(stringRequest);
-    }
-
-    public <T> T fromJson(String json, Class<T> classOfT)
-    {
-        return new Gson().fromJson(json, classOfT);
-    }
-
-    public String toJson(Object object)
-    {
-        return new Gson().toJson(object);
     }
 }

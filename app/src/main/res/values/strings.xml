@@ -7,5 +7,4 @@
     <string name="sendHttpGetJson">SendHttpGetJson</string>
     <string name="testLog">TestLog</string>
     <string name="testCrash">TestCrash</string>
-    <string name="testPreference">TestPreference</string>
 </resources>

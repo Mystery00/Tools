@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity
         Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
         Button testLog = (Button) findViewById(R.id.testLog);
         Button testCrash = (Button) findViewById(R.id.testCrash);
-        Button testPreference = (Button) findViewById(R.id.testPreference);
 
         float_menu.setOnClickListener(new View.OnClickListener()
         {
@@ -103,9 +102,8 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void onResponse(int code, String message)
                             {
-                                Response response = httpUtil.fromJson(message, Response.class);
-                                Logs.i(TAG, "onResponse: " + response);
-                                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG)
+                                Logs.i(TAG, "onResponse: " + message);
+                                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
                                         .show();
                             }
                         })
@@ -133,15 +131,6 @@ public class MainActivity extends AppCompatActivity
             {
                 int temp = Integer.parseInt("test");
                 Logs.i(TAG, String.valueOf(temp));
-            }
-        });
-
-        testPreference.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this,PreferenceActivity.class));
             }
         });
     }
