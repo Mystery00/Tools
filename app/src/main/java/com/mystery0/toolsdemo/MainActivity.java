@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
         Button testLog = (Button) findViewById(R.id.testLog);
         Button testCrash = (Button) findViewById(R.id.testCrash);
+        Button testImageLoader = (Button) findViewById(R.id.testImageLoader);
 
         float_menu.setOnClickListener(new View.OnClickListener()
         {
@@ -131,6 +132,14 @@ public class MainActivity extends AppCompatActivity
             {
                 int temp = Integer.parseInt("test");
                 Logs.i(TAG, String.valueOf(temp));
+            }
+        });
+        testImageLoader.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, ImageLoaderActivity.class));
             }
         });
     }

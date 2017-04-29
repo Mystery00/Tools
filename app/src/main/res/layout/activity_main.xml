@@ -54,4 +54,10 @@
         android:layout_height="wrap_content"
         android:text="@string/testCrash"/>
 
+    <Button
+        android:id="@+id/testImageLoader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/testimageloader"/>
+
 </LinearLayout>
