@@ -9,6 +9,7 @@
 4. [网络框架（封装json解析）](#网络框架 "网络框架（封装json解析）")
 5. [日志工具（发布时一键清理代码中log输出，避免数据泄露）](#日志工具 "日志工具（发布时一键清理代码中log输出，避免数据泄露）")
 6. [崩溃日志自动记录器](#崩溃日志自动记录器 "崩溃日志自动记录器")
+7. [图片加载器](#图片加载器 "图片加载器")
 
 ## 添加使用
 Add it in your root build.gradle at the end of repositories:
@@ -22,8 +23,9 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.Mystery00:ToolsDemo:1.2.0'
+	        compile 'com.github.Mystery00:ToolsDemo:1.x.x'
 	}
+具体的版本号请进入release页查看
 ## 浮动按钮菜单
 ```java
 void setNumber(int number)//设置菜单项数量（最大为5）
@@ -59,9 +61,8 @@ HttpUtil setUrl(String url)//设置请求地址
 HttpUtil setResponseListener(ResponseListener responseListener)//数据返回监听
 HttpUtil setMap(Map<String, String> map)//设置网页输入数据
 void open()//开始链接
-<T> T fromJson(String json, Class<T> classOfT)//解析json数据
-String toJson(Object object)//封装json数据
 ```
+从某个版本开始已经取消gson包，避免与其他的包冲突
 ## 日志工具
 使用方法：在Application中调用`setLevel(LogLevel level)`方法，传参`Release`即是发布时使用，隐藏app中除了错误之外`log`，传参`Debug`则是编写过程中使用。
 ## 崩溃日志自动记录器
@@ -73,3 +74,11 @@ String toJson(Object object)//封装json数据
 CrashHandler setDirectory(String name)//设置SD卡根目录下创建的文件夹名（默认log）
 CrashHandler setCustomFileName(String fileName)//设置log文件默认头部名（默认crash）
 ```
+## 图片加载器
+其实图片加载器使用的是Volley包里面的，但是我写了一个类实现了ImageCache接口，可以直接使用。
+```java
+ImageLoader(requestQueue, new ImageCache(Context context, String fileName));
+```
+其中第一个参数是`Context`对象，第二个对象是本地缓存的文件名。
+本地缓存存储的位置是`SD卡根目录下Android/data/包名/cache/`下。
+缓存采用双缓存，即内存缓存以及本地缓存。
