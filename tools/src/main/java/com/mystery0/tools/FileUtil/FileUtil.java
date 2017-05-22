@@ -25,6 +25,18 @@ public class FileUtil
 		}
 	}
 
+	public static String getFileNameWithType(String path)
+	{
+		int start = path.lastIndexOf("/");
+		if (start != -1)
+		{
+			return path.substring(start + 1);
+		} else
+		{
+			return null;
+		}
+	}
+
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	public static String getPath(Context context, final Uri uri)
 	{

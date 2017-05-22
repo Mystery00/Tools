@@ -1,6 +1,7 @@
 package com.mystery0.toolsdemo;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.Toast;
 
 import com.mystery0.tools.FileUtil.FileUtil;
 import com.mystery0.tools.Logs.Logs;
+import com.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity
 		Button send = (Button) findViewById(R.id.sendHttp);
 		Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
 		Button sendFileHttp = (Button) findViewById(R.id.sendFileHttp);
+		Button downloadFile = (Button) findViewById(R.id.testDownloadFile);
 		Button testLog = (Button) findViewById(R.id.testLog);
 		Button testCrash = (Button) findViewById(R.id.testCrash);
 		Button testImageLoader = (Button) findViewById(R.id.testImageLoader);
@@ -124,6 +129,30 @@ public class MainActivity extends AppCompatActivity
 				intent.setType("*/*");
 				intent.addCategory(Intent.CATEGORY_OPENABLE);
 				startActivityForResult(intent, 2333);
+			}
+		});
+
+		downloadFile.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				new HttpUtil(MainActivity.this)
+						.setUrl("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
+						.isFileRequest(true)
+						.setFileRequest(HttpUtil.FileRequest.DOWNLOAD)
+						.setDownloadFilePath(Environment.getExternalStorageDirectory().getPath() + "/Download/")
+						.setFileResponseListener(new FileResponseListener()
+						{
+							@Override
+							public void onResponse(int code, @Nullable File file, @Nullable String message)
+							{
+								Logs.i(TAG, "onResponse: " + code);
+								Logs.i(TAG, "onResponse: " + (file != null ? file.getPath() : "空"));
+								Logs.i(TAG, "onResponse: " + message);
+							}
+						})
+						.open();
 			}
 		});
 

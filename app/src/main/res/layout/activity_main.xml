@@ -53,6 +53,12 @@
             android:text="@string/sendfilehttp"/>
 
         <Button
+            android:id="@+id/testDownloadFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/downloadfile"/>
+
+        <Button
             android:id="@+id/testLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
