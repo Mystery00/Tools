@@ -11,44 +11,45 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.Map;
 
-public class HttpUtil
+public class HttpUtils
 {
     private Context context;
     private RequestMethod requestMethod;//请求方式
     private String url;//请求地址
     private Map<String, String> map;//输入数据
     private ResponseListener responseListener;//回调
+	private boolean isFileRequest = false;
 
     public enum RequestMethod
     {
         POST, GET
     }
 
-    public HttpUtil(Context context)
-    {
+	public HttpUtils(Context context)
+	{
         this.context = context;
     }
 
-    public HttpUtil setRequestMethod(RequestMethod requestMethod)
-    {
+	public HttpUtils setRequestMethod(RequestMethod requestMethod)
+	{
         this.requestMethod = requestMethod;
         return this;
     }
 
-    public HttpUtil setUrl(String url)
-    {
+	public HttpUtils setUrl(String url)
+	{
         this.url = url;
         return this;
     }
 
-    public HttpUtil setResponseListener(ResponseListener responseListener)
-    {
+	public HttpUtils setResponseListener(ResponseListener responseListener)
+	{
         this.responseListener = responseListener;
         return this;
     }
 
-    public HttpUtil setMap(Map<String, String> map)
-    {
+	public HttpUtils setMap(Map<String, String> map)
+	{
         this.map = map;
         return this;
     }
@@ -77,14 +78,7 @@ public class HttpUtil
                     {
                         responseListener.onResponse(0, volleyError.getMessage());
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                return map;
-            }
-        };
+                });
         requestQueue.add(stringRequest);
     }
 }

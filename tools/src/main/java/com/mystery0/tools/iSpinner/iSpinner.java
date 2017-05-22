@@ -37,11 +37,11 @@ public class iSpinner extends LinearLayout
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.mystery0_ispinner, this);
         line = findViewById(R.id.line);
-        head = (LinearLayout) findViewById(R.id.i_spinner);
-        text = (TextView) findViewById(R.id.head_text);
-        listView = (ListView) findViewById(R.id.list);
-        layout = (LinearLayout) findViewById(R.id.layout);
-        view_spinner = findViewById(R.id.view);
+	    head = findViewById(R.id.i_spinner);
+	    text = findViewById(R.id.head_text);
+	    listView = findViewById(R.id.list);
+	    layout = findViewById(R.id.layout);
+	    view_spinner = findViewById(R.id.view);
 
         animation_in = AnimationUtils.loadAnimation(context, R.anim.mystery0_spinner_transform_in);
         animation_out = AnimationUtils.loadAnimation(context, R.anim.mystery0_spinner_transform_out);

@@ -27,7 +27,7 @@ public class iPictureChooser extends RelativeLayout
         super(context, attrs);
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.mystery0_i_picture_chooser_main, this);
-        recyclerView = (RecyclerView) findViewById(R.id.i_picture_chooser_layout);
+	    recyclerView = findViewById(R.id.i_picture_chooser_layout);
     }
 
     public void setDataList(int defaultImage, iPictureChooserListener listener)

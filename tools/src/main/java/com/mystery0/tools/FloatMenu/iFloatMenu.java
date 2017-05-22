@@ -35,8 +35,8 @@ public class iFloatMenu extends RelativeLayout
         Menu(View layout)
         {
             fullView = layout;
-            button = (FloatingActionButton) layout.findViewById(R.id.fab);
-            text = (TextView) layout.findViewById(R.id.text);
+	        button = layout.findViewById(R.id.fab);
+	        text = layout.findViewById(R.id.text);
         }
     }
 
@@ -46,8 +46,8 @@ public class iFloatMenu extends RelativeLayout
         menuList = new ArrayList<>();
         number = 4;
         LayoutInflater.from(context).inflate(R.layout.mystery0_i_float_menu, this);
-        button = (FloatingActionButton) findViewById(R.id.fab_menu);
-        menuList.add(new Menu(findViewById(R.id.item1)));
+	    button = findViewById(R.id.fab_menu);
+	    menuList.add(new Menu(findViewById(R.id.item1)));
         menuList.add(new Menu(findViewById(R.id.item2)));
         menuList.add(new Menu(findViewById(R.id.item3)));
         menuList.add(new Menu(findViewById(R.id.item4)));
