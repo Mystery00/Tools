@@ -14,8 +14,6 @@ import com.mystery0.tools.ImageLoader.ImageCache;
 public class ImageLoaderActivity extends AppCompatActivity
 {
 
-    private ImageView imageView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
