@@ -1,14 +1,12 @@
 package com.mystery0.tools.MysteryNetFrameWork
 
 import android.content.Context
-import android.os.Environment
 
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.mystery0.tools.FileUtil.FileUtil
-import com.mystery0.tools.Logs.Logs
 import okhttp3.*
 import java.io.*
 
@@ -22,8 +20,8 @@ class HttpUtil(private val context: Context)
 	private var isFileRequest: Boolean = false//是否为文件请求
 	private var fileRequest: FileRequest? = null//文件请求方法
 	private var fileMap: Map<String, File> = HashMap()//上传的文件
-	private var filePath: String = Environment.getDownloadCacheDirectory().absolutePath
-	private var downloadFileName: String? = null
+	private var filePath: String? = null//下载文件存储地址
+	private var downloadFileName: String? = null//下载文件文件名（带扩展名）
 	private var fileResponseListener: FileResponseListener? = null//文件请求回调
 
 	enum class FileRequest
