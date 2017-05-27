@@ -8,4 +8,6 @@
     <string name="testLog">TestLog</string>
     <string name="testCrash">TestCrash</string>
     <string name="testimageloader">testImageLoader</string>
+    <string name="sendfilehttp">sendFileHttp</string>
+    <string name="downloadfile">DownloadFile</string>
 </resources>
