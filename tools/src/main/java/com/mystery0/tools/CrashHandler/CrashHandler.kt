@@ -1,11 +1,14 @@
 package com.mystery0.tools.CrashHandler
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.nfc.FormatException
 import android.os.Build
 import android.os.Environment
 import android.os.Process
 import android.util.Log
+import com.mystery0.tools.Logs.Logs
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,8 +35,18 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 	private var mContext: Context? = null
 
-	@JvmStatic fun getInstance(): CrashHandler
+	private var sharedPreferences: SharedPreferences? = null
+
+	interface AutoCleanListener
 	{
+		fun done()
+		fun error(message: String?)
+	}
+
+	@JvmStatic fun getInstance(context: Context): CrashHandler
+	{
+		mContext = context
+		sharedPreferences = mContext!!.getSharedPreferences("CrashHandlerConfiguration", Context.MODE_PRIVATE)
 		if (mCrashHandler == null)
 		{
 			mCrashHandler = CrashHandler
@@ -59,12 +72,57 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		return this
 	}
 
+	fun isAutoClean(isAutoClean: Boolean): CrashHandler
+	{
+		return isAutoClean(isAutoClean, 3)
+	}
+
+	fun isAutoClean(isAutoClean: Boolean, cleanTime: Int): CrashHandler
+	{
+		if (cleanTime < 0)
+		{
+			throw FormatException("clean cleanTime cannot be less than 0")
+		}
+		sharedPreferences!!.edit().putBoolean("isAutoClean", isAutoClean).putLong("cleanTime", (cleanTime * 86400000).toLong()).apply()
+		return this
+	}
+
+	fun clean(autoCleanListener: AutoCleanListener)
+	{
+		try
+		{
+			if (sharedPreferences!!.getBoolean("isAutoClean", false))
+			{
+				val dir = File(PATH + File.separator + this.dir + File.separator)
+				val time = sharedPreferences!!.getLong("cleanTime", 3 * 86400000)
+				if (dir.exists() || dir.mkdirs())
+				{
+					val files = dir.listFiles()
+					for (file: File in files)
+					{
+						if (file.name.contains(fileNamePrefix) && file.name.contains(fileNameSuffix))
+						{
+							val now = Calendar.getInstance().timeInMillis
+							val modified = file.lastModified()
+							if (now - modified >= time * 86400000)
+								file.delete()
+						}
+					}
+				}
+			}
+			autoCleanListener.done()
+		}
+		catch (e: Exception)
+		{
+			autoCleanListener.error(e.message)
+		}
+	}
+
 	//这里主要完成初始化工作
-	fun init(context: Context)
+	fun init()
 	{
 		mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler()
 		Thread.setDefaultUncaughtExceptionHandler(this)
-		mContext = context
 	}
 
 	/**

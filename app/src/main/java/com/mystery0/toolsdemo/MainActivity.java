@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.FileUtil.FileUtil;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
@@ -194,6 +195,22 @@ public class MainActivity extends AppCompatActivity
 				startActivity(new Intent(MainActivity.this, ImageLoaderActivity.class));
 			}
 		});
+
+		CrashHandler.getInstance(getApplicationContext())
+				.clean(new CrashHandler.AutoCleanListener()
+				{
+					@Override
+					public void done()
+					{
+						Logs.i(TAG, "done: ");
+					}
+
+					@Override
+					public void error(@Nullable String message)
+					{
+						Logs.i(TAG, "error: " + message);
+					}
+				});
 	}
 
 	@Override
