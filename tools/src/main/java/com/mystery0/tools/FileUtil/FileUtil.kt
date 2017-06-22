@@ -12,33 +12,6 @@ import android.support.annotation.RequiresApi
 
 object FileUtil
 {
-	@JvmStatic fun getFileName(path: String): String?
-	{
-		val start = path.lastIndexOf("/")
-		val end = path.lastIndexOf(".")
-		if (start != -1 && end != -1)
-		{
-			return path.substring(start + 1, end)
-		}
-		else
-		{
-			return null
-		}
-	}
-
-	@JvmStatic fun getFileNameWithType(path: String): String?
-	{
-		val start = path.lastIndexOf("/")
-		if (start != -1)
-		{
-			return path.substring(start + 1)
-		}
-		else
-		{
-			return null
-		}
-	}
-
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@JvmStatic fun getPath(context: Context, uri: Uri): String?
 	{

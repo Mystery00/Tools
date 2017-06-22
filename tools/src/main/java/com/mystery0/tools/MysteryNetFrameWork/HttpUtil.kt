@@ -14,6 +14,7 @@ import java.io.*
 
 class HttpUtil(private val context: Context)
 {
+	private var requestQueue: RequestQueue? = null//请求队列
 	private var requestMethod: RequestMethod? = null//请求方式
 	private var url: String = ""//请求地址
 	private var map: Map<String, String> = HashMap()//输入数据
@@ -33,6 +34,12 @@ class HttpUtil(private val context: Context)
 	enum class RequestMethod
 	{
 		POST, GET
+	}
+
+	fun setRequestQueue(requestQueue: RequestQueue): HttpUtil
+	{
+		this.requestQueue = requestQueue
+		return this
 	}
 
 	fun setRequestMethod(requestMethod: RequestMethod): HttpUtil
@@ -153,7 +160,6 @@ class HttpUtil(private val context: Context)
 				}
 				FileRequest.DOWNLOAD ->
 				{
-					val requestQueue = Volley.newRequestQueue(context)
 					val stringRequest = object : StringRequest(method, this.url,
 							Response.Listener<String> { response ->
 								if (filePath == "")
@@ -192,7 +198,7 @@ class HttpUtil(private val context: Context)
 							return map
 						}
 					}
-					requestQueue.add(stringRequest)
+					requestQueue!!.add(stringRequest)
 				}
 				else ->
 				{
@@ -202,7 +208,6 @@ class HttpUtil(private val context: Context)
 		}
 		else
 		{
-			val requestQueue: RequestQueue = Volley.newRequestQueue(context)
 			val stringRequest = object : StringRequest(method, this.url,
 					Response.Listener<String> { response -> responseListener!!.onResponse(1, response) },
 					Response.ErrorListener { volleyError -> responseListener!!.onResponse(0, volleyError.message) })
@@ -212,7 +217,7 @@ class HttpUtil(private val context: Context)
 					return map
 				}
 			}
-			requestQueue.add(stringRequest)
+			requestQueue!!.add(stringRequest)
 		}
 	}
 }

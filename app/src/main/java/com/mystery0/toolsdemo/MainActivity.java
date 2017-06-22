@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.mystery0.tools.FileUtil.FileUtil;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
@@ -23,6 +25,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity
 {
 	private static final String TAG = "MainActivity";
+	private RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity
 				map.put("username", "123");
 				map.put("password", "123");
 				new HttpUtil(MainActivity.this)
+						.setRequestQueue(requestQueue)
 						.setRequestMethod(HttpUtil.RequestMethod.GET)
 						.setUrl("http://www.mutour.vip/mutour/mtlog.handle.php")
 						.setMap(map)
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity
 				map.put("password", "123");
 				final HttpUtil httpUtil = new HttpUtil(MainActivity.this);
 				httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
+						.setRequestQueue(requestQueue)
 						.setUrl("http://www.mutour.vip/mutour/mtlog.handle.php")
 						.setMap(map)
 						.setResponseListener(new ResponseListener()
@@ -138,6 +143,7 @@ public class MainActivity extends AppCompatActivity
 			public void onClick(View view)
 			{
 				new HttpUtil(MainActivity.this)
+						.setRequestQueue(requestQueue)
 						.setUrl("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
 						.isFileRequest(true)
 						.setFileRequest(HttpUtil.FileRequest.DOWNLOAD)
@@ -198,9 +204,10 @@ public class MainActivity extends AppCompatActivity
 			Map<String, String> map = new HashMap<>();
 			Map<String, File> fileMap = new HashMap<>();
 			fileMap.put("upload_file", new File(path));
-			map.put("group", FileUtil.getFileName(path));
+			map.put("group", new File(path).getName());
 			map.put("method", "uploadFile");
 			new HttpUtil(MainActivity.this)
+					.setRequestQueue(requestQueue)
 					.setUrl("http://123.206.186.70/hitokoto.php")
 					.setRequestMethod(HttpUtil.RequestMethod.POST)
 					.setFileRequest(HttpUtil.FileRequest.UPLOAD)
