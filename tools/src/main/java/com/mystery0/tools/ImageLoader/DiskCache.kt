@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 
 import com.android.volley.toolbox.ImageLoader
-import com.mystery0.tools.FileUtil.FileUtil
 
 import java.io.File
 import java.io.FileOutputStream
@@ -18,7 +17,7 @@ class DiskCache internal constructor(context: Context,
 
 	override fun getBitmap(url: String?): Bitmap
 	{
-		return BitmapFactory.decodeFile(CacheDir + (if (fileName == null || fileName == "") FileUtil.getFileName(url!!) else fileName) + ".png")
+		return BitmapFactory.decodeFile(CacheDir + (if (fileName == null || fileName == "") File(url).name else fileName) + ".png")
 	}
 
 	override fun putBitmap(url: String?, bitmap: Bitmap?)
@@ -29,7 +28,7 @@ class DiskCache internal constructor(context: Context,
 			var fileOutputStream: FileOutputStream? = null
 			try
 			{
-				val file = File(CacheDir + (if (fileName == null || fileName == "") FileUtil.getFileName(url!!) else fileName) + ".png")
+				val file = File(CacheDir + (if (fileName == null || fileName == "") File(url).name else fileName) + ".png")
 
 				file.createNewFile()
 				fileOutputStream = FileOutputStream(file)

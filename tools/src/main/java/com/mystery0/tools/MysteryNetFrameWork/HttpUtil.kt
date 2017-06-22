@@ -6,8 +6,6 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import com.mystery0.tools.FileUtil.FileUtil
 import okhttp3.*
 import java.io.*
 
@@ -168,7 +166,7 @@ class HttpUtil(private val context: Context)
 								}
 								if (downloadFileName == null || downloadFileName == "")
 								{
-									downloadFileName = FileUtil.getFileNameWithType(url)
+									downloadFileName = File(url).name
 								}
 								val file = File(filePath + downloadFileName)
 								if (!file.exists() || file.delete())

@@ -49,7 +49,6 @@ public class iSpinner extends LinearLayout
 
 	public void setStrings(String[] strings)
 	{
-		Log.i(TAG, "setStrings: 加载数据");
 		this.strings = strings;
 		monitor();
 	}

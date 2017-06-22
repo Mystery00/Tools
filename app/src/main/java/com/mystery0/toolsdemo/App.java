@@ -3,7 +3,6 @@ package com.mystery0.toolsdemo;
 import android.app.Application;
 
 import com.mystery0.tools.CrashHandler.CrashHandler;
-import com.mystery0.tools.FileUtil.FileUtil;
 import com.mystery0.tools.Logs.Logs;
 
 public class App extends Application
@@ -15,7 +14,8 @@ public class App extends Application
 		Logs.setLevel(Logs.LogLevel.Debug);
 		CrashHandler.getInstance()
 				.setDirectory("test")
-				.setCustomFileName("log")
+				.setPrefixName("log")
+				.setExtensionName(".log")
 				.init(this);
 	}
 }

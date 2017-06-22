@@ -25,13 +25,15 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity
 {
 	private static final String TAG = "MainActivity";
-	private RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+	private RequestQueue requestQueue;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		requestQueue = Volley.newRequestQueue(MainActivity.this);
 
 		Button float_menu = (Button) findViewById(R.id.float_menu);
 		Button picture_chooser = (Button) findViewById(R.id.picture_chooser);

@@ -65,4 +65,9 @@ object Logs
 			Log.e(tag, message)
 		}
 	}
+
+	@JvmStatic fun wtf(tag: String, message: String, throwable: Throwable)
+	{
+		Log.wtf(tag, message, throwable)
+	}
 }
