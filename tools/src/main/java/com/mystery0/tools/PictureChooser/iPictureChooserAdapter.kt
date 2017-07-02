@@ -43,8 +43,7 @@ class iPictureChooserAdapter constructor(var pathList: ArrayList<String>, var ad
 		{
 			Glide.with(context)
 					.load(pathList[position - 1])
-					.centerCrop()
-					.crossFade().into(holder.imageView)
+					.into(holder.imageView)
 			holder.imageView.setOnLongClickListener {
 				pathList.removeAt(holder.adapterPosition - 1)
 				notifyItemRemoved(holder.adapterPosition)

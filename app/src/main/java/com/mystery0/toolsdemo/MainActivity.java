@@ -17,8 +17,6 @@ import com.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,7 +152,7 @@ public class MainActivity extends AppCompatActivity
 						.setFileResponseListener(new FileResponseListener()
 						{
 							@Override
-							public void onResponse(int code, @Nullable File file, @Nullable String message)
+							public void onResponse(int code, File file, String message)
 							{
 								Logs.i(TAG, "onResponse: " + code);
 								Logs.i(TAG, "onResponse: " + (file != null ? file.getPath() : "空"));
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity
 					}
 
 					@Override
-					public void error(@Nullable String message)
+					public void error(String message)
 					{
 						Logs.i(TAG, "error: " + message);
 					}

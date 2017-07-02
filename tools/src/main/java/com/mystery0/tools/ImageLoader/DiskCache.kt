@@ -3,6 +3,7 @@ package com.mystery0.tools.ImageLoader
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 
 import com.android.volley.toolbox.ImageLoader
 
@@ -15,7 +16,7 @@ class DiskCache internal constructor(context: Context,
 {
 	private val CacheDir: String = context.externalCacheDir!!.absolutePath + "/"
 
-	override fun getBitmap(url: String?): Bitmap
+	override fun getBitmap(url: String?): Bitmap?
 	{
 		return BitmapFactory.decodeFile(CacheDir + (if (fileName == null || fileName == "") File(url).name else fileName) + ".png")
 	}
@@ -29,7 +30,6 @@ class DiskCache internal constructor(context: Context,
 			try
 			{
 				val file = File(CacheDir + (if (fileName == null || fileName == "") File(url).name else fileName) + ".png")
-
 				file.createNewFile()
 				fileOutputStream = FileOutputStream(file)
 				bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)

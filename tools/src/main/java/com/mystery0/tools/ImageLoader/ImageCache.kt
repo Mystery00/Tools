@@ -13,7 +13,6 @@ class ImageCache internal constructor(context: Context,
 
 	init
 	{
-		this.fileName = fileName
 		lruCache = object : LruCache<String, Bitmap>((Runtime.getRuntime().maxMemory() / 1024).toInt() / 4)
 		{
 			override fun sizeOf(key: String, value: Bitmap): Int
@@ -24,7 +23,7 @@ class ImageCache internal constructor(context: Context,
 		diskCache = DiskCache(context, fileName)
 	}
 
-	override fun getBitmap(url: String?): Bitmap
+	override fun getBitmap(url: String?): Bitmap?
 	{
 		var bitmap = lruCache.get(if (fileName == "") url else fileName)
 		if (bitmap == null)
