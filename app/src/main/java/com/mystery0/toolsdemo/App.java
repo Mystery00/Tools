@@ -15,7 +15,7 @@ public class App extends Application
 		CrashHandler.getInstance(this)
 				.setDirectory("test")
 				.setPrefixName("log")
-				.setExtensionName(".log")
+				.setExtensionName("log")
 				.isAutoClean(true)
 				.init();
 	}

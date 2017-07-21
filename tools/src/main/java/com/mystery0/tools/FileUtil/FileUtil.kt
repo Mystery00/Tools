@@ -9,6 +9,7 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
+import java.text.DecimalFormat
 
 object FileUtil
 {
@@ -111,5 +112,28 @@ object FileUtil
 	private fun isMediaDocument(uri: Uri): Boolean
 	{
 		return "com.android.providers.media.documents" == uri.authority
+	}
+
+	fun FormatFileSize(fileSize: Long): String
+	{
+		val df = DecimalFormat("#.00")
+		val fileSizeString: String
+		if (fileSize < 1024)
+		{
+			fileSizeString = df.format(fileSize.toDouble()) + "B"
+		}
+		else if (fileSize < 1048576)
+		{
+			fileSizeString = df.format(fileSize.toDouble() / 1024) + "KB"
+		}
+		else if (fileSize < 1073741824)
+		{
+			fileSizeString = df.format(fileSize.toDouble() / 1048576) + "MB"
+		}
+		else
+		{
+			fileSizeString = df.format(fileSize.toDouble() / 1073741824) + "GB"
+		}
+		return fileSizeString
 	}
 }

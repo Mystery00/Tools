@@ -3,13 +3,11 @@
 ------------
 
 ## 功能清单
-1. [浮动按钮菜单](#浮动按钮菜单 "浮动按钮菜单")
-2. [自定义下拉列表](#自定义下拉列表 "自定义下拉列表")
-3. [图片选择器](#图片选择器 "图片选择器")
-4. [网络框架（封装json解析）](#网络框架 "网络框架（封装json解析）")
-5. [日志工具（发布时一键清理代码中log输出，避免数据泄露）](#日志工具 "日志工具（发布时一键清理代码中log输出，避免数据泄露）")
-6. [崩溃日志自动记录器](#崩溃日志自动记录器 "崩溃日志自动记录器")
-7. [图片加载器](#图片加载器 "图片加载器")
+1. [图片选择器](#图片选择器 "图片选择器")
+2. [网络框架（封装json解析）](#网络框架 "网络框架（封装json解析）")
+3. [日志工具（发布时一键清理代码中log输出，避免数据泄露）](#日志工具 "日志工具（发布时一键清理代码中log输出，避免数据泄露）")
+4. [崩溃日志自动记录器](#崩溃日志自动记录器 "崩溃日志自动记录器")
+5. [图片加载器](#图片加载器 "图片加载器")
 
 ## 添加使用
 Add it in your root build.gradle at the end of repositories:
@@ -23,29 +21,9 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.Mystery00:ToolsDemo:1.x.x'
+	        compile 'com.github.Mystery00:ToolsDemo:x.x.x'
 	}
 具体的版本号请进入release页查看
-## 浮动按钮菜单
-```java
-void setNumber(int number)//设置菜单项数量（最大为5）
-void setIcon(int resId)//设置菜单图标
-void setIcons(int[] ids)//设置菜单项图标（和数量匹配）
-void setMenuVisibility(int visibility)//设置菜单可见性
-void setMenuClickListener(MenuClick menuClick)//设置菜单项点击监听
-```
-## 自定义下拉列表
-```java
-void setStrings(String[] strings)//设置列表数据
-void setSelected(int position)//设置默认选中
-int getIndex()//获取选中的项
-void setListBackground(int color)//设置列表背景
-void setViewBackground(int color)//设置图罩背景
-ListView getList()//获取列表对象
-boolean isOpen()//获取列表是否显示
-void setLayoutVisiblity(int visibility)//设置列表可见性
-void setOnItemClickListener(SpinnerItemClickListener spinnerItemClickListener)//列表项点击监听
-```
 ## 图片选择器
 ```java
 void setDataList(int defaultImage, iPictureChooserListener listener)//设置监听并初始化图片选择按钮资源
@@ -63,6 +41,7 @@ HttpUtil setMap(Map<String, String> map)//设置网页输入数据
 void open()//开始链接
 ```
 从某个版本开始已经取消gson包，避免与其他的包冲突
+以上方法只是部分，具体方法请查看example
 ## 日志工具
 使用方法：在Application中调用`setLevel(LogLevel level)`方法，传参`Release`即是发布时使用，隐藏app中除了错误之外`log`，传参`Debug`则是编写过程中使用。
 ## 崩溃日志自动记录器
@@ -72,7 +51,10 @@ void open()//开始链接
 配置方法：
 ```java
 CrashHandler setDirectory(String name)//设置SD卡根目录下创建的文件夹名（默认log）
-CrashHandler setCustomFileName(String fileName)//设置log文件默认头部名（默认crash）
+CrashHandler setPrefixName(String fileName)//设置log文件默认头部名（默认crash）
+CrashHandler setExtensionName(String fileName)//设置log文件默认头部名（默认txt，不需要加点）
+CrashHandler isAutoClean(boolean isAutoClean)//设置是否自动清理log文件
+void clean(AutoCleanListener autoCleanListener)//调用清理log文件的方法
 ```
 ## 图片加载器
 其实图片加载器使用的是Volley包里面的，但是我写了一个类实现了ImageCache接口，可以直接使用。
