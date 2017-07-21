@@ -34,9 +34,7 @@ public class MainActivity extends AppCompatActivity
 
 		requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-		Button float_menu = (Button) findViewById(R.id.float_menu);
 		Button picture_chooser = (Button) findViewById(R.id.picture_chooser);
-		Button spinner = (Button) findViewById(R.id.m_spinner);
 		Button send = (Button) findViewById(R.id.sendHttp);
 		Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
 		Button sendFileHttp = (Button) findViewById(R.id.sendFileHttp);
@@ -45,30 +43,12 @@ public class MainActivity extends AppCompatActivity
 		Button testCrash = (Button) findViewById(R.id.testCrash);
 		Button testImageLoader = (Button) findViewById(R.id.testImageLoader);
 
-		float_menu.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				startActivity(new Intent(MainActivity.this, FloatMenuDemoActivity.class));
-			}
-		});
-
 		picture_chooser.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
 				startActivity(new Intent(MainActivity.this, PictureChooserDemoActivity.class));
-			}
-		});
-
-		spinner.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				startActivity(new Intent(MainActivity.this, SpinnerDemoActivity.class));
 			}
 		});
 

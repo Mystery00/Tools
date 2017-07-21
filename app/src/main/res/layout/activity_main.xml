@@ -17,22 +17,10 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <Button
-            android:id="@+id/float_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/float_menu"/>
-
-        <Button
             android:id="@+id/picture_chooser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/picture_chooser"/>
-
-        <Button
-            android:id="@+id/m_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/m_spinner"/>
 
         <Button
             android:id="@+id/sendHttp"
