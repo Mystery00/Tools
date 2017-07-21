@@ -1,5 +1,6 @@
 package com.mystery0.tools.CrashHandler
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -8,11 +9,11 @@ import android.os.Build
 import android.os.Environment
 import android.os.Process
 import android.util.Log
-import com.mystery0.tools.Logs.Logs
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+@SuppressLint("StaticFieldLeak")
 object CrashHandler : Thread.UncaughtExceptionHandler
 {
 	private var mCrashHandler: CrashHandler? = null
