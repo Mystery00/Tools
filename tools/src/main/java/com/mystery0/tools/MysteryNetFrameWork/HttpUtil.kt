@@ -144,12 +144,12 @@ class HttpUtil(private val context: Context)
 						val call = okHttpClient.newCall(request)
 						call.enqueue(object : Callback
 						{
-							override fun onFailure(call: Call, e: IOException)
+							override fun onFailure(c: Call, e: IOException)
 							{
 								responseListener!!.onResponse(0, e.message)
 							}
 
-							override fun onResponse(call: Call, response: okhttp3.Response)
+							override fun onResponse(c: Call, response: okhttp3.Response)
 							{
 								responseListener!!.onResponse(1, response.body().string())
 							}
