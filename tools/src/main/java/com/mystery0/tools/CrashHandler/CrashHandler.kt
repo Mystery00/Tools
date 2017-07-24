@@ -38,6 +38,8 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 	private var sharedPreferences: SharedPreferences? = null
 
+	private var debuggable = false
+
 	interface AutoCleanListener
 	{
 		fun done()
@@ -73,18 +75,24 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		return this
 	}
 
-	fun isAutoClean(isAutoClean: Boolean): CrashHandler
+	fun isAutoClean(): CrashHandler
 	{
-		return isAutoClean(isAutoClean, 3)
+		return isAutoClean(3)
 	}
 
-	fun isAutoClean(isAutoClean: Boolean, cleanTime: Int): CrashHandler
+	fun isAutoClean(cleanTime: Int): CrashHandler
 	{
 		if (cleanTime < 0)
 		{
 			throw FormatException("clean cleanTime cannot be less than 0")
 		}
-		sharedPreferences!!.edit().putBoolean("isAutoClean", isAutoClean).putLong("cleanTime", (cleanTime * 86400000).toLong()).apply()
+		sharedPreferences!!.edit().putBoolean("isAutoClean", true).putLong("cleanTime", (cleanTime * 86400000).toLong()).apply()
+		return this
+	}
+
+	fun debug(): CrashHandler
+	{
+		debuggable = true
 		return this
 	}
 
@@ -98,20 +106,28 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 				val time = sharedPreferences!!.getLong("cleanTime", 3 * 86400000)
 				if (dir.exists() || dir.mkdirs())
 				{
-					val files = dir.listFiles()
-					for (file: File in files)
+					for (file: File in dir.listFiles())
 					{
 						if (file.name.contains(fileNamePrefix) && file.name.contains(fileNameSuffix))
 						{
 							val now = Calendar.getInstance().timeInMillis
 							val modified = file.lastModified()
-							if (now - modified >= time * 86400000)
+							if (debuggable)
+							{
+								Log.d(TAG, "fileName: " + file.name)
+								Log.d(TAG, "fileTime: " + (now - modified) / 86400000)
+							}
+							if (now - modified >= time)
 								file.delete()
 						}
 					}
 				}
+				autoCleanListener.done()
 			}
-			autoCleanListener.done()
+			else
+			{
+				autoCleanListener.error("auto clean disabled!")
+			}
 		}
 		catch (e: Exception)
 		{
