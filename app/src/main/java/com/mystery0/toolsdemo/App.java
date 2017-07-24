@@ -16,7 +16,7 @@ public class App extends Application
 				.setDirectory("test")
 				.setPrefixName("log")
 				.setExtensionName("log")
-				.isAutoClean(true)
+				.isAutoClean()
 				.init();
 	}
 }
