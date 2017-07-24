@@ -9,9 +9,9 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.mystery0.tools.R
 
-class iPictureChooserAdapter constructor(var pathList: ArrayList<String>, var add_img: Int,
-										 var context: Context,
-										 var listener: iPictureChooserListener) : RecyclerView.Adapter<iPictureChooserAdapter.ViewHolder>()
+class iPictureChooserAdapter(var pathList: ArrayList<String>, var add_img: Int,
+							 var context: Context,
+							 var listener: iPictureChooserListener) : RecyclerView.Adapter<iPictureChooserAdapter.ViewHolder>()
 {
 	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 	{

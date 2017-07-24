@@ -5,8 +5,7 @@ import android.graphics.Bitmap
 import android.util.LruCache
 import com.android.volley.toolbox.ImageLoader
 
-class ImageCache internal constructor(context: Context,
-									  private var fileName: String?) : ImageLoader.ImageCache
+class ImageCache(context: Context, private var fileName: String?) : ImageLoader.ImageCache
 {
 	private val lruCache: LruCache<String, Bitmap>
 	private val diskCache: DiskCache
