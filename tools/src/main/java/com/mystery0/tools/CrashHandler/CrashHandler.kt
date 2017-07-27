@@ -40,6 +40,10 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 	private var debuggable = false
 
+	private var isSendException = false
+
+	private var catchExceptionListener: CatchExceptionListener? = null
+
 	interface AutoCleanListener
 	{
 		fun done()
@@ -93,6 +97,13 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	fun debug(): CrashHandler
 	{
 		debuggable = true
+		return this
+	}
+
+	fun sendException(catchExceptionListener: CatchExceptionListener): CrashHandler
+	{
+		this.catchExceptionListener = catchExceptionListener
+		isSendException = true
 		return this
 	}
 
@@ -152,8 +163,6 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		{
 			//导出异常信息到SD卡中
 			dumpExceptionToSDCard(ex)
-			//这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug
-			//sendException();
 		}
 		catch (e: IOException)
 		{
@@ -193,48 +202,57 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 		try
 		{
-			val pw = PrintWriter(BufferedWriter(FileWriter(file)))
+			val printWriter = PrintWriter(BufferedWriter(FileWriter(file)))
 			//导出异常发生时间
-			pw.println(time)
+			printWriter.println(time)
 
 			//导出手机信息
-			dumpPhoneInfo(pw)
+			//应用的版本名称和版本号
+			val packageManager = mContext!!.packageManager
+			val packageInfo = packageManager.getPackageInfo(mContext!!.packageName, PackageManager.GET_ACTIVITIES)
+			printWriter.print("App Version: ")
+			printWriter.print(packageInfo.versionName)
+			printWriter.print('_')
+			printWriter.println(packageInfo.versionCode)
 
-			pw.println()
+			//android版本号
+			printWriter.print("OS Version: ")
+			printWriter.print(Build.VERSION.RELEASE)
+			printWriter.print("_")
+			printWriter.println(Build.VERSION.SDK_INT)
+
+			//手机制造商
+			printWriter.print("Vendor: ")
+			printWriter.println(Build.MANUFACTURER)
+
+			//手机型号
+			printWriter.print("Model: ")
+			printWriter.println(Build.MODEL)
+
+			printWriter.println()
 			//导出异常的调用栈信息
-			ex.printStackTrace(pw)
+			ex.printStackTrace(printWriter)
+			printWriter.close()
 
-			pw.close()
+			//这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug
+			if (isSendException)
+			{
+				catchExceptionListener!!.onException(file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL)
+			}
 		}
 		catch (e: Exception)
 		{
 			Log.w(TAG, "dump crash info failed")
 		}
+
+
 	}
 
-	private fun dumpPhoneInfo(pw: PrintWriter)
+	interface CatchExceptionListener
 	{
-		//应用的版本名称和版本号
-		val pm = mContext!!.packageManager
-		val pi = pm.getPackageInfo(mContext!!.packageName, PackageManager.GET_ACTIVITIES)
-		pw.print("App Version: ")
-		pw.print(pi.versionName)
-		pw.print('_')
-		pw.println(pi.versionCode)
-
-		//android版本号
-		pw.print("OS Version: ")
-		pw.print(Build.VERSION.RELEASE)
-		pw.print("_")
-		pw.println(Build.VERSION.SDK_INT)
-
-		//手机制造商
-		pw.print("Vendor: ")
-		pw.println(Build.MANUFACTURER)
-
-		//手机型号
-		pw.print("Model: ")
-		pw.println(Build.MODEL)
+		fun onException(file: File, appVersionName: String, appVersionCode: Int,
+						AndroidVersion: String,
+						sdk: Int, vendor: String, model: String)
 	}
 
 }
