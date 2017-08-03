@@ -1,6 +1,7 @@
 package com.mystery0.toolsdemo;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.toolbox.Volley;
@@ -8,8 +9,6 @@ import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Calendar;
@@ -32,7 +31,7 @@ public class App extends Application
 				.sendException(new CrashHandler.CatchExceptionListener()
 				{
 					@Override
-					public void onException(@NotNull File file, @NotNull String appVersionName, int appVersionCode, @NotNull String AndroidVersion, int sdk, @NotNull String vendor, @NotNull String model)
+					public void onException(@NonNull File file, @NonNull String appVersionName, int appVersionCode, @NonNull String AndroidVersion, int sdk, @NonNull String vendor, @NonNull String model)
 					{
 						Log.i(TAG, "onException: " + file.getAbsolutePath());
 						Log.i(TAG, "onException: " + appVersionName);

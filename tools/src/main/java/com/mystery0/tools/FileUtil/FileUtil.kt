@@ -116,7 +116,12 @@ object FileUtil
 
 	fun FormatFileSize(fileSize: Long): String
 	{
-		val df = DecimalFormat("#.00")
+		return FormatFileSize(fileSize, "#.00")
+	}
+
+	fun FormatFileSize(fileSize: Long, format: String): String
+	{
+		val df = DecimalFormat(format)
 		val fileSizeString: String
 		if (fileSize < 1024)
 		{
