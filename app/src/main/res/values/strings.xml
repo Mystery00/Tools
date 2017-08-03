@@ -10,4 +10,5 @@
     <string name="testimageloader">testImageLoader</string>
     <string name="sendfilehttp">sendFileHttp</string>
     <string name="downloadfile">DownloadFile</string>
+    <string name="testsnackbar">testSnackBar</string>
 </resources>
