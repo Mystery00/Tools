@@ -8,6 +8,8 @@
 3. [日志工具（发布时一键清理代码中log输出，避免数据泄露）](#日志工具 "日志工具（发布时一键清理代码中log输出，避免数据泄露）")
 4. [崩溃日志自动记录器](#崩溃日志自动记录器 "崩溃日志自动记录器")
 5. [图片加载器](#图片加载器 "图片加载器")
+6. [文件工具包](#文件工具包 "文件工具包")
+7. [初始化SnackBar无视无障碍服务情况强制开启动画](#初始化SnackBar无视无障碍服务情况强制开启动画 "初始化SnackBar无视无障碍服务情况强制开启动画")
 
 ## 添加使用
 Add it in your root build.gradle at the end of repositories:
@@ -47,13 +49,14 @@ void open()//开始链接
 ## 崩溃日志自动记录器
 使用方法：在Application中调用以下代码即可。
 
-    CrashHandler.getInstance().init(this);
+    CrashHandler.getInstance(this).init();
 配置方法：
 ```java
 CrashHandler setDirectory(String name)//设置SD卡根目录下创建的文件夹名（默认log）
 CrashHandler setPrefixName(String fileName)//设置log文件默认头部名（默认crash）
 CrashHandler setExtensionName(String fileName)//设置log文件默认头部名（默认txt，不需要加点）
 CrashHandler isAutoClean(boolean isAutoClean)//设置是否自动清理log文件
+CrashHandler sendException(CrashHandler.CatchExceptionListener catchExceptionListener)//导出异常之后的回调，可在此处进行上传log文件的操作
 void clean(AutoCleanListener autoCleanListener)//调用清理log文件的方法
 ```
 ## 图片加载器
@@ -64,3 +67,14 @@ ImageLoader(requestQueue, new ImageCache(Context context, String fileName));
 其中第一个参数是`Context`对象，第二个对象是本地缓存的文件名。
 本地缓存存储的位置是`SD卡根目录下Android/data/包名/cache/`下。
 缓存采用双缓存，即内存缓存以及本地缓存。
+
+## 文件工具包
+```java
+String getPath(Context context,Uri uri)//根据uri获取对应文件的路径
+String FormatFileSize(long fileSize)//格式化文件大小的显示，long转换为String，默认采用两位小数
+```
+## 初始化SnackBar无视无障碍服务情况强制开启动画
+在Application中调用一下方法即可无视无障碍服务
+```java
+ASnackBar.disableAccessibility(this);
+```
