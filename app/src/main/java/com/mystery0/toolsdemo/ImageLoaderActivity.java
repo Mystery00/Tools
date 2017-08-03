@@ -29,7 +29,7 @@ public class ImageLoaderActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 RequestQueue requestQueue = Volley.newRequestQueue(ImageLoaderActivity.this);
-                ImageLoader imageLoader = new ImageLoader(requestQueue, new ImageCache(ImageLoaderActivity.this, "test"));
+                ImageLoader imageLoader = new ImageLoader(requestQueue, new ImageCache(ImageLoaderActivity.this));
                 ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.ic_cloud_done, R.drawable.ic_error);
                 imageLoader.get("https://www.google.co.jp/logos/doodles/2017/tamas-18th-birthday-4812762818543616.2-l.png", listener);
             }
