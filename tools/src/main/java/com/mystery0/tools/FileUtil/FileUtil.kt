@@ -16,63 +16,57 @@ object FileUtil
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@JvmStatic fun getPath(context: Context, uri: Uri): String?
 	{
-		if (DocumentsContract.isDocumentUri(context, uri))
+		when
 		{
-			if (isExternalStorageDocument(uri))
+			DocumentsContract.isDocumentUri(context, uri) ->
 			{
-				val docId = DocumentsContract.getDocumentId(uri)
-				val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-				val type = split[0]
-
-				if ("primary".equals(type, ignoreCase = true))
+				when (uri.authority)
 				{
-					return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+					"com.android.externalstorage.documents" ->
+					{
+						val docId = DocumentsContract.getDocumentId(uri)
+						val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+						val type = split[0]
+
+						if ("primary".equals(type, ignoreCase = true))
+						{
+							return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+						}
+					}
+					"com.android.providers.downloads.documents" ->
+					{
+						val id = DocumentsContract.getDocumentId(uri)
+						val contentUri = ContentUris.withAppendedId(
+								Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)!!)
+
+						return getDataColumn(context, contentUri, null, null)
+					}
+					"com.android.providers.media.documents" ->
+					{
+						val docId = DocumentsContract.getDocumentId(uri)
+						val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+						val type = split[0]
+
+						var contentUri: Uri? = null
+						when (type)
+						{
+							"image" -> contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+							"video" -> contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+							"audio" -> contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+						}
+
+						val selection = "_id=?"
+						val selectionArgs = arrayOf(split[1])
+
+						return getDataColumn(context, contentUri!!, selection, selectionArgs)
+					}
 				}
 			}
-			else if (isDownloadsDocument(uri))
-			{
-
-				val id = DocumentsContract.getDocumentId(uri)
-				val contentUri = ContentUris.withAppendedId(
-						Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)!!)
-
-				return getDataColumn(context, contentUri, null, null)
-			}
-			else if (isMediaDocument(uri))
-			{
-				val docId = DocumentsContract.getDocumentId(uri)
-				val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-				val type = split[0]
-
-				var contentUri: Uri? = null
-				if ("image" == type)
-				{
-					contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-				}
-				else if ("video" == type)
-				{
-					contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-				}
-				else if ("audio" == type)
-				{
-					contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-				}
-
-				val selection = "_id=?"
-				val selectionArgs = arrayOf(split[1])
-
-				return getDataColumn(context, contentUri!!, selection, selectionArgs)
-			}
+			"content".equals(uri.scheme, ignoreCase = true) ->
+				return getDataColumn(context, uri, null, null)
+			"file".equals(uri.scheme, ignoreCase = true) ->
+				return uri.path
 		}
-		else if ("content".equals(uri.scheme, ignoreCase = true))
-		{
-			return getDataColumn(context, uri, null, null)
-		}
-		else if ("file".equals(uri.scheme, ignoreCase = true))
-		{
-			return uri.path
-		}
-
 		return null
 	}
 
@@ -97,21 +91,6 @@ object FileUtil
 				cursor.close()
 		}
 		return null
-	}
-
-	private fun isExternalStorageDocument(uri: Uri): Boolean
-	{
-		return "com.android.externalstorage.documents" == uri.authority
-	}
-
-	private fun isDownloadsDocument(uri: Uri): Boolean
-	{
-		return "com.android.providers.downloads.documents" == uri.authority
-	}
-
-	private fun isMediaDocument(uri: Uri): Boolean
-	{
-		return "com.android.providers.media.documents" == uri.authority
 	}
 
 	fun FormatFileSize(fileSize: Long): String
