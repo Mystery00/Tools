@@ -7,8 +7,7 @@ import android.content.pm.PackageManager
 import android.nfc.FormatException
 import android.os.Build
 import android.os.Environment
-import android.os.Process
-import android.util.Log
+import com.mystery0.tools.Logs.Logs
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,17 +31,15 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	private var fileNameSuffix = "txt"
 
 	//系统默认的异常处理（默认情况下，系统会终止当前的异常程序）
-	private var mDefaultCrashHandler: Thread.UncaughtExceptionHandler? = null
+	private lateinit var mDefaultCrashHandler: Thread.UncaughtExceptionHandler
 
-	private var mContext: Context? = null
+	private lateinit var mContext: Context
 
-	private var sharedPreferences: SharedPreferences? = null
-
-	private var debuggable = false
+	private lateinit var sharedPreferences: SharedPreferences
 
 	private var isSendException = false
 
-	private var catchExceptionListener: CatchExceptionListener? = null
+	private lateinit var catchExceptionListener: CatchExceptionListener
 
 	interface AutoCleanListener
 	{
@@ -50,14 +47,16 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		fun error(message: String?)
 	}
 
-	@JvmStatic fun getInstance(context: Context): CrashHandler
+	@JvmStatic
+	fun getInstance(context: Context): CrashHandler
 	{
 		mContext = context
-		sharedPreferences = mContext!!.getSharedPreferences("CrashHandlerConfiguration", Context.MODE_PRIVATE)
+		sharedPreferences = context.getSharedPreferences("CrashHandlerConfiguration", Context.MODE_PRIVATE)
 		if (mCrashHandler == null)
 		{
 			mCrashHandler = CrashHandler
 		}
+		Logs.setLevel(Logs.LogLevel.Release)
 		return mCrashHandler as CrashHandler
 	}
 
@@ -90,13 +89,13 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		{
 			throw FormatException("clean cleanTime cannot be less than 0")
 		}
-		sharedPreferences!!.edit().putBoolean("isAutoClean", true).putLong("cleanTime", (cleanTime * 86400000).toLong()).apply()
+		sharedPreferences.edit().putBoolean("isAutoClean", true).putLong("cleanTime", (cleanTime * 86400000).toLong()).apply()
 		return this
 	}
 
 	fun debug(): CrashHandler
 	{
-		debuggable = true
+		Logs.setLevel(Logs.LogLevel.Debug)
 		return this
 	}
 
@@ -111,10 +110,10 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	{
 		try
 		{
-			if (sharedPreferences!!.getBoolean("isAutoClean", false))
+			if (sharedPreferences.getBoolean("isAutoClean", false))
 			{
 				val dir = File(PATH + File.separator + this.dir + File.separator)
-				val time = sharedPreferences!!.getLong("cleanTime", 3 * 86400000)
+				val time = sharedPreferences.getLong("cleanTime", 3 * 86400000)
 				if (dir.exists() || dir.mkdirs())
 				{
 					for (file: File in dir.listFiles())
@@ -123,11 +122,8 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 						{
 							val now = Calendar.getInstance().timeInMillis
 							val modified = file.lastModified()
-							if (debuggable)
-							{
-								Log.d(TAG, "fileName: " + file.name)
-								Log.d(TAG, "fileTime: " + (now - modified) / 86400000)
-							}
+							Logs.d(TAG, "fileName: " + file.name)
+							Logs.d(TAG, "fileTime: " + (now - modified) / 86400000)
 							if (now - modified >= time)
 								file.delete()
 						}
@@ -171,23 +167,15 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 		//打印出当前调用栈信息
 		ex.printStackTrace()
-
 		//如果系统提供了默认的异常处理器，则交给系统去结束我们的程序
-		if (mDefaultCrashHandler != null)
-		{
-			mDefaultCrashHandler!!.uncaughtException(thread, ex)
-		}
-		else
-		{
-			Process.killProcess(Process.myPid())
-		}
+		mDefaultCrashHandler.uncaughtException(thread, ex)
 	}
 
 	private fun dumpExceptionToSDCard(ex: Throwable)
 	{
 		if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
 		{
-			Log.w(TAG, "sdcard unmounted,skip dump exception")
+			Logs.w(TAG, "sdcard unmounted,skip dump exception")
 			return
 		}
 
@@ -208,7 +196,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 			//导出手机信息
 			//应用的版本名称和版本号
-			val packageManager = mContext!!.packageManager
+			val packageManager = mContext.packageManager
 			val packageInfo = packageManager.getPackageInfo(mContext!!.packageName, PackageManager.GET_ACTIVITIES)
 			printWriter.print("App Version: ")
 			printWriter.print(packageInfo.versionName)
@@ -237,12 +225,12 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 			//这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug
 			if (isSendException)
 			{
-				catchExceptionListener!!.onException(file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL)
+				catchExceptionListener.onException(file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL)
 			}
 		}
 		catch (e: Exception)
 		{
-			Log.w(TAG, "dump crash info failed")
+			Logs.w(TAG, "dump crash info failed")
 		}
 
 

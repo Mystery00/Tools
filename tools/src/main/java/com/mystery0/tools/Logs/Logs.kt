@@ -19,10 +19,10 @@ object Logs
 
 	@JvmStatic fun setLevel(level: LogLevel)
 	{
-		when (level)
+		SET = when (level)
 		{
-			Logs.LogLevel.Debug -> SET = 0
-			Logs.LogLevel.Release -> SET = 5
+			Logs.LogLevel.Debug -> 0
+			Logs.LogLevel.Release -> 5
 		}
 	}
 
