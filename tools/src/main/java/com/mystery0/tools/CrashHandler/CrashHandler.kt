@@ -225,20 +225,18 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 			//这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug
 			if (isSendException)
 			{
-				catchExceptionListener.onException(file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL, ex)
+				catchExceptionListener.onException(time, file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL, ex)
 			}
 		}
 		catch (e: Exception)
 		{
 			Logs.wtf(TAG, "dumpExceptionToSDCard: dump crash info failed", e)
 		}
-
-
 	}
 
 	interface CatchExceptionListener
 	{
-		fun onException(file: File, appVersionName: String, appVersionCode: Int,
+		fun onException(date: String, file: File, appVersionName: String, appVersionCode: Int,
 						AndroidVersion: String,
 						sdk: Int, vendor: String, model: String, ex: Throwable)
 	}
