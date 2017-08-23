@@ -197,7 +197,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 			//导出手机信息
 			//应用的版本名称和版本号
 			val packageManager = mContext.packageManager
-			val packageInfo = packageManager.getPackageInfo(mContext!!.packageName, PackageManager.GET_ACTIVITIES)
+			val packageInfo = packageManager.getPackageInfo(mContext.packageName, PackageManager.GET_ACTIVITIES)
 			printWriter.print("App Version: ")
 			printWriter.print(packageInfo.versionName)
 			printWriter.print('_')
@@ -225,12 +225,12 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 			//这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug
 			if (isSendException)
 			{
-				catchExceptionListener.onException(file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL)
+				catchExceptionListener.onException(file, packageInfo.versionName, packageInfo.versionCode, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MANUFACTURER, Build.MODEL, ex)
 			}
 		}
 		catch (e: Exception)
 		{
-			Logs.w(TAG, "dump crash info failed")
+			Logs.wtf(TAG, "dumpExceptionToSDCard: dump crash info failed", e)
 		}
 
 
@@ -240,7 +240,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	{
 		fun onException(file: File, appVersionName: String, appVersionCode: Int,
 						AndroidVersion: String,
-						sdk: Int, vendor: String, model: String)
+						sdk: Int, vendor: String, model: String, ex: Throwable)
 	}
 
 }
