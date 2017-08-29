@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.nfc.FormatException
 import android.os.Build
 import android.os.Environment
-import com.mystery0.tools.Logs.Logs
+import android.util.Log
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +29,8 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 	//log文件的扩展名
 	private var fileNameSuffix = "txt"
+
+	private var isDebug = false
 
 	//系统默认的异常处理（默认情况下，系统会终止当前的异常程序）
 	private lateinit var mDefaultCrashHandler: Thread.UncaughtExceptionHandler
@@ -56,7 +58,6 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		{
 			mCrashHandler = CrashHandler
 		}
-		Logs.setLevel(Logs.LogLevel.Release)
 		return mCrashHandler as CrashHandler
 	}
 
@@ -95,7 +96,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 	fun debug(): CrashHandler
 	{
-		Logs.setLevel(Logs.LogLevel.Debug)
+		isDebug = true
 		return this
 	}
 
@@ -122,8 +123,11 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 						{
 							val now = Calendar.getInstance().timeInMillis
 							val modified = file.lastModified()
-							Logs.d(TAG, "fileName: " + file.name)
-							Logs.d(TAG, "fileTime: " + (now - modified) / 86400000)
+							if (isDebug)
+							{
+								Log.d(TAG, "fileName: " + file.name)
+								Log.d(TAG, "fileTime: " + (now - modified) / 86400000)
+							}
 							if (now - modified >= time)
 								file.delete()
 						}
@@ -175,7 +179,8 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	{
 		if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
 		{
-			Logs.w(TAG, "sdcard unmounted,skip dump exception")
+			if (isDebug)
+				Log.w(TAG, "sdcard unmounted,skip dump exception")
 			return
 		}
 
@@ -230,7 +235,8 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		}
 		catch (e: Exception)
 		{
-			Logs.wtf(TAG, "dumpExceptionToSDCard: dump crash info failed", e)
+			if (isDebug)
+				Log.wtf(TAG, "dumpExceptionToSDCard: dump crash info failed", e)
 		}
 	}
 
