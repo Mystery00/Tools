@@ -2,18 +2,16 @@ package com.mystery0.toolsdemo;
 
 import android.content.Intent;
 import android.os.Environment;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.mystery0.tools.CrashHandler.AutoCleanListener;
 import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.FileUtil.FileUtil;
 import com.mystery0.tools.Logs.Logs;
@@ -22,7 +20,6 @@ import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,15 +36,15 @@ public class MainActivity extends AppCompatActivity
 
 		requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-		Button picture_chooser = (Button) findViewById(R.id.picture_chooser);
-		Button send = (Button) findViewById(R.id.sendHttp);
-		Button sendJson = (Button) findViewById(R.id.sendHttpGetJson);
-		Button sendFileHttp = (Button) findViewById(R.id.sendFileHttp);
-		Button downloadFile = (Button) findViewById(R.id.testDownloadFile);
-		Button testLog = (Button) findViewById(R.id.testLog);
-		Button testCrash = (Button) findViewById(R.id.testCrash);
-		Button testImageLoader = (Button) findViewById(R.id.testImageLoader);
-		Button testSnackBar = (Button) findViewById(R.id.testSnackBar);
+		Button picture_chooser = findViewById(R.id.picture_chooser);
+		Button send = findViewById(R.id.sendHttp);
+		Button sendJson = findViewById(R.id.sendHttpGetJson);
+		Button sendFileHttp = findViewById(R.id.sendFileHttp);
+		Button downloadFile = findViewById(R.id.testDownloadFile);
+		Button testLog = findViewById(R.id.testLog);
+		Button testCrash = findViewById(R.id.testCrash);
+		Button testImageLoader = findViewById(R.id.testImageLoader);
+		Button testSnackBar = findViewById(R.id.testSnackBar);
 
 		picture_chooser.setOnClickListener(new View.OnClickListener()
 		{
@@ -190,7 +187,7 @@ public class MainActivity extends AppCompatActivity
 		});
 
 		CrashHandler.getInstance(getApplicationContext())
-				.clean(new CrashHandler.AutoCleanListener()
+				.clean(new AutoCleanListener()
 				{
 					@Override
 					public void done()
