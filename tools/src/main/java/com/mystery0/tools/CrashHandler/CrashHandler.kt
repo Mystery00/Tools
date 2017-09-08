@@ -7,45 +7,32 @@ import android.content.pm.PackageManager
 import android.nfc.FormatException
 import android.os.Build
 import android.os.Environment
-import com.mystery0.tools.Logs.Logs
+import android.util.Log
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Created by mystery0.
+ */
 @SuppressLint("StaticFieldLeak")
 object CrashHandler : Thread.UncaughtExceptionHandler
 {
-	private var mCrashHandler: CrashHandler? = null
-
 	private val TAG = "CrashHandler"
-
-	private val PATH = Environment.getExternalStorageDirectory().path
-
+	private var mCrashHandler: CrashHandler? = null
 	//log文件存储目录
-	private var dir = "log"
-
+	private var dir = File(Environment.getExternalStorageDirectory().path + File.separator + "log")
 	//log文件前缀名
 	private var fileNamePrefix = "crash"
-
 	//log文件的扩展名
 	private var fileNameSuffix = "txt"
-
+	private var isDebug = false
+	private var isSendException = false
 	//系统默认的异常处理（默认情况下，系统会终止当前的异常程序）
 	private lateinit var mDefaultCrashHandler: Thread.UncaughtExceptionHandler
-
 	private lateinit var mContext: Context
-
 	private lateinit var sharedPreferences: SharedPreferences
-
-	private var isSendException = false
-
 	private lateinit var catchExceptionListener: CatchExceptionListener
-
-	interface AutoCleanListener
-	{
-		fun done()
-		fun error(message: String?)
-	}
 
 	@JvmStatic
 	fun getInstance(context: Context): CrashHandler
@@ -56,11 +43,10 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		{
 			mCrashHandler = CrashHandler
 		}
-		Logs.setLevel(Logs.LogLevel.Release)
 		return mCrashHandler as CrashHandler
 	}
 
-	fun setDirectory(name: String): CrashHandler
+	fun setDirectory(name: File): CrashHandler
 	{
 		dir = name
 		return this
@@ -95,7 +81,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 
 	fun debug(): CrashHandler
 	{
-		Logs.setLevel(Logs.LogLevel.Debug)
+		isDebug = true
 		return this
 	}
 
@@ -112,7 +98,6 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		{
 			if (sharedPreferences.getBoolean("isAutoClean", false))
 			{
-				val dir = File(PATH + File.separator + this.dir + File.separator)
 				val time = sharedPreferences.getLong("cleanTime", 3 * 86400000)
 				if (dir.exists() || dir.mkdirs())
 				{
@@ -122,8 +107,11 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 						{
 							val now = Calendar.getInstance().timeInMillis
 							val modified = file.lastModified()
-							Logs.d(TAG, "fileName: " + file.name)
-							Logs.d(TAG, "fileTime: " + (now - modified) / 86400000)
+							if (isDebug)
+							{
+								Log.d(TAG, "fileName: " + file.name)
+								Log.d(TAG, "fileTime: " + (now - modified) / 86400000)
+							}
 							if (now - modified >= time)
 								file.delete()
 						}
@@ -175,18 +163,18 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	{
 		if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
 		{
-			Logs.w(TAG, "sdcard unmounted,skip dump exception")
+			if (isDebug)
+				Log.w(TAG, "SD卡未挂载")
 			return
 		}
 
-		val dir = File(PATH + File.separator + this.dir + File.separator)
 		if (!dir.exists())
 		{
 			dir.mkdirs()
 		}
 		val time: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(Calendar.getInstance().time)
 		//以当前时间创建文件
-		val file = File(PATH + File.separator + this.dir + File.separator + fileNamePrefix + time + "." + fileNameSuffix)
+		val file = File(dir.path, fileNamePrefix + time + "." + fileNameSuffix)
 
 		try
 		{
@@ -230,15 +218,9 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		}
 		catch (e: Exception)
 		{
-			Logs.wtf(TAG, "dumpExceptionToSDCard: dump crash info failed", e)
+			if (isDebug)
+				Log.wtf(TAG, "dumpExceptionToSDCard: 导出异常信息失败", e)
 		}
-	}
-
-	interface CatchExceptionListener
-	{
-		fun onException(date: String, file: File, appVersionName: String, appVersionCode: Int,
-						AndroidVersion: String,
-						sdk: Int, vendor: String, model: String, ex: Throwable)
 	}
 
 }
