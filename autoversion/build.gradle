@@ -1,0 +1,15 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+repositories {
+    mavenCentral()
+}
+
+//group和version在后面使用自定义插件的时候会用到
+group='vip.mystery0.autoversion'
+version='1.0.0'
