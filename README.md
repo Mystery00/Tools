@@ -1,4 +1,4 @@
-# ToolsDemo
+# Tools
 
 ------------
 
@@ -24,7 +24,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.Mystery00:ToolsDemo:x.x.x'
+	        compile 'com.github.Mystery00:Tools:x.x.x'
 	}
 具体的版本号请进入release页查看
 以下只是部分用法，具体用法请参考sample
@@ -41,7 +41,7 @@ Step 2. Add the dependency
     }
         dependencies {
             ……
-            classpath 'com.github.Mystery00.ToolsDemo:autoversion:x.x.x'
+            classpath 'com.github.Mystery00.Tools:autoversion:x.x.x'
     }
 此处版本号跟随上面的ToolsDemo，然后继续在app的build.gradle中添加以下代码
     
