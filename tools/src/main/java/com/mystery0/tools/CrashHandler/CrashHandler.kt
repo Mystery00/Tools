@@ -52,6 +52,12 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 		return this
 	}
 
+	fun setDirectory(name: String): CrashHandler
+	{
+		dir = File(Environment.getExternalStorageDirectory().path + File.separator + name)
+		return this
+	}
+
 	fun setPrefixName(fileName: String): CrashHandler
 	{
 		fileNamePrefix = fileName
