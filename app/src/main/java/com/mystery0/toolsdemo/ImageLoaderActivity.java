@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.mystery0.tools.ImageLoader.ImageCache;
+
+import vip.mystery0.tools.ImageLoader.ImageCache;
 
 public class ImageLoaderActivity extends AppCompatActivity
 {
