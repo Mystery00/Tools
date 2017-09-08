@@ -32,9 +32,9 @@ class AutoVersionExtension {
 
     public String getName() {
         def versionName
-        if (beta != "0") {
+        if (beta != 0) {
             versionName = "${major}.${minor}.${patch}-beta${beta}"
-        } else if (alpha != "0") {
+        } else if (alpha != 0) {
             versionName = "${major}.${minor}.${patch}-alpha${alpha}"
         } else {
             versionName = "${major}.${minor}.${patch}"
