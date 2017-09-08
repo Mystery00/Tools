@@ -29,8 +29,9 @@ Step 2. Add the dependency
 具体的版本号请进入release页查看
 以下只是部分用法，具体用法请参考sample
 ## 自动版本号
-本项目的自动版本号源代码来自于[https://github.com/nillith/AutoVersion](https://github.com/nillith/AutoVersion)
+本项目的自动版本号源代码来自于[https://github.com/nillith/AutoVersion](https://github.com/nillith/AutoVersion)，
 我只是添加了beta和alpha字段，适用于自动生成如1.2.3-beta4或者1.2.3-alpha4的版本名称，版本号依旧是按照git的commit次数获取。
+
 用法（除了上面的添加之外，继续在Project的build.gradle中添加以下代码）：
 
     buildscript {
@@ -39,7 +40,7 @@ Step 2. Add the dependency
             maven { url 'https://jitpack.io' }
     }
         dependencies {
-            ……xxx
+            ……
             classpath 'com.github.Mystery00.ToolsDemo:autoversion:x.x.x'
     }
 此处版本号跟随上面的ToolsDemo，然后继续在app的build.gradle中添加以下代码
