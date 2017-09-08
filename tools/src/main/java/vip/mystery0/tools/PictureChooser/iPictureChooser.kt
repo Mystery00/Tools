@@ -1,4 +1,4 @@
-package com.mystery0.tools.PictureChooser
+package vip.mystery0.tools.PictureChooser
 
 import android.content.Context
 import android.net.Uri
@@ -11,8 +11,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 
-import com.mystery0.tools.FileUtil.FileUtil
-import com.mystery0.tools.R
+import vip.mystery0.tools.FileUtil.FileUtil
+import vip.mystery0.tools.R
 
 import java.util.ArrayList
 

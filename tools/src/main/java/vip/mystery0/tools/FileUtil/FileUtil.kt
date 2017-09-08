@@ -1,4 +1,4 @@
-package com.mystery0.tools.FileUtil
+package vip.mystery0.tools.FileUtil
 
 import android.content.ContentUris
 import android.content.Context
@@ -14,7 +14,8 @@ import java.text.DecimalFormat
 object FileUtil
 {
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
-	@JvmStatic fun getPath(context: Context, uri: Uri): String?
+	@JvmStatic
+	fun getPath(context: Context, uri: Uri): String?
 	{
 		when
 		{

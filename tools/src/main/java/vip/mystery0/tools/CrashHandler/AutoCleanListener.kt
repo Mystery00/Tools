@@ -1,4 +1,4 @@
-package com.mystery0.tools.CrashHandler
+package vip.mystery0.tools.CrashHandler
 
 /**
  * Created by mystery0.

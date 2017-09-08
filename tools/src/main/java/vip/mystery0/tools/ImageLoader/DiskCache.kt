@@ -1,4 +1,4 @@
-package com.mystery0.tools.ImageLoader
+package vip.mystery0.tools.ImageLoader
 
 import android.content.Context
 import android.graphics.Bitmap

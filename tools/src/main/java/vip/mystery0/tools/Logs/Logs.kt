@@ -1,4 +1,4 @@
-package com.mystery0.tools.Logs
+package vip.mystery0.tools.Logs
 
 import android.util.Log
 
@@ -17,7 +17,8 @@ object Logs
 		Debug, Release
 	}
 
-	@JvmStatic fun setLevel(level: LogLevel)
+	@JvmStatic
+	fun setLevel(level: LogLevel)
 	{
 		SET = when (level)
 		{
@@ -26,7 +27,8 @@ object Logs
 		}
 	}
 
-	@JvmStatic fun v(tag: String, message: String)
+	@JvmStatic
+	fun v(tag: String, message: String)
 	{
 		if (SET < VERBOSE)
 		{
@@ -34,7 +36,8 @@ object Logs
 		}
 	}
 
-	@JvmStatic fun i(tag: String, message: String)
+	@JvmStatic
+	fun i(tag: String, message: String)
 	{
 		if (SET < INFO)
 		{
@@ -42,7 +45,8 @@ object Logs
 		}
 	}
 
-	@JvmStatic fun d(tag: String, message: String)
+	@JvmStatic
+	fun d(tag: String, message: String)
 	{
 		if (SET < DEBUG)
 		{
@@ -50,7 +54,8 @@ object Logs
 		}
 	}
 
-	@JvmStatic fun w(tag: String, message: String)
+	@JvmStatic
+	fun w(tag: String, message: String)
 	{
 		if (SET < WARN)
 		{
@@ -58,7 +63,8 @@ object Logs
 		}
 	}
 
-	@JvmStatic fun e(tag: String, message: String)
+	@JvmStatic
+	fun e(tag: String, message: String)
 	{
 		if (SET < ERROR)
 		{
@@ -66,7 +72,8 @@ object Logs
 		}
 	}
 
-	@JvmStatic fun wtf(tag: String, message: String, throwable: Throwable)
+	@JvmStatic
+	fun wtf(tag: String, message: String, throwable: Throwable)
 	{
 		Log.wtf(tag, message, throwable)
 	}

@@ -1,4 +1,4 @@
-package com.mystery0.tools.SnackBar
+package vip.mystery0.tools.SnackBar
 
 import android.content.Context
 import android.support.design.widget.BaseTransientBottomBar
@@ -6,14 +6,15 @@ import android.support.design.widget.Snackbar
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityManager
-import com.mystery0.tools.Logs.Logs
-import com.mystery0.tools.R
+import vip.mystery0.tools.Logs.Logs
+import vip.mystery0.tools.R
 
 object ASnackBar
 {
 	private val TAG = "ASnackBar"
 
-	@JvmStatic fun disableAccessibility(context: Context)
+	@JvmStatic
+	fun disableAccessibility(context: Context)
 	{
 		try
 		{

@@ -1,4 +1,4 @@
-package com.mystery0.tools.MysteryNetFrameWork
+package vip.mystery0.tools.MysteryNetFrameWork
 
 interface ResponseListener
 {
