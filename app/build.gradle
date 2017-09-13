@@ -1,4 +1,13 @@
 apply plugin: 'com.android.application'
+apply plugin: 'vip.mystery0.autoversion'
+
+autoVersion {
+    major 1
+    minor 2
+    patch 3
+    beta 4
+    alpha 5
+}
 
 android {
     compileSdkVersion 26
@@ -7,12 +16,18 @@ android {
         applicationId "vip.mystery0.toolsdemo"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode autoVersion.code
+        versionName autoVersion.name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            resValue "string", "app_version", autoVersion.name
+            resValue "string", "app_version_code", autoVersion.code + ''
+        }
         release {
+            resValue "string", "app_version", autoVersion.name
+            resValue "string", "app_version_code", autoVersion.code + ''
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -28,4 +43,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+}
+
+buildscript {
+    repositories {
+        maven {
+            url uri('../build/repo')
+        }
+    }
+    dependencies {
+        classpath 'vip.mystery0.autoversion:autoversion:1.0.0'
+    }
 }

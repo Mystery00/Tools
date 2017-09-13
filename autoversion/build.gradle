@@ -9,3 +9,14 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+group = 'vip.mystery0.autoversion'
+version = '1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../build/repo'))
+        }
+    }
+}

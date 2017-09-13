@@ -27,6 +27,8 @@ class AutoVersionExtension {
     }
 
     public Integer getCode() {
+        if (build == -1)
+            build = Utils.commitCount
         return build
     }
 
