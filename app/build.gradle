@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
-apply plugin: 'vip.mystery0.autoversion'
+//apply plugin: 'vip.mystery0.autoversion'
 
-autoVersion {
-    major 1
-    minor 2
-    patch 3
-    beta 4
-    alpha 5
-}
+//autoVersion {
+//    major 1
+//    minor 2
+//    patch 3
+//    beta 4
+//    alpha 5
+//}
 
 android {
     compileSdkVersion 26
@@ -16,18 +16,20 @@ android {
         applicationId "vip.mystery0.toolsdemo"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode autoVersion.code
-        versionName autoVersion.name
+//        versionCode autoVersion.code
+//        versionName autoVersion.name
+        versionCode 0
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {
-            resValue "string", "app_version", autoVersion.name
-            resValue "string", "app_version_code", autoVersion.code + ''
-        }
+//        debug {
+//            resValue "string", "app_version", versionName
+//            resValue "string", "app_version_code", versionCode + ''
+//        }
         release {
-            resValue "string", "app_version", autoVersion.name
-            resValue "string", "app_version_code", autoVersion.code + ''
+//            resValue "string", "app_version", versionName
+//            resValue "string", "app_version_code", versionCode + ''
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -45,13 +47,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-buildscript {
-    repositories {
-        maven {
-            url uri('../build/repo')
-        }
-    }
-    dependencies {
-        classpath 'vip.mystery0.autoversion:autoversion:1.0.0'
-    }
-}
+//buildscript {
+//    repositories {
+//        maven {
+//            url uri('../build/repo')
+//        }
+//    }
+//    dependencies {
+//        classpath 'vip.mystery0.autoversion:autoversion:1.0.0'
+//    }
+//}
