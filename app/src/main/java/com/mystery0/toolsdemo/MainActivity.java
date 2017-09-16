@@ -18,6 +18,7 @@ import vip.mystery0.tools.FileUtil.FileUtil;
 import vip.mystery0.tools.Logs.Logs;
 import vip.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
 import vip.mystery0.tools.MysteryNetFrameWork.HttpUtil;
+import vip.mystery0.tools.MysteryNetFrameWork.PostHttpConnect;
 import vip.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 import java.io.File;
@@ -90,25 +91,35 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public void onClick(View v)
 			{
-				Map<String, String> map = new HashMap<>();
-				map.put("username", "123");
-				map.put("password", "123");
-				final HttpUtil httpUtil = new HttpUtil(MainActivity.this);
-				httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
-						.setRequestQueue(requestQueue)
-						.setUrl("http://www.mutour.vip/mutour/mtlog.handle.php")
-						.setMap(map)
-						.setResponseListener(new ResponseListener()
-						{
-							@Override
-							public void onResponse(int code, String message)
-							{
-								Logs.i(TAG, "onResponse: " + message);
-								Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
-										.show();
-							}
-						})
-						.open();
+//				Map<String, String> map = new HashMap<>();
+//				map.put("username", "123");
+//				map.put("password", "123");
+//				final HttpUtil httpUtil = new HttpUtil(MainActivity.this);
+//				httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
+//						.setRequestQueue(requestQueue)
+//						.setUrl("http://www.mutour.vip/mutour/mtlog.handle.php")
+//						.setMap(map)
+//						.setResponseListener(new ResponseListener()
+//						{
+//							@Override
+//							public void onResponse(int code, String message)
+//							{
+//								Logs.i(TAG, "onResponse: " + message);
+//								Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
+//										.show();
+//							}
+//						})
+//						.open();
+				new Thread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						PostHttpConnect postHttpConnect=new PostHttpConnect();
+						postHttpConnect.setURL("http://123.206.186.70/php/hitokoto.php");
+						postHttpConnect.request();
+					}
+				}).start();
 			}
 		});
 

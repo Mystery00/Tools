@@ -21,7 +21,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	private val TAG = "CrashHandler"
 	private var mCrashHandler: CrashHandler? = null
 	//log文件存储目录
-	private var dir = File(Environment.getExternalStorageDirectory().path + File.separator + "log")
+	private lateinit var dir: File
 	//log文件前缀名
 	private var fileNamePrefix = "crash"
 	//log文件的扩展名
@@ -39,6 +39,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler
 	{
 		mContext = context
 		sharedPreferences = context.getSharedPreferences("CrashHandlerConfiguration", Context.MODE_PRIVATE)
+		dir = File(context.cacheDir.path + File.separator + "log")
 		if (mCrashHandler == null)
 		{
 			mCrashHandler = CrashHandler
