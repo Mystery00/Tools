@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -24,7 +23,6 @@ import vip.mystery0.tools.HTTPok.HTTPok;
 import vip.mystery0.tools.HTTPok.HTTPokResponse;
 import vip.mystery0.tools.HTTPok.HTTPokResponseListener;
 import vip.mystery0.tools.MysteryNetFrameWork.HttpUtil;
-import vip.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 import java.io.File;
 import java.util.HashMap;
@@ -70,48 +68,29 @@ public class MainActivity extends AppCompatActivity
 			public void onClick(View v)
 			{
 				Map<String, String> map = new HashMap<>();
-				map.put("username", "123");
-				map.put("password", "123");
-				new HttpUtil(MainActivity.this)
-						.setRequestQueue(requestQueue)
-						.setRequestMethod(HttpUtil.RequestMethod.GET)
-						.setUrl("http://www.mutour.vip/mutour/mtlog.handle.php")
-						.setMap(map)
-						.setResponseListener(new ResponseListener()
+				map.put("test", "hello");
+				new HTTPok()
+						.setURL("http://123.206.186.70/test.php")
+						.setRequestMethod(HTTPok.Companion.getPOST())
+						.setParams(map)
+						.setListener(new HTTPokResponseListener()
 						{
 							@Override
-							public void onResponse(int code, String message)
+							public void onError(String message)
 							{
-								Logs.i(TAG, "onResponse: " + message);
-								Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT)
-										.show();
+								Logs.i(TAG, "onError: " + message);
+							}
+
+							@Override
+							public void onResponse(@NotNull HTTPokResponse response)
+							{
+								Logs.i(TAG, "onResponse: " + response.getMessage());
 							}
 						})
 						.open();
 			}
 		});
 
-		Map<String, String> map = new HashMap<>();
-		map.put("test", "hello");
-		new HTTPok()
-				.setURL("http://123.206.186.70/test.php")
-				.setRequestMethod(HTTPok.Companion.getPOST())
-				.setParams(map)
-				.setListener(new HTTPokResponseListener()
-				{
-					@Override
-					public void onError(String message)
-					{
-						Logs.i(TAG, "onError: " + message);
-					}
-
-					@Override
-					public void onResponse(@NotNull HTTPokResponse response)
-					{
-						Logs.i(TAG, "onResponse: " + response.getMessage());
-					}
-				})
-				.open();
 
 		sendJson.setOnClickListener(new View.OnClickListener()
 		{
@@ -119,21 +98,25 @@ public class MainActivity extends AppCompatActivity
 			public void onClick(View v)
 			{
 				Map<String, String> map = new HashMap<>();
-				map.put("username", "123");
-				map.put("password", "123");
-				final HttpUtil httpUtil = new HttpUtil(MainActivity.this);
-				httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
-						.setRequestQueue(requestQueue)
-						.setUrl("http://123.206.186.70/test.php")
-						.setMap(map)
-						.setResponseListener(new ResponseListener()
+				map.put("test", "hello");
+				new HTTPok()
+						.setURL("http://123.206.186.70/php/hitokoto.php")
+						.setRequestMethod(HTTPok.Companion.getGET())
+						.setParams(map)
+						.setListener(new HTTPokResponseListener()
 						{
 							@Override
-							public void onResponse(int code, String message)
+							public void onError(@Nullable String message)
 							{
-								Logs.i(TAG, "onResponse: " + message);
-								Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
-										.show();
+								Logs.e(TAG, "onError: " + message);
+							}
+
+							@Override
+							public void onResponse(@NotNull HTTPokResponse response)
+							{
+								Hitokoto hitokoto = response.getJSON(Hitokoto.class);
+								Logs.i(TAG, "onResponse: " + hitokoto);
+								Logs.i(TAG, "onResponse: " + hitokoto.getContent());
 							}
 						})
 						.open();
@@ -241,25 +224,25 @@ public class MainActivity extends AppCompatActivity
 		{
 			String path = FileUtil.getPath(MainActivity.this, data.getData());
 			Logs.i(TAG, "onActivityResult: " + path);
-			Map<String, String> map = new HashMap<>();
-			Map<String, File> fileMap = new HashMap<>();
-			fileMap.put("upload_file", new File(path));
-			map.put("group", new File(path).getName());
-			map.put("method", "uploadFile");
-			new HttpUtil(MainActivity.this)
-					.setRequestQueue(requestQueue)
-					.setUrl("http://123.206.186.70/hitokoto.php")
-					.setRequestMethod(HttpUtil.RequestMethod.POST)
-					.setFileRequest(HttpUtil.FileRequest.UPLOAD)
-					.isFileRequest(true)
-					.setMap(map)
-					.setFileMap(fileMap)
-					.setResponseListener(new ResponseListener()
+			Map<String, Object> map = new HashMap<>();
+			map.put("file", new File(path));
+			new HTTPok()
+					.setURL("http://123.206.186.70/test.php")
+					.setRequestMethod(HTTPok.Companion.getPOST())
+					.isFileRequest()
+					.setParams(map)
+					.setListener(new HTTPokResponseListener()
 					{
 						@Override
-						public void onResponse(int code, String message)
+						public void onError(String message)
 						{
-							Logs.i(TAG, "onResponse: " + message);
+							Logs.i(TAG, "onError: " + message);
+						}
+
+						@Override
+						public void onResponse(@NotNull HTTPokResponse response)
+						{
+							Logs.i(TAG, "onResponse: " + response.getMessage());
 						}
 					})
 					.open();

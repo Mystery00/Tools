@@ -8,10 +8,8 @@ import java.io.InputStreamReader
 /**
  * Created by myste.
  */
-class HTTPokResponse(private val inputStream: InputStream)
+class HTTPokResponse(val inputStream: InputStream)
 {
-	private val TAG = "HTTPokResponse"
-
 	fun <T> getJSON(className: Class<T>): T
 	{
 		return Gson().fromJson(InputStreamReader(inputStream), className)
