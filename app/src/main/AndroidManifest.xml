@@ -22,8 +22,6 @@
         </activity>
         <activity android:name=".PictureChooserDemoActivity"/>
         <activity android:name=".PreferenceActivity"/>
-        <activity android:name=".ImageLoaderActivity">
-        </activity>
     </application>
 
 </manifest>

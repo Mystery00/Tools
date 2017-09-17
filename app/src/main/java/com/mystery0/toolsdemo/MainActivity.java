@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +26,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity
 {
 	private static final String TAG = "MainActivity";
-	private RequestQueue requestQueue;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -38,8 +34,6 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main);
 
 //		setTitle(getString(R.string.app_name) + "-" + getString(R.string.app_version) + "-" + getString(R.string.app_version_code));
-
-		requestQueue = Volley.newRequestQueue(MainActivity.this);
 
 		Button picture_chooser = findViewById(R.id.picture_chooser);
 		Button send = findViewById(R.id.sendHttp);
@@ -181,14 +175,6 @@ public class MainActivity extends AppCompatActivity
 			{
 				int temp = Integer.parseInt("test");
 				Logs.i(TAG, String.valueOf(temp));
-			}
-		});
-		testImageLoader.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				startActivity(new Intent(MainActivity.this, ImageLoaderActivity.class));
 			}
 		});
 		testSnackBar.setOnClickListener(new View.OnClickListener()
