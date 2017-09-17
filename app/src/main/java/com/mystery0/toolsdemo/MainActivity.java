@@ -18,11 +18,9 @@ import vip.mystery0.tools.CrashHandler.AutoCleanListener;
 import vip.mystery0.tools.CrashHandler.CrashHandler;
 import vip.mystery0.tools.FileUtil.FileUtil;
 import vip.mystery0.tools.Logs.Logs;
-import vip.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
 import vip.mystery0.tools.HTTPok.HTTPok;
 import vip.mystery0.tools.HTTPok.HTTPokResponse;
 import vip.mystery0.tools.HTTPok.HTTPokResponseListener;
-import vip.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 
 import java.io.File;
 import java.util.HashMap;
@@ -140,20 +138,23 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public void onClick(View view)
 			{
-				new HttpUtil(MainActivity.this)
-						.setRequestQueue(requestQueue)
-						.setUrl("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
-						.isFileRequest(true)
-						.setFileRequest(HttpUtil.FileRequest.DOWNLOAD)
-						.setDownloadFilePath(Environment.getExternalStorageDirectory().getPath() + "/Download/")
-						.setFileResponseListener(new FileResponseListener()
+				new HTTPok()
+						.setURL("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
+						.isFileRequest()
+						.setRequestMethod(HTTPok.Companion.getGET())
+						.setListener(new HTTPokResponseListener()
 						{
 							@Override
-							public void onResponse(int code, File file, String message)
+							public void onError(@Nullable String message)
 							{
-								Logs.i(TAG, "onResponse: " + code);
-								Logs.i(TAG, "onResponse: " + (file != null ? file.getPath() : "空"));
-								Logs.i(TAG, "onResponse: " + message);
+								Logs.e(TAG, "onError: " + message);
+							}
+
+							@Override
+							public void onResponse(@NotNull HTTPokResponse response)
+							{
+								File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Download/test.jpg");
+								Logs.i(TAG, "onResponse: " + response.getFile(file));
 							}
 						})
 						.open();
@@ -226,6 +227,7 @@ public class MainActivity extends AppCompatActivity
 			Logs.i(TAG, "onActivityResult: " + path);
 			Map<String, Object> map = new HashMap<>();
 			map.put("file", new File(path));
+			map.put("test", "test hello");
 			new HTTPok()
 					.setURL("http://123.206.186.70/test.php")
 					.setRequestMethod(HTTPok.Companion.getPOST())
