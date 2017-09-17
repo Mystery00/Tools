@@ -1,9 +1,7 @@
 package vip.mystery0.tools.HTTPok
 
 import com.google.gson.Gson
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.*
 
 /**
  * Created by myste.
@@ -27,5 +25,28 @@ class HTTPokResponse(val inputStream: InputStream)
 			len = reader.read(chars)
 		}
 		return response.toString()
+	}
+
+	fun getFile(saveFile: File): Boolean
+	{
+		try
+		{
+			val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
+			val dataOutputStream = DataOutputStream(BufferedOutputStream(FileOutputStream(saveFile)))
+			val bytes = ByteArray(1024 * 1024)
+			while (true)
+			{
+				val read = dataInputStream.read(bytes)
+				if (read <= 0)
+					break
+				dataOutputStream.write(bytes, 0, read)
+			}
+			dataOutputStream.close()
+			return true
+		}
+		catch (e: Exception)
+		{
+			return false
+		}
 	}
 }
