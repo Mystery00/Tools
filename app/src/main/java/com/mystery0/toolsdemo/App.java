@@ -1,22 +1,10 @@
 package com.mystery0.toolsdemo;
 
 import android.app.Application;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import vip.mystery0.tools.CrashHandler.CrashHandler;
 import vip.mystery0.tools.Logs.Logs;
-import vip.mystery0.tools.MysteryNetFrameWork.HttpUtil;
-import vip.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 import vip.mystery0.tools.SnackBar.ASnackBar;
-
-import java.io.File;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class App extends Application
 {

@@ -2,6 +2,8 @@
   <dictionary name="myste">
     <words>
       <w>externalstorage</w>
+      <w>gson</w>
+      <w>httpok</w>
     </words>
   </dictionary>
 </component>

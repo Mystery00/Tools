@@ -12,13 +12,18 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vip.mystery0.tools.CrashHandler.AutoCleanListener;
 import vip.mystery0.tools.CrashHandler.CrashHandler;
 import vip.mystery0.tools.FileUtil.FileUtil;
 import vip.mystery0.tools.Logs.Logs;
 import vip.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
+import vip.mystery0.tools.HTTPok.HTTPok;
+import vip.mystery0.tools.HTTPok.HTTPokResponse;
+import vip.mystery0.tools.HTTPok.HTTPokResponseListener;
 import vip.mystery0.tools.MysteryNetFrameWork.HttpUtil;
-import vip.mystery0.tools.MysteryNetFrameWork.PostHttpConnect;
 import vip.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 import java.io.File;
@@ -86,40 +91,52 @@ public class MainActivity extends AppCompatActivity
 			}
 		});
 
+		Map<String, String> map = new HashMap<>();
+		map.put("test", "hello");
+		new HTTPok()
+				.setURL("http://123.206.186.70/test.php")
+				.setRequestMethod(HTTPok.Companion.getPOST())
+				.setParams(map)
+				.setListener(new HTTPokResponseListener()
+				{
+					@Override
+					public void onError(String message)
+					{
+						Logs.i(TAG, "onError: " + message);
+					}
+
+					@Override
+					public void onResponse(@NotNull HTTPokResponse response)
+					{
+						Logs.i(TAG, "onResponse: " + response.getMessage());
+					}
+				})
+				.open();
+
 		sendJson.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-//				Map<String, String> map = new HashMap<>();
-//				map.put("username", "123");
-//				map.put("password", "123");
-//				final HttpUtil httpUtil = new HttpUtil(MainActivity.this);
-//				httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
-//						.setRequestQueue(requestQueue)
-//						.setUrl("http://www.mutour.vip/mutour/mtlog.handle.php")
-//						.setMap(map)
-//						.setResponseListener(new ResponseListener()
-//						{
-//							@Override
-//							public void onResponse(int code, String message)
-//							{
-//								Logs.i(TAG, "onResponse: " + message);
-//								Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
-//										.show();
-//							}
-//						})
-//						.open();
-				new Thread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						PostHttpConnect postHttpConnect=new PostHttpConnect();
-						postHttpConnect.setURL("http://123.206.186.70/php/hitokoto.php");
-						postHttpConnect.request();
-					}
-				}).start();
+				Map<String, String> map = new HashMap<>();
+				map.put("username", "123");
+				map.put("password", "123");
+				final HttpUtil httpUtil = new HttpUtil(MainActivity.this);
+				httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
+						.setRequestQueue(requestQueue)
+						.setUrl("http://123.206.186.70/test.php")
+						.setMap(map)
+						.setResponseListener(new ResponseListener()
+						{
+							@Override
+							public void onResponse(int code, String message)
+							{
+								Logs.i(TAG, "onResponse: " + message);
+								Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
+										.show();
+							}
+						})
+						.open();
 			}
 		});
 
