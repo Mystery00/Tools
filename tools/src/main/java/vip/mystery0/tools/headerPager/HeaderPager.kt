@@ -3,7 +3,7 @@ package vip.mystery0.tools.headerPager
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentManager
-import android.support.v4.view.ViewPager
+import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -17,16 +17,16 @@ class HeaderPager(context: Context?, attrs: AttributeSet?) : ConstraintLayout(co
 {
 	private val imageViewSearch: ImageView
 	private val imageViewRefresh: ImageView
-	private val viewPager: ViewPager
+	private val recyclerView: RecyclerView
 	private val pageIndicator: LinearLayout
 	private var listener: SearchButtonOnClickListener? = null
 
 	init
 	{
-		LayoutInflater.from(context).inflate(R.layout.layout_header_pager, this)
+		LayoutInflater.from(context).inflate(R.layout.layout_header_page, this)
 		imageViewSearch = findViewById(R.id.imageView_search)
 		imageViewRefresh = findViewById(R.id.imageView_refresh)
-		viewPager = findViewById(R.id.viewPager)
+		recyclerView = findViewById(R.id.recyclerView)
 		pageIndicator = findViewById(R.id.pageIndicator)
 
 		imageViewSearch.setOnClickListener {
@@ -45,10 +45,6 @@ class HeaderPager(context: Context?, attrs: AttributeSet?) : ConstraintLayout(co
 	fun setData(list: List<Header>,
 				fragmentManager: FragmentManager)
 	{
-		val viewPagerAdapter = HeaderPagerAdapter(fragmentManager)
-		list.forEachIndexed { index, item ->
-			viewPagerAdapter.addFragment(HeaderPagerFragment.newInstance(item, index))
-		}
-		viewPager.adapter = viewPagerAdapter
+
 	}
 }
