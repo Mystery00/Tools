@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HeaderPage">
+        <attr name="resource_unchecked" format="reference"/>
+        <attr name="resource_checked" format="reference"/>
+        <attr name="page_indicator_margin" format="dimension"/>
+    </declare-styleable>
+</resources>

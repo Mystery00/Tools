@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 		Button downloadFile = findViewById(R.id.testDownloadFile);
 		Button testLog = findViewById(R.id.testLog);
 		Button testCrash = findViewById(R.id.testCrash);
-		Button testImageLoader = findViewById(R.id.testImageLoader);
+		Button testHeaderPage = findViewById(R.id.testHeaderPage);
 		Button testSnackBar = findViewById(R.id.testSnackBar);
 
 		picture_chooser.setOnClickListener(new View.OnClickListener()
@@ -175,6 +175,14 @@ public class MainActivity extends AppCompatActivity
 			{
 				int temp = Integer.parseInt("test");
 				Logs.i(TAG, String.valueOf(temp));
+			}
+		});
+		testHeaderPage.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
 			}
 		});
 		testSnackBar.setOnClickListener(new View.OnClickListener()

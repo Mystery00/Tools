@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".PictureChooserDemoActivity"/>
         <activity android:name=".PreferenceActivity"/>
+        <activity android:name=".HeaderPageActivity">
+        </activity>
     </application>
 
 </manifest>
