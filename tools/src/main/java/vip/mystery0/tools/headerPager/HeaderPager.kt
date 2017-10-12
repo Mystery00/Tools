@@ -19,6 +19,7 @@ class HeaderPager(context: Context?, attrs: AttributeSet?) : ConstraintLayout(co
 	private val imageViewRefresh: ImageView
 	private val viewPager: ViewPager
 	private val pageIndicator: LinearLayout
+	private var listener: SearchButtonOnClickListener? = null
 
 	init
 	{
@@ -27,6 +28,18 @@ class HeaderPager(context: Context?, attrs: AttributeSet?) : ConstraintLayout(co
 		imageViewRefresh = findViewById(R.id.imageView_refresh)
 		viewPager = findViewById(R.id.viewPager)
 		pageIndicator = findViewById(R.id.pageIndicator)
+
+		imageViewSearch.setOnClickListener {
+			if (listener != null)
+			{
+				listener!!.onClick()
+			}
+		}
+	}
+
+	fun setSearchButtonOnClickListener(listener: SearchButtonOnClickListener)
+	{
+		this.listener = listener
 	}
 
 	fun setData(list: List<Header>,
