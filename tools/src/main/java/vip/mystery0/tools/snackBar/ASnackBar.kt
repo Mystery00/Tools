@@ -1,4 +1,4 @@
-package vip.mystery0.tools.SnackBar
+package vip.mystery0.tools.snackBar
 
 import android.content.Context
 import android.support.design.widget.BaseTransientBottomBar
@@ -6,7 +6,7 @@ import android.support.design.widget.Snackbar
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityManager
-import vip.mystery0.tools.Logs.Logs
+import vip.mystery0.tools.logs.Logs
 import vip.mystery0.tools.R
 
 object ASnackBar

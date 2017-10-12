@@ -1,7 +1,6 @@
-package vip.mystery0.tools.HTTPok
+package vip.mystery0.tools.hTTPok
 
 import okhttp3.*
-import vip.mystery0.tools.Logs.Logs
 import java.io.File
 import java.io.IOException
 import java.lang.StringBuilder

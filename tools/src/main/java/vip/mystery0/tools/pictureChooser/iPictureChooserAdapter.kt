@@ -1,4 +1,4 @@
-package vip.mystery0.tools.PictureChooser
+package vip.mystery0.tools.pictureChooser
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

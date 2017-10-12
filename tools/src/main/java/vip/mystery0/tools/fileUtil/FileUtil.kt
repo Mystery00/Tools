@@ -1,4 +1,4 @@
-package vip.mystery0.tools.FileUtil
+package vip.mystery0.tools.fileUtil
 
 import android.content.ContentUris
 import android.content.Context

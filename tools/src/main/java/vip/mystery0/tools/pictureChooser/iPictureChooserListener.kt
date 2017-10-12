@@ -1,4 +1,4 @@
-package vip.mystery0.tools.PictureChooser
+package vip.mystery0.tools.pictureChooser
 
 interface iPictureChooserListener
 {

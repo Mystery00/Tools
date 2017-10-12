@@ -2,9 +2,9 @@ package com.mystery0.toolsdemo;
 
 import android.app.Application;
 
-import vip.mystery0.tools.CrashHandler.CrashHandler;
-import vip.mystery0.tools.Logs.Logs;
-import vip.mystery0.tools.SnackBar.ASnackBar;
+import vip.mystery0.tools.crashHandler.CrashHandler;
+import vip.mystery0.tools.logs.Logs;
+import vip.mystery0.tools.snackBar.ASnackBar;
 
 public class App extends Application
 {

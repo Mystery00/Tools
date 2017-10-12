@@ -1,4 +1,4 @@
-package vip.mystery0.tools.CrashHandler
+package vip.mystery0.tools.crashHandler
 
 import android.annotation.SuppressLint
 import android.content.Context

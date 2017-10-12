@@ -1,4 +1,4 @@
-package vip.mystery0.tools.Logs
+package vip.mystery0.tools.logs
 
 import android.util.Log
 
