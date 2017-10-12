@@ -14,14 +14,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import vip.mystery0.tools.R
-import vip.mystery0.tools.logs.Logs
 
 /**
  * Created by myste.
  */
 class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs)
 {
-	private val TAG = "HeaderPage"
 	private val imageViewSearch: ImageView
 	private val imageViewRefresh: ImageView
 	private val recyclerView: RecyclerView
@@ -86,8 +84,6 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 				{
 					pageIndicator.getChildAt(lastItemPosition).setBackgroundResource(icUnChecked)
 					pageIndicator.getChildAt(newLastItemPosition).setBackgroundResource(icChecked)
-//					textViewTitle.text = list[newLastItemPosition].title
-//					textViewSubTitle.text = list[newLastItemPosition].subtitle
 					textViewTitle.textSize = titleSize
 					textViewSubTitle.textSize = subtitleSize
 					textViewTitle.setTextColor(titleColor)
@@ -151,8 +147,6 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	{
 		list.clear()
 		list.addAll(newList)
-//		textViewTitle.text = list[0].title
-//		textViewSubTitle.text = list[0].subtitle
 		textViewTitle.textSize = titleSize
 		textViewSubTitle.textSize = subtitleSize
 		textViewTitle.setTextColor(titleColor)

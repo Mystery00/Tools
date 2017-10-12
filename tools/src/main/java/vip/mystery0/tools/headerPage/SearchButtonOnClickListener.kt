@@ -6,7 +6,4 @@ package vip.mystery0.tools.headerPage
 interface SearchButtonOnClickListener
 {
 	fun onClick()
-	{
-
-	}
 }
