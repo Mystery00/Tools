@@ -3,9 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToolsDemo.iml" filepath="$PROJECT_DIR$/ToolsDemo.iml" />
+      <module fileurl="file://D:\program\AndroidStudio\ToolsDemo\ToolsDemo.iml" filepath="D:\program\AndroidStudio\ToolsDemo\ToolsDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\program\AndroidStudio\ToolsDemo\app\app.iml" filepath="D:\program\AndroidStudio\ToolsDemo\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/autoversion/autoversion.iml" filepath="$PROJECT_DIR$/autoversion/autoversion.iml" />
+      <module fileurl="file://D:\program\AndroidStudio\ToolsDemo\autoversion\autoversion.iml" filepath="D:\program\AndroidStudio\ToolsDemo\autoversion\autoversion.iml" />
       <module fileurl="file://$PROJECT_DIR$/tools/tools.iml" filepath="$PROJECT_DIR$/tools/tools.iml" />
+      <module fileurl="file://D:\program\AndroidStudio\ToolsDemo\tools\tools.iml" filepath="D:\program\AndroidStudio\ToolsDemo\tools\tools.iml" />
     </modules>
   </component>
 </project>
