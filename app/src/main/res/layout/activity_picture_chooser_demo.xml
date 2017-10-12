@@ -2,6 +2,7 @@
 <RelativeLayout
     android:id="@+id/activity_picture_chooser_demo"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +12,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mystery0.toolsdemo.PictureChooserDemoActivity">
 
-    <vip.mystery0.tools.pictureChooser.iPictureChooser
+    <vip.mystery0.tools.pictureChooser.IPictureChooser
         android:id="@+id/i_picture_chooser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:img_resource="@mipmap/ic_launcher"/>
 
 </RelativeLayout>

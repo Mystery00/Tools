@@ -3,12 +3,15 @@ package vip.mystery0.tools.headerPage
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
+import vip.mystery0.tools.logs.Logs
 
 /**
  * Created by myste.
  */
 class PagerSnapHelper : LinearSnapHelper()
 {
+	private val TAG = "PagerSnapHelper"
+
 	override fun findTargetSnapPosition(layoutManager: RecyclerView.LayoutManager, velocityX: Int,
 										velocityY: Int): Int
 	{
@@ -19,7 +22,12 @@ class PagerSnapHelper : LinearSnapHelper()
 			var currentPosition = layoutManager.getPosition(currentView)
 			val first = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
 			val last = layoutManager.findLastVisibleItemPosition()
-			currentPosition = if (targetPos < currentPosition) last else if (targetPos > currentPosition) first else currentPosition
+			currentPosition = when
+			{
+				targetPos < currentPosition -> last
+				targetPos > currentPosition -> first
+				else -> currentPosition
+			}
 			targetPos = when
 			{
 				targetPos < currentPosition -> currentPosition - 1

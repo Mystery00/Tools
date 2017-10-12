@@ -37,19 +37,21 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	@DrawableRes private var icUnChecked: Int
 	private var titleColor: Int
 	private var subtitleColor: Int
-	private var titleSize: Int
-	private var subtitleSize: Int
+	private var titleSize: Float
+	private var subtitleSize: Float
 	private var lastItemPosition = 0
 	private var pageIndicatorMargin: Int
 	private var pageIndicatorSize: Int
+	private val titleHandler: TextViewHandler
+	private val subtitleHandler: TextViewHandler
 
 	init
 	{
 		val typedArray = context.obtainStyledAttributes(attrs, R.styleable.HeaderPage)
 		titleColor = typedArray.getColor(R.styleable.HeaderPage_title_color, Color.BLACK)
 		subtitleColor = typedArray.getColor(R.styleable.HeaderPage_subtitle_color, Color.BLACK)
-		titleSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_title_size, 16)
-		subtitleSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_subtitle_size, 12)
+		titleSize = typedArray.getDimension(R.styleable.HeaderPage_title_size, 32f)
+		subtitleSize = typedArray.getDimension(R.styleable.HeaderPage_subtitle_size, 24f)
 		icChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_checked, R.drawable.mystery0_ic_radio_button_checked)
 		icUnChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_unchecked, R.drawable.mystery0_ic_radio_button_unchecked)
 		pageIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_margin, 10)
@@ -63,6 +65,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		textViewTitle = findViewById(R.id.textView_title)
 		textViewSubTitle = findViewById(R.id.textView_subtitle)
 		pageIndicator = findViewById(R.id.pageIndicator)
+
+		titleHandler = TextViewHandler()
+		subtitleHandler = TextViewHandler()
+
+		titleHandler.textView = textViewTitle
+		subtitleHandler.textView = textViewSubTitle
 
 		adapter = HeaderPageAdapter(context, list)
 		val linearLayoutManger = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -78,6 +86,13 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 				{
 					pageIndicator.getChildAt(lastItemPosition).setBackgroundResource(icUnChecked)
 					pageIndicator.getChildAt(newLastItemPosition).setBackgroundResource(icChecked)
+//					textViewTitle.text = list[newLastItemPosition].title
+//					textViewSubTitle.text = list[newLastItemPosition].subtitle
+					textViewTitle.textSize = titleSize
+					textViewSubTitle.textSize = subtitleSize
+					textViewTitle.setTextColor(titleColor)
+					textViewSubTitle.setTextColor(subtitleColor)
+					showAnim(newLastItemPosition)
 					lastItemPosition = newLastItemPosition
 				}
 			}
@@ -112,12 +127,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		subtitleColor = resource
 	}
 
-	fun setTitleSize(size: Int)
+	fun setTitleSize(size: Float)
 	{
 		titleSize = size
 	}
 
-	fun setSubtitleSize(size: Int)
+	fun setSubtitleSize(size: Float)
 	{
 		subtitleSize = size
 	}
@@ -136,6 +151,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	{
 		list.clear()
 		list.addAll(newList)
+//		textViewTitle.text = list[0].title
+//		textViewSubTitle.text = list[0].subtitle
+		textViewTitle.textSize = titleSize
+		textViewSubTitle.textSize = subtitleSize
+		textViewTitle.setTextColor(titleColor)
+		textViewSubTitle.setTextColor(subtitleColor)
 		adapter.notifyDataSetChanged()
 		pageIndicator.removeAllViews()
 		for (i in 0 until list.size)
@@ -150,5 +171,32 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 			view.layoutParams = params
 			pageIndicator.addView(view)
 		}
+		showAnim(0)
+	}
+
+	private fun showAnim(position: Int)
+	{
+		var textIndex = 0
+		val title = list[position].title
+		val subtitle = list[position].subtitle
+		titleHandler.text = ""
+		subtitleHandler.text = ""
+		Thread(Runnable {
+			while (textIndex < title.length || textIndex < subtitle.length)
+			{
+				if (textIndex < title.length)
+				{
+					titleHandler.text = titleHandler.text + title[textIndex]
+					titleHandler.sendEmptyMessage(0)
+				}
+				if (textIndex < subtitle.length)
+				{
+					subtitleHandler.text = subtitleHandler.text + subtitle[textIndex]
+					subtitleHandler.sendEmptyMessage(0)
+				}
+				textIndex++
+				Thread.sleep(100)
+			}
+		}).start()
 	}
 }

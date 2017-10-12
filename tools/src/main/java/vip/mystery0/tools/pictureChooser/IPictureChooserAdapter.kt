@@ -9,17 +9,14 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import vip.mystery0.tools.R
 
-class iPictureChooserAdapter(var pathList: ArrayList<String>, var add_img: Int,
+class IPictureChooserAdapter(private var pathList: ArrayList<String>, private var add_img: Int,
 							 var context: Context,
-							 var listener: iPictureChooserListener) : RecyclerView.Adapter<iPictureChooserAdapter.ViewHolder>()
+							 private var listener: IPictureChooserListener) : RecyclerView.Adapter<IPictureChooserAdapter.ViewHolder>()
 {
 	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 	{
 		var imageView: ImageView = itemView as ImageView
 	}
-
-	constructor(pathList: ArrayList<String>, context: Context,
-				listener: iPictureChooserListener) : this(pathList, R.drawable.mystery0_i_picture_chooser_add, context, listener)
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
 	{

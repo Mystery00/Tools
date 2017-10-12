@@ -3,6 +3,7 @@ package vip.mystery0.tools.pictureChooser
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.support.annotation.DrawableRes
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -16,11 +17,12 @@ import vip.mystery0.tools.R
 
 import java.util.ArrayList
 
-class iPictureChooser(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs)
+class IPictureChooser(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs)
 {
 	private val recyclerView: RecyclerView
 	private val showList = ArrayList<String>()
-	private var adapter: iPictureChooserAdapter? = null
+	private var adapter: IPictureChooserAdapter? = null
+	@DrawableRes private var imgResource: Int
 
 	companion object Code
 	{
@@ -38,29 +40,19 @@ class iPictureChooser(context: Context, attrs: AttributeSet) : RelativeLayout(co
 
 	init
 	{
+		val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IPictureChooser)
+		imgResource = typedArray.getResourceId(R.styleable.IPictureChooser_img_resource, R.drawable.mystery0_i_picture_chooser_add)
+		typedArray.recycle()
 		LayoutInflater.from(context).inflate(R.layout.mystery0_i_picture_chooser_main, this)
-		recyclerView = findViewById<RecyclerView>(R.id.i_picture_chooser_layout)
+		recyclerView = findViewById(R.id.i_picture_chooser_layout)
 	}
 
-	fun setDataList(defaultImage: Int, listener: iPictureChooserListener)
+	fun setDataList(listener: IPictureChooserListener)
 	{
 		recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-		if (defaultImage == 0)
-		{
-			adapter = iPictureChooserAdapter(showList, context, listener)
-			recyclerView.adapter = adapter
-		}
-		else
-		{
-			adapter = iPictureChooserAdapter(showList, defaultImage, context, listener)
-			recyclerView.adapter = adapter
-		}
+		adapter = IPictureChooserAdapter(showList, imgResource, context, listener)
+		recyclerView.adapter = adapter
 		recyclerView.itemAnimator = DefaultItemAnimator()
-	}
-
-	fun setDataList(listener: iPictureChooserListener)
-	{
-		setDataList(0, listener)
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)

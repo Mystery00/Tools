@@ -1,6 +1,6 @@
 package vip.mystery0.tools.pictureChooser
 
-interface iPictureChooserListener
+interface IPictureChooserListener
 {
 	fun MainClick()
 }

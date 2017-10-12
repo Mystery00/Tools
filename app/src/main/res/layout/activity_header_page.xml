@@ -11,6 +11,8 @@
         android:id="@+id/headerPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:page_indicator_margin="20dp"/>
+        app:page_indicator_margin="20dp"
+        app:subtitle_color="#FFFFFF"
+        app:title_color="#FFFFFF"/>
 
 </android.support.constraint.ConstraintLayout>
