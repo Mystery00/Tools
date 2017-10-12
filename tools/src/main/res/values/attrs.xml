@@ -3,6 +3,11 @@
     <declare-styleable name="HeaderPage">
         <attr name="resource_unchecked" format="reference"/>
         <attr name="resource_checked" format="reference"/>
+        <attr name="title_size" format="dimension"/>
+        <attr name="subtitle_size" format="dimension"/>
+        <attr name="title_color" format="color"/>
+        <attr name="subtitle_color" format="color"/>
         <attr name="page_indicator_margin" format="dimension"/>
+        <attr name="page_indicator_size" format="dimension"/>
     </declare-styleable>
 </resources>

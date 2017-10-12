@@ -1,6 +1,8 @@
 package vip.mystery0.tools.headerPage
 
 import android.content.Context
+import android.graphics.Color
+import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -33,15 +35,25 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private val list: ArrayList<Header> = ArrayList()
 	@DrawableRes private var icChecked: Int
 	@DrawableRes private var icUnChecked: Int
+	private var titleColor: Int
+	private var subtitleColor: Int
+	private var titleSize: Int
+	private var subtitleSize: Int
 	private var lastItemPosition = 0
 	private var pageIndicatorMargin: Int
+	private var pageIndicatorSize: Int
 
 	init
 	{
 		val typedArray = context.obtainStyledAttributes(attrs, R.styleable.HeaderPage)
+		titleColor = typedArray.getColor(R.styleable.HeaderPage_title_color, Color.BLACK)
+		subtitleColor = typedArray.getColor(R.styleable.HeaderPage_subtitle_color, Color.BLACK)
+		titleSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_title_size, 16)
+		subtitleSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_subtitle_size, 12)
 		icChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_checked, R.drawable.mystery0_ic_radio_button_checked)
 		icUnChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_unchecked, R.drawable.mystery0_ic_radio_button_unchecked)
 		pageIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_margin, 10)
+		pageIndicatorSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_size, 20)
 		typedArray.recycle()
 
 		LayoutInflater.from(context).inflate(R.layout.layout_header_page, this)
@@ -61,7 +73,6 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 			override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int)
 			{
 				super.onScrollStateChanged(recyclerView, newState)
-				Logs.i(TAG, "onScrollStateChanged: "+newState)
 				val newLastItemPosition = linearLayoutManger.findLastVisibleItemPosition()
 				if (newState == RecyclerView.SCROLL_STATE_IDLE && lastItemPosition != newLastItemPosition)
 				{
@@ -91,6 +102,26 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		icUnChecked = resource
 	}
 
+	fun setTitleColor(@ColorRes resource: Int)
+	{
+		titleColor = resource
+	}
+
+	fun setSubtitleColor(@ColorRes resource: Int)
+	{
+		subtitleColor = resource
+	}
+
+	fun setTitleSize(size: Int)
+	{
+		titleSize = size
+	}
+
+	fun setSubtitleSize(size: Int)
+	{
+		subtitleSize = size
+	}
+
 	fun setPageIndicatorMargin(pageIndicatorMargin: Int)
 	{
 		this.pageIndicatorMargin = pageIndicatorMargin
@@ -106,11 +137,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		list.clear()
 		list.addAll(newList)
 		adapter.notifyDataSetChanged()
+		pageIndicator.removeAllViews()
 		for (i in 0 until list.size)
 		{
 			val view = View(context)
 			view.setBackgroundResource(icUnChecked)
-			val params = LinearLayout.LayoutParams(20, 20)
+			val params = LinearLayout.LayoutParams(pageIndicatorSize, pageIndicatorSize)
 			if (i != 0)
 				params.leftMargin = pageIndicatorMargin
 			else
