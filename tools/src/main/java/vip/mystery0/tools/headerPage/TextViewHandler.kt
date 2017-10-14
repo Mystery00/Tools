@@ -15,7 +15,6 @@ class TextViewHandler : Handler()
 
 	override fun handleMessage(msg: Message?)
 	{
-		Logs.i("TAG", "handleMessage: "+text)
 		textView.text = text
 	}
 }

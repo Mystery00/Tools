@@ -8,18 +8,23 @@ import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import vip.mystery0.tools.R
+import vip.mystery0.tools.logs.Logs
 
 /**
  * Created by myste.
  */
 class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs)
 {
+	private val TAG = "HeaderPage"
+	private val fullView: View
 	private val imageViewSearch: ImageView
 	private val imageViewRefresh: ImageView
 	private val recyclerView: RecyclerView
@@ -57,6 +62,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		typedArray.recycle()
 
 		LayoutInflater.from(context).inflate(R.layout.layout_header_page, this)
+		fullView = findViewById(R.id.full_layout)
 		imageViewSearch = findViewById(R.id.imageView_search)
 		imageViewRefresh = findViewById(R.id.imageView_refresh)
 		recyclerView = findViewById(R.id.recyclerView)
@@ -100,6 +106,19 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 			{
 				listener!!.onClick()
 			}
+		}
+
+		fullView.setOnTouchListener { v, event ->
+			Logs.i(TAG, "x: " + event.x)
+			Logs.i(TAG, "y: " + event.y)
+			when (event.actionMasked)
+			{
+				MotionEvent.ACTION_MOVE ->
+					Logs.i(TAG, ": move")
+				MotionEvent.ACTION_UP ->
+					Logs.i(TAG, ": up")
+			}
+			true
 		}
 	}
 
