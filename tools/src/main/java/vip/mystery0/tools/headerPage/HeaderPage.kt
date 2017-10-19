@@ -15,14 +15,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import vip.mystery0.tools.R
-import vip.mystery0.tools.logs.Logs
 
 /**
  * Created by myste.
  */
 class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs)
 {
-	private val TAG = "HeaderPage"
 	private val fullView: View
 	private val imageViewSearch: ImageView
 	private val imageViewRefresh: ImageView
@@ -43,6 +41,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private var subtitleSize: Float
 	private var lastItemPosition = 0
 	private var lastPosition = 0F
+	private var itemMaxHeight = 0
 	private var pageIndicatorMargin: Int
 	private var pageIndicatorSize: Int
 	private val titleHandler: TextViewHandler
@@ -59,6 +58,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		icUnChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_unchecked, R.drawable.mystery0_ic_radio_button_unchecked)
 		pageIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_margin, 10)
 		pageIndicatorSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_size, 20)
+		itemMaxHeight = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_item_max_height, 0)
 		typedArray.recycle()
 
 		LayoutInflater.from(context).inflate(R.layout.layout_header_page, this)
@@ -109,19 +109,27 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		}
 
 		fullView.setOnTouchListener { _, event ->
+			itemMaxHeight = list[0].imgHeight + 300
 			val image = recyclerView.layoutManager.findViewByPosition(lastItemPosition)
 			val params = image.layoutParams
 			when (event.actionMasked)
 			{
 				MotionEvent.ACTION_MOVE ->
 				{
-					if (event.y > lastPosition)
+					when
 					{
-						params.height += 10
-					}
-					else if (params.height > list[lastItemPosition].imgHeight)
-					{
-						params.height -= 10
+						event.y > lastPosition ->
+						{
+							if (params.height < itemMaxHeight)
+								params.height += 10
+						}
+						event.y < lastPosition ->
+						{
+							if (params.height > list[lastItemPosition].imgHeight)
+								params.height -= 10
+							else
+								params.height = list[lastItemPosition].imgHeight
+						}
 					}
 					lastPosition = event.y
 				}
@@ -129,8 +137,6 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 				{
 					params.height = list[lastItemPosition].imgHeight
 				}
-				else ->
-					Logs.i(TAG, ": " + event.action)
 			}
 			image.layoutParams = params
 			true

@@ -7,5 +7,5 @@ import java.io.Serializable
  */
 data class Header(var imgPath: String, var title: String, var subtitle: String) : Serializable
 {
-	public var imgHeight = 0
+	var imgHeight = 0
 }

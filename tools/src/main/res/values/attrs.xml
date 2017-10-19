@@ -9,6 +9,7 @@
         <attr name="subtitle_color" format="color"/>
         <attr name="page_indicator_margin" format="dimension"/>
         <attr name="page_indicator_size" format="dimension"/>
+        <attr name="page_item_max_height" format="dimension"/>
     </declare-styleable>
     <declare-styleable name="IPictureChooser">
         <attr name="img_resource" format="reference"/>
