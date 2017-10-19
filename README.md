@@ -60,8 +60,8 @@ Step 2. Add the dependency
     versionName autoVersion.name
 ## 图片选择器
 ```java
-void setDataList(int defaultImage, iPictureChooserListener listener)//设置监听并初始化图片选择按钮资源
-setDataList(iPictureChooserListener listener)//设置监听
+void setDataList(int defaultImage, iPictureChooserListener searchButtonOnClickListener)//设置监听并初始化图片选择按钮资源
+setDataList(iPictureChooserListener searchButtonOnClickListener)//设置监听
 List<String> getList()//获取选择的图片的路径的list
 void setUpdatedPicture(Uri uri)//用于回调更新列表（此方法在选择回调中必须设置）
 void setList(List<String> list)//初始化选择图片列表

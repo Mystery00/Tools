@@ -4,9 +4,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_header_page.*
 import vip.mystery0.tools.headerPage.Header
+import vip.mystery0.tools.headerPage.OnRefreshListener
+import vip.mystery0.tools.logs.Logs
 
 class HeaderPageActivity : AppCompatActivity()
 {
+	private val TAG = "HeaderPageActivity"
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -24,5 +27,17 @@ class HeaderPageActivity : AppCompatActivity()
 		list.add(Header("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg", "title8", "subtitle1"))
 
 		headerPage.setData(list)
+		headerPage.setOnRefreshListener(object : OnRefreshListener
+		{
+			override fun onRefresh()
+			{
+				Logs.i(TAG, "onRefresh: ")
+
+				Thread(Runnable {
+					Thread.sleep(10000)
+					headerPage.needRefresh = false
+				}).start()
+			}
+		})
 	}
 }

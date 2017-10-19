@@ -28,28 +28,36 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private val textViewTitle: TextView
 	private val textViewSubTitle: TextView
 	private val pageIndicator: LinearLayout
-	private var listener: SearchButtonOnClickListener? = null
+	private var searchButtonOnClickListener: SearchButtonOnClickListener? = null
+	private var onRefreshListener: OnRefreshListener? = null
 
 	private val adapter: HeaderPageAdapter
 
 	private val list: ArrayList<Header> = ArrayList()
-	@DrawableRes private var icChecked: Int
-	@DrawableRes private var icUnChecked: Int
-	@DrawableRes private var icRefresh: Int
-	@DrawableRes private var icSearch: Int
-	private var titleColor: Int
-	private var subtitleColor: Int
-	private var titleSize: Float
-	private var subtitleSize: Float
-	private var lastItemPosition = 0
-	private var lastPosition = 0F
-	private var itemMaxHeight = 0
-	private var imgRefreshHeight = 0
-	private var imgRefreshWidth = 0
-	private var refreshRange = 0
-	private var pageIndicatorMargin: Int
-	private var pageIndicatorSize: Int
-	private var isRefresh = false
+	@DrawableRes
+	var checkedRes: Int
+	@DrawableRes
+	var unCheckedRes: Int
+	@DrawableRes
+	var refreshRes: Int
+	@DrawableRes
+	var searchRes: Int
+	@ColorRes
+	var titleColor: Int
+	@ColorRes
+	var subtitleColor: Int
+	var titleSize: Float
+	var subtitleSize: Float
+	var lastItemPosition = 0
+	var lastPosition = 0F
+	var itemMaxHeight = 0
+	var imgRefreshHeight = 0
+	var imgRefreshWidth = 0
+	var refreshRange = 0
+	var pageIndicatorMargin: Int
+	var pageIndicatorSize: Int
+	var needRefresh = false
+	var isRefresh = false
 	private val titleHandler: TextViewHandler
 	private val subtitleHandler: TextViewHandler
 
@@ -60,10 +68,10 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		subtitleColor = typedArray.getColor(R.styleable.HeaderPage_subtitle_color, Color.BLACK)
 		titleSize = typedArray.getDimension(R.styleable.HeaderPage_title_size, 32f)
 		subtitleSize = typedArray.getDimension(R.styleable.HeaderPage_subtitle_size, 24f)
-		icChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_checked, R.drawable.mystery0_ic_radio_button_checked)
-		icUnChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_unchecked, R.drawable.mystery0_ic_radio_button_unchecked)
-		icRefresh = typedArray.getResourceId(R.styleable.HeaderPage_ic_refresh, R.drawable.mystery0_ic_refresh)
-		icSearch = typedArray.getResourceId(R.styleable.HeaderPage_ic_refresh, R.drawable.mystery0_ic_search)
+		checkedRes = typedArray.getResourceId(R.styleable.HeaderPage_resource_checked, R.drawable.mystery0_ic_radio_button_checked)
+		unCheckedRes = typedArray.getResourceId(R.styleable.HeaderPage_resource_unchecked, R.drawable.mystery0_ic_radio_button_unchecked)
+		refreshRes = typedArray.getResourceId(R.styleable.HeaderPage_ic_refresh, R.drawable.mystery0_ic_refresh)
+		searchRes = typedArray.getResourceId(R.styleable.HeaderPage_ic_refresh, R.drawable.mystery0_ic_search)
 		pageIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_margin, 10)
 		pageIndicatorSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_size, 20)
 		itemMaxHeight = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_item_max_height, 0)
@@ -82,8 +90,8 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		titleHandler = TextViewHandler()
 		subtitleHandler = TextViewHandler()
 
-		imageViewRefresh.setImageResource(icRefresh)
-		imageViewSearch.setImageResource(icSearch)
+		imageViewRefresh.setImageResource(refreshRes)
+		imageViewSearch.setImageResource(searchRes)
 		titleHandler.textView = textViewTitle
 		subtitleHandler.textView = textViewSubTitle
 
@@ -102,8 +110,8 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 				val newLastItemPosition = linearLayoutManger.findLastVisibleItemPosition()
 				if (newState == RecyclerView.SCROLL_STATE_IDLE && lastItemPosition != newLastItemPosition)
 				{
-					pageIndicator.getChildAt(lastItemPosition).setBackgroundResource(icUnChecked)
-					pageIndicator.getChildAt(newLastItemPosition).setBackgroundResource(icChecked)
+					pageIndicator.getChildAt(lastItemPosition).setBackgroundResource(unCheckedRes)
+					pageIndicator.getChildAt(newLastItemPosition).setBackgroundResource(checkedRes)
 					textViewTitle.textSize = titleSize
 					textViewSubTitle.textSize = subtitleSize
 					textViewTitle.setTextColor(titleColor)
@@ -116,9 +124,9 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		PagerSnapHelper().attachToRecyclerView(recyclerView)
 
 		imageViewSearch.setOnClickListener {
-			if (listener != null)
+			if (searchButtonOnClickListener != null)
 			{
-				listener!!.onClick()
+				searchButtonOnClickListener!!.onClick()
 			}
 		}
 
@@ -144,7 +152,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 								imageViewRefresh.alpha += 0.05F
 							}
 							if (layoutParams.height >= itemMaxHeight - refreshRange)
-								isRefresh = true
+								needRefresh = true
 						}
 						event.y < lastPosition ->
 						{
@@ -153,7 +161,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 								layoutParams.height -= 10
 								params.height -= 2
 								params.width -= 2
-								if (!isRefresh)
+								if (!needRefresh)
 									imageViewRefresh.alpha -= 0.05F
 							}
 							else
@@ -161,7 +169,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 								layoutParams.height = list[lastItemPosition].imgHeight
 								params.height = imgRefreshHeight
 								params.width = imgRefreshWidth
-								if (isRefresh)
+								if (needRefresh)
 									imageViewRefresh.alpha = 1.0F
 								else
 									imageViewRefresh.alpha = 0F
@@ -175,8 +183,13 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 					layoutParams.height = list[lastItemPosition].imgHeight
 					params.height = imgRefreshHeight
 					params.width = imgRefreshWidth
-					if (isRefresh)
+					if (needRefresh)
+					{
 						imageViewRefresh.alpha = 1.0F
+						if (onRefreshListener != null)
+							onRefreshListener!!.onRefresh()
+						showRefreshAnim()
+					}
 					else
 						imageViewRefresh.alpha = 0F
 				}
@@ -187,44 +200,14 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		}
 	}
 
-	fun setCheckedResource(@DrawableRes resource: Int)
+	fun setSearchButtonOnClickListener(searchButtonOnClickListener1: SearchButtonOnClickListener)
 	{
-		icChecked = resource
+		this.searchButtonOnClickListener = searchButtonOnClickListener1
 	}
 
-	fun setUnCheckedResource(@DrawableRes resource: Int)
+	fun setOnRefreshListener(onRefreshListener: OnRefreshListener)
 	{
-		icUnChecked = resource
-	}
-
-	fun setTitleColor(@ColorRes resource: Int)
-	{
-		titleColor = resource
-	}
-
-	fun setSubtitleColor(@ColorRes resource: Int)
-	{
-		subtitleColor = resource
-	}
-
-	fun setTitleSize(size: Float)
-	{
-		titleSize = size
-	}
-
-	fun setSubtitleSize(size: Float)
-	{
-		subtitleSize = size
-	}
-
-	fun setPageIndicatorMargin(pageIndicatorMargin: Int)
-	{
-		this.pageIndicatorMargin = pageIndicatorMargin
-	}
-
-	fun setSearchButtonOnClickListener(listener: SearchButtonOnClickListener)
-	{
-		this.listener = listener
+		this.onRefreshListener = onRefreshListener
 	}
 
 	fun setData(newList: ArrayList<Header>)
@@ -240,12 +223,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		for (i in 0 until list.size)
 		{
 			val view = View(context)
-			view.setBackgroundResource(icUnChecked)
+			view.setBackgroundResource(unCheckedRes)
 			val params = LinearLayout.LayoutParams(pageIndicatorSize, pageIndicatorSize)
 			if (i != 0)
 				params.leftMargin = pageIndicatorMargin
 			else
-				view.setBackgroundResource(icChecked)
+				view.setBackgroundResource(checkedRes)
 			view.layoutParams = params
 			pageIndicator.addView(view)
 		}
@@ -275,6 +258,26 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 				textIndex++
 				Thread.sleep(100)
 			}
+		}).start()
+	}
+
+	private fun showRefreshAnim()
+	{
+		if (isRefresh)
+			return
+		val handler = RefreshHandler()
+		handler.imageView = imageViewRefresh
+		Thread(Runnable {
+			while (true)
+			{
+				isRefresh = true
+				if (!needRefresh)
+					break
+				handler.sendEmptyMessage(0)
+				Thread.sleep(1000)
+			}
+			isRefresh = false
+			imageViewRefresh.alpha = 0F
 		}).start()
 	}
 }
