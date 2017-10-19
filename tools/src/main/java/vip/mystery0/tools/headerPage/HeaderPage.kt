@@ -35,6 +35,8 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private val list: ArrayList<Header> = ArrayList()
 	@DrawableRes private var icChecked: Int
 	@DrawableRes private var icUnChecked: Int
+	@DrawableRes private var icRefresh: Int
+	@DrawableRes private var icSearch: Int
 	private var titleColor: Int
 	private var subtitleColor: Int
 	private var titleSize: Float
@@ -42,8 +44,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private var lastItemPosition = 0
 	private var lastPosition = 0F
 	private var itemMaxHeight = 0
+	private var imgRefreshHeight = 0
+	private var imgRefreshWidth = 0
+	private var refreshRange = 0
 	private var pageIndicatorMargin: Int
 	private var pageIndicatorSize: Int
+	private var isRefresh = false
 	private val titleHandler: TextViewHandler
 	private val subtitleHandler: TextViewHandler
 
@@ -56,9 +62,12 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		subtitleSize = typedArray.getDimension(R.styleable.HeaderPage_subtitle_size, 24f)
 		icChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_checked, R.drawable.mystery0_ic_radio_button_checked)
 		icUnChecked = typedArray.getResourceId(R.styleable.HeaderPage_resource_unchecked, R.drawable.mystery0_ic_radio_button_unchecked)
+		icRefresh = typedArray.getResourceId(R.styleable.HeaderPage_ic_refresh, R.drawable.mystery0_ic_refresh)
+		icSearch = typedArray.getResourceId(R.styleable.HeaderPage_ic_refresh, R.drawable.mystery0_ic_search)
 		pageIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_margin, 10)
 		pageIndicatorSize = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_indicator_size, 20)
 		itemMaxHeight = typedArray.getDimensionPixelSize(R.styleable.HeaderPage_page_item_max_height, 0)
+		refreshRange = typedArray.getInt(R.styleable.HeaderPage_refresh_range, 0)
 		typedArray.recycle()
 
 		LayoutInflater.from(context).inflate(R.layout.layout_header_page, this)
@@ -73,8 +82,13 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		titleHandler = TextViewHandler()
 		subtitleHandler = TextViewHandler()
 
+		imageViewRefresh.setImageResource(icRefresh)
+		imageViewSearch.setImageResource(icSearch)
 		titleHandler.textView = textViewTitle
 		subtitleHandler.textView = textViewSubTitle
+
+		imgRefreshHeight = imageViewRefresh.layoutParams.height
+		imgRefreshWidth = imageViewRefresh.layoutParams.width
 
 		adapter = HeaderPageAdapter(context, list)
 		val linearLayoutManger = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -109,9 +123,11 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		}
 
 		fullView.setOnTouchListener { _, event ->
-			itemMaxHeight = list[0].imgHeight + 300
+			if (itemMaxHeight == 0)
+				itemMaxHeight = list[0].imgHeight + 300
 			val image = recyclerView.layoutManager.findViewByPosition(lastItemPosition)
-			val params = image.layoutParams
+			val layoutParams = image.layoutParams
+			val params = imageViewRefresh.layoutParams
 			when (event.actionMasked)
 			{
 				MotionEvent.ACTION_MOVE ->
@@ -120,25 +136,53 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 					{
 						event.y > lastPosition ->
 						{
-							if (params.height < itemMaxHeight)
-								params.height += 10
+							if (layoutParams.height < itemMaxHeight)
+							{
+								layoutParams.height += 10
+								params.height += 2
+								params.width += 2
+								imageViewRefresh.alpha += 0.05F
+							}
+							if (layoutParams.height >= itemMaxHeight - refreshRange)
+								isRefresh = true
 						}
 						event.y < lastPosition ->
 						{
-							if (params.height > list[lastItemPosition].imgHeight)
-								params.height -= 10
+							if (layoutParams.height > list[lastItemPosition].imgHeight)
+							{
+								layoutParams.height -= 10
+								params.height -= 2
+								params.width -= 2
+								if (!isRefresh)
+									imageViewRefresh.alpha -= 0.05F
+							}
 							else
-								params.height = list[lastItemPosition].imgHeight
+							{
+								layoutParams.height = list[lastItemPosition].imgHeight
+								params.height = imgRefreshHeight
+								params.width = imgRefreshWidth
+								if (isRefresh)
+									imageViewRefresh.alpha = 1.0F
+								else
+									imageViewRefresh.alpha = 0F
+							}
 						}
 					}
 					lastPosition = event.y
 				}
 				MotionEvent.ACTION_UP ->
 				{
-					params.height = list[lastItemPosition].imgHeight
+					layoutParams.height = list[lastItemPosition].imgHeight
+					params.height = imgRefreshHeight
+					params.width = imgRefreshWidth
+					if (isRefresh)
+						imageViewRefresh.alpha = 1.0F
+					else
+						imageViewRefresh.alpha = 0F
 				}
 			}
-			image.layoutParams = params
+			image.layoutParams = layoutParams
+			imageViewRefresh.layoutParams = params
 			true
 		}
 	}

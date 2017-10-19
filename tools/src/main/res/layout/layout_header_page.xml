@@ -38,6 +38,7 @@
             android:id="@+id/imageView_refresh"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:alpha="0"
             android:contentDescription="@string/test"
             app:layout_constraintBottom_toTopOf="@+id/guideline_vertical"
             app:layout_constraintEnd_toStartOf="@+id/guideline_horizontal"
@@ -81,7 +82,6 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/test"
-            android:src="@drawable/mystery0_ic_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
