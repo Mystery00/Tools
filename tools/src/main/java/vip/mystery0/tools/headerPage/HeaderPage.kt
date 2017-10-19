@@ -28,8 +28,8 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private val textViewTitle: TextView
 	private val textViewSubTitle: TextView
 	private val pageIndicator: LinearLayout
-	private var searchButtonOnClickListener: SearchButtonOnClickListener? = null
-	private var onRefreshListener: OnRefreshListener? = null
+	var searchButtonOnClickListener: SearchButtonOnClickListener? = null
+	var onRefreshListener: OnRefreshListener? = null
 
 	private val adapter: HeaderPageAdapter
 
@@ -198,16 +198,6 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 			imageViewRefresh.layoutParams = params
 			true
 		}
-	}
-
-	fun setSearchButtonOnClickListener(searchButtonOnClickListener1: SearchButtonOnClickListener)
-	{
-		this.searchButtonOnClickListener = searchButtonOnClickListener1
-	}
-
-	fun setOnRefreshListener(onRefreshListener: OnRefreshListener)
-	{
-		this.onRefreshListener = onRefreshListener
 	}
 
 	fun setData(newList: ArrayList<Header>)

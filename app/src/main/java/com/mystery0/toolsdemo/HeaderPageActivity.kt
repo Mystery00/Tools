@@ -27,7 +27,7 @@ class HeaderPageActivity : AppCompatActivity()
 		list.add(Header("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg", "title8", "subtitle1"))
 
 		headerPage.setData(list)
-		headerPage.setOnRefreshListener(object : OnRefreshListener
+		headerPage.onRefreshListener = object : OnRefreshListener
 		{
 			override fun onRefresh()
 			{
@@ -38,6 +38,6 @@ class HeaderPageActivity : AppCompatActivity()
 					headerPage.needRefresh = false
 				}).start()
 			}
-		})
+		}
 	}
 }
