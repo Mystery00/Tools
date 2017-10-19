@@ -8,7 +8,6 @@ import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -43,6 +42,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private var titleSize: Float
 	private var subtitleSize: Float
 	private var lastItemPosition = 0
+	private var lastPosition = 0F
 	private var pageIndicatorMargin: Int
 	private var pageIndicatorSize: Int
 	private val titleHandler: TextViewHandler
@@ -108,16 +108,31 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 			}
 		}
 
-		fullView.setOnTouchListener { v, event ->
-			Logs.i(TAG, "x: " + event.x)
-			Logs.i(TAG, "y: " + event.y)
+		fullView.setOnTouchListener { _, event ->
+			val image = recyclerView.layoutManager.findViewByPosition(lastItemPosition)
+			val params = image.layoutParams
 			when (event.actionMasked)
 			{
 				MotionEvent.ACTION_MOVE ->
-					Logs.i(TAG, ": move")
+				{
+					if (event.y > lastPosition)
+					{
+						params.height += 10
+					}
+					else if (params.height > list[lastItemPosition].imgHeight)
+					{
+						params.height -= 10
+					}
+					lastPosition = event.y
+				}
 				MotionEvent.ACTION_UP ->
-					Logs.i(TAG, ": up")
+				{
+					params.height = list[lastItemPosition].imgHeight
+				}
+				else ->
+					Logs.i(TAG, ": " + event.action)
 			}
+			image.layoutParams = params
 			true
 		}
 	}

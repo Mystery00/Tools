@@ -6,3 +6,6 @@ import java.io.Serializable
  * Created by myste.
  */
 data class Header(var imgPath: String, var title: String, var subtitle: String) : Serializable
+{
+	public var imgHeight = 0
+}

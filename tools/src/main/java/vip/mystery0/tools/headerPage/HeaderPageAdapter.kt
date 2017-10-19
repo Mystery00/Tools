@@ -48,6 +48,7 @@ class HeaderPageAdapter(private val context: Context,
 						val layoutParams = holder.imageView.layoutParams
 						layoutParams.height = getScreenWidth(context) * bitmap.height / bitmap.width
 						layoutParams.width = getScreenWidth(context)
+						header.imgHeight = layoutParams.height
 						holder.imageView.layoutParams = layoutParams
 						holder.imageView.setImageBitmap(zoomImg(bitmap, layoutParams.width, layoutParams.height))
 					}
