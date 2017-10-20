@@ -1,93 +1,90 @@
 package com.mystery0.toolsdemo
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_header_page.*
-import vip.mystery0.tools.headerPage.Header
-import vip.mystery0.tools.headerPage.HeaderPage
-import vip.mystery0.tools.headerPage.OnRefreshListener
-import vip.mystery0.tools.headerPage.SearchButtonOnClickListener
-import vip.mystery0.tools.logs.Logs
 
 class HeaderPageActivity : AppCompatActivity()
 {
-	private val TAG = "HeaderPageActivity"
-
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_header_page)
 
-		val list = ArrayList<Header>()
-		list.add(Header("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg", "title1", "subtitle1"))
-		list.add(Header("http://img.kaiyanapp.com/8c66311bc96f662edd67bbcb1769684b.jpeg?imageMogr2/quality/60/format/jpg", "title2", "subtitle1"))
-		list.add(Header("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg", "title3", "subtitle1"))
+		Glide.with(this)
+				.load("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+				.asBitmap()
+				.into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+				{
+					override fun onResourceReady(bitmap: Bitmap,
+												 glideAnimation: GlideAnimation<in Bitmap>?)
+					{
+						val layoutParams = imageView.layoutParams
+						layoutParams.height = getScreenWidth(this@HeaderPageActivity) * bitmap.height / bitmap.width
+						layoutParams.width = getScreenWidth(this@HeaderPageActivity)
+						imageView.layoutParams = layoutParams
+						imageView.setImageBitmap(zoomImg(bitmap, layoutParams.width, layoutParams.height))
+					}
+				})
 
-//		testHeaderPage.setData(list)
-//		testHeaderPage.onRefreshListener = object : OnRefreshListener
-//		{
-//			override fun onRefresh()
-//			{
-//				Logs.i(TAG, "onRefresh: ")
-//
-//				Thread(Runnable {
-//					Thread.sleep(5000)
-//					testHeaderPage.needRefresh = false
-//				}).start()
-//			}
-//		}
-//		testHeaderPage.searchButtonOnClickListener = object : SearchButtonOnClickListener
-//		{
-//			override fun onClick()
-//			{
-//				Logs.i(TAG, "onClick: ")
-//			}
-//		}
-		list.add(Header("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg", "title4", "subtitle1"))
-		list.add(Header("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg", "title5", "subtitle1"))
-		list.add(Header("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg", "title6", "subtitle1"))
-		list.add(Header("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg", "title7", "subtitle1"))
-		list.add(Header("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg", "title8", "subtitle1"))
+		val list = ArrayList<String>()
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/8c66311bc96f662edd67bbcb1769684b.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/4cd80e67eb0e293b84d45cf3151536b9.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+		list.add("http://img.kaiyanapp.com/83d3dddeeefa3f6549030938ab24533c.jpeg?imageMogr2/quality/60/format/jpg")
+
 		recyclerView.layoutManager = LinearLayoutManager(this)
 		recyclerView.adapter = Adapter(list)
+		recyclerView.isNestedScrollingEnabled = false
 	}
 
-	class Adapter(private val list: ArrayList<Header>) : RecyclerView.Adapter<Holder>()
+	class Adapter(private val list: ArrayList<String>) : RecyclerView.Adapter<Holder>()
 	{
 		private val TAG = "Adapter"
 
 		override fun onBindViewHolder(holder: Holder, position: Int)
 		{
-			holder.headerPage.setData(list)
-			holder.headerPage.onRefreshListener = object : OnRefreshListener
-			{
-				override fun onRefresh()
-				{
-					Logs.i(TAG, "onRefresh: ")
-
-					Thread(Runnable {
-						Thread.sleep(5000)
-						holder.headerPage.needRefresh = false
-					}).start()
-				}
-			}
-			holder.headerPage.searchButtonOnClickListener = object : SearchButtonOnClickListener
-			{
-				override fun onClick()
-				{
-					Logs.i(TAG, "onClick: ")
-				}
-			}
+			holder.textView.text = list[position]
 		}
 
 		override fun getItemCount(): Int
 		{
-			return 5
+			return list.size
 		}
 
 		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
@@ -98,6 +95,29 @@ class HeaderPageActivity : AppCompatActivity()
 
 	class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
 	{
-		var headerPage: HeaderPage = itemView.findViewById(R.id.headerPage)
+		var textView: TextView = itemView.findViewById(R.id.textView)
+	}
+
+	private fun zoomImg(bitmap: Bitmap, newWidth: Int, newHeight: Int): Bitmap
+	{
+		// 获得图片的宽高
+		val width = bitmap.width
+		val height = bitmap.height
+		// 计算缩放比例
+		val scaleWidth = newWidth.toFloat() / width
+		val scaleHeight = newHeight.toFloat() / height
+		// 取得想要缩放的matrix参数
+		val matrix = Matrix()
+		matrix.postScale(scaleWidth, scaleHeight)
+		// 得到新的图片
+		return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+	}
+
+	private fun getScreenWidth(context: Context): Int
+	{
+		val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+		val outMetrics = DisplayMetrics()
+		wm.defaultDisplay.getMetrics(outMetrics)
+		return outMetrics.widthPixels
 	}
 }
