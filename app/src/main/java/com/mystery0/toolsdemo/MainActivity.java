@@ -177,14 +177,6 @@ public class MainActivity extends AppCompatActivity
 				Logs.i(TAG, String.valueOf(temp));
 			}
 		});
-		testHeaderPage.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
-			}
-		});
 		testSnackBar.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
