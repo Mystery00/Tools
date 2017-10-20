@@ -4,24 +4,28 @@ import android.content.Context
 import android.graphics.Color
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
-import android.support.constraint.ConstraintLayout
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewConfiguration
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import vip.mystery0.tools.R
+import vip.mystery0.tools.logs.Logs
 
 /**
  * Created by myste.
  */
-class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs)
+class HeaderPage : NestedScrollView
 {
-	private val fullView: View
+	private val TAG = "HeaderPage"
+
+	private var attrs: AttributeSet? = null
 	private val imageViewSearch: ImageView
 	private val imageViewRefresh: ImageView
 	private val recyclerView: RecyclerView
@@ -49,7 +53,6 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	var titleSize: Float
 	var subtitleSize: Float
 	var lastItemPosition = 0
-	var lastPosition = 0F
 	var itemMaxHeight = 0
 	var imgRefreshHeight = 0
 	var imgRefreshWidth = 0
@@ -61,8 +64,26 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 	private val titleHandler: TextViewHandler
 	private val subtitleHandler: TextViewHandler
 
+	private var downX = 0
+	private var downY = 0
+	private var touchSlop = 0
+
+	constructor(context: Context) : super(context)
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+	{
+		this.attrs = this.attrs
+	}
+
+	constructor(context: Context, attrs: AttributeSet?,
+				defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+	{
+		this.attrs = this.attrs
+	}
+
 	init
 	{
+		touchSlop = ViewConfiguration.get(context).scaledTouchSlop
+
 		val typedArray = context.obtainStyledAttributes(attrs, R.styleable.HeaderPage)
 		titleColor = typedArray.getColor(R.styleable.HeaderPage_title_color, Color.BLACK)
 		subtitleColor = typedArray.getColor(R.styleable.HeaderPage_subtitle_color, Color.BLACK)
@@ -79,7 +100,7 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 		typedArray.recycle()
 
 		LayoutInflater.from(context).inflate(R.layout.layout_header_page, this)
-		fullView = findViewById(R.id.full_layout)
+//		fullView = findViewById(R.id.full_layout)
 		imageViewSearch = findViewById(R.id.imageView_search)
 		imageViewRefresh = findViewById(R.id.imageView_refresh)
 		recyclerView = findViewById(R.id.recyclerView)
@@ -129,79 +150,11 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 				searchButtonOnClickListener!!.onClick()
 			}
 		}
-
-		fullView.setOnTouchListener { _, event ->
-			if (itemMaxHeight == 0)
-				itemMaxHeight = list[0].imgHeight + 300
-			val image = recyclerView.layoutManager.findViewByPosition(lastItemPosition)
-			val layoutParams = image.layoutParams
-			val params = imageViewRefresh.layoutParams
-			when (event.actionMasked)
-			{
-				MotionEvent.ACTION_MOVE ->
-				{
-					when
-					{
-						event.y > lastPosition ->
-						{
-							if (layoutParams.height < itemMaxHeight)
-							{
-								layoutParams.height += 10
-								params.height += 2
-								params.width += 2
-								imageViewRefresh.alpha += 0.05F
-							}
-							if (layoutParams.height >= itemMaxHeight - refreshRange)
-								needRefresh = true
-						}
-						event.y < lastPosition ->
-						{
-							if (layoutParams.height > list[lastItemPosition].imgHeight)
-							{
-								layoutParams.height -= 10
-								params.height -= 2
-								params.width -= 2
-								if (!needRefresh)
-									imageViewRefresh.alpha -= 0.05F
-							}
-							else
-							{
-								layoutParams.height = list[lastItemPosition].imgHeight
-								params.height = imgRefreshHeight
-								params.width = imgRefreshWidth
-								if (needRefresh)
-									imageViewRefresh.alpha = 1.0F
-								else
-									imageViewRefresh.alpha = 0F
-							}
-						}
-					}
-					lastPosition = event.y
-				}
-				MotionEvent.ACTION_UP ->
-				{
-					layoutParams.height = list[lastItemPosition].imgHeight
-					params.height = imgRefreshHeight
-					params.width = imgRefreshWidth
-					if (needRefresh)
-					{
-						imageViewRefresh.alpha = 1.0F
-						if (onRefreshListener != null)
-							onRefreshListener!!.onRefresh()
-						showRefreshAnim()
-					}
-					else
-						imageViewRefresh.alpha = 0F
-				}
-			}
-			image.layoutParams = layoutParams
-			imageViewRefresh.layoutParams = params
-			true
-		}
 	}
 
 	fun setData(newList: ArrayList<Header>)
 	{
+		Logs.i(TAG, "setData: ")
 		list.clear()
 		list.addAll(newList)
 		textViewTitle.textSize = titleSize
@@ -269,5 +222,81 @@ class HeaderPage(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 			isRefresh = false
 			imageViewRefresh.alpha = 0F
 		}).start()
+	}
+
+	override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean
+	{
+		if (itemMaxHeight == 0)
+			itemMaxHeight = list[0].imgHeight + 300
+		return super.onStartNestedScroll(child, target, nestedScrollAxes)
+	}
+
+	override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int,
+								dyUnconsumed: Int)
+	{
+		super.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
+		val image = recyclerView.layoutManager.findViewByPosition(lastItemPosition)
+		val layoutParams = image.layoutParams
+		val params = imageViewRefresh.layoutParams
+		when
+		{
+			dyUnconsumed > 0 ->//上滑
+			{
+				if (layoutParams.height > list[lastItemPosition].imgHeight)
+				{
+					layoutParams.height -= 10
+					params.height -= 2
+					params.width -= 2
+					if (!needRefresh)
+						imageViewRefresh.alpha -= 0.05F
+				}
+				else
+				{
+					layoutParams.height = list[lastItemPosition].imgHeight
+					params.height = imgRefreshHeight
+					params.width = imgRefreshWidth
+					if (needRefresh)
+						imageViewRefresh.alpha = 1.0F
+					else
+						imageViewRefresh.alpha = 0F
+				}
+			}
+			dyUnconsumed < 0 ->//下滑
+			{
+				if (layoutParams.height < itemMaxHeight)
+				{
+					layoutParams.height += 10
+					params.height += 2
+					params.width += 2
+					imageViewRefresh.alpha += 0.05F
+				}
+				if (layoutParams.height >= itemMaxHeight - refreshRange)
+					needRefresh = true
+			}
+		}
+		image.layoutParams = layoutParams
+		imageViewRefresh.layoutParams = params
+	}
+
+	override fun onStopNestedScroll(target: View)
+	{
+		super.onStopNestedScroll(target)
+		val image = recyclerView.layoutManager.findViewByPosition(lastItemPosition)
+		val layoutParams = image.layoutParams
+		val params = imageViewRefresh.layoutParams
+		layoutParams.height = list[lastItemPosition].imgHeight
+		params.height = imgRefreshHeight
+		params.width = imgRefreshWidth
+		if (needRefresh)
+		{
+			imageViewRefresh.alpha = 1.0F
+			if (onRefreshListener != null)
+				onRefreshListener!!.onRefresh()
+			showRefreshAnim()
+		}
+		else
+			imageViewRefresh.alpha = 0F
+		image.layoutParams = layoutParams
+		imageViewRefresh.layoutParams = params
 	}
 }
