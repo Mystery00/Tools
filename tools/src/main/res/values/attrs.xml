@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="HeaderPage">
-        <attr name="resource_unchecked" format="reference"/>
-        <attr name="resource_checked" format="reference"/>
-        <attr name="title_size" format="dimension"/>
-        <attr name="subtitle_size" format="dimension"/>
-        <attr name="title_color" format="color"/>
-        <attr name="subtitle_color" format="color"/>
-        <attr name="page_indicator_margin" format="dimension"/>
-        <attr name="page_indicator_size" format="dimension"/>
-        <attr name="page_item_max_height" format="dimension"/>
-        <attr name="refresh_range" format="integer"/>
-        <attr name="ic_refresh" format="reference"/>
-        <attr name="ic_search" format="reference"/>
+    <declare-styleable name="HeaderPager">
+        <attr name="view_type">
+            <enum name="zoom" value="0"/>
+            <enum name="header" value="1"/>
+            <enum name="content" value="2"/>
+        </attr>
     </declare-styleable>
     <declare-styleable name="IPictureChooser">
         <attr name="img_resource" format="reference"/>
