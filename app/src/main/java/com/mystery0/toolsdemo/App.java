@@ -15,11 +15,11 @@ public class App extends Application
 	{
 		super.onCreate();
 		Logs.setLevel(Logs.LogLevel.Debug);
-		CrashHandler.getInstance(this)
-				.setDirectory("test")
-				.setPrefixName("log")
-				.setExtensionName("log")
-				.isAutoClean()
+//		CrashHandler.getInstance(this)
+//				.setDirectory("test")
+//				.setPrefixName("log")
+//				.setExtensionName("log")
+//				.isAutoClean()
 //				.sendException(new CrashHandler.CatchExceptionListener()
 //				{
 //					@Override
@@ -58,7 +58,7 @@ public class App extends Application
 //								.open();
 //					}
 //				})
-				.init();
-		ASnackBar.disableAccessibility(this);
+//				.init();
+//		ASnackBar.disableAccessibility(this);
 	}
 }

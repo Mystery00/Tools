@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="HeaderPager">
-        <attr name="view_type">
-            <enum name="zoom" value="0"/>
+    <declare-styleable name="HeaderPage">
+        <attr name="item_type">
             <enum name="header" value="1"/>
             <enum name="content" value="2"/>
         </attr>

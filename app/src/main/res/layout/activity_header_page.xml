@@ -7,41 +7,32 @@
     android:layout_height="match_parent"
     tools:context="com.mystery0.toolsdemo.HeaderPageActivity">
 
-    <vip.mystery0.tools.headerPager.HeaderPager
+    <vip.mystery0.tools.headerPage.HeaderPage
         android:id="@+id/headerPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical"
-            app:view_type="header">
+            app:item_type="header">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"/>
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"
-                    app:view_type="zoom"/>
+        </RelativeLayout>
 
-            </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:item_type="content"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:view_type="content"/>
-
-        </LinearLayout>
-
-    </vip.mystery0.tools.headerPager.HeaderPager>
+    </vip.mystery0.tools.headerPage.HeaderPage>
 
 </android.support.constraint.ConstraintLayout>
