@@ -12,20 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:item_type="header">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"/>
-
-        </RelativeLayout>
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            app:item_type="header"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
