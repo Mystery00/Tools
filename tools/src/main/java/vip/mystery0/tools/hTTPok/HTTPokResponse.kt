@@ -1,13 +1,16 @@
 package vip.mystery0.tools.hTTPok
 
 import com.google.gson.Gson
+import okhttp3.Response
 import java.io.*
 
 /**
  * Created by myste.
  */
-class HTTPokResponse(val inputStream: InputStream?)
+class HTTPokResponse(response: Response)
 {
+	val inputStream: InputStream? = response.body()?.byteStream()
+
 	fun <T> getJSON(className: Class<T>): T
 	{
 		return getJSON(Gson(), className)

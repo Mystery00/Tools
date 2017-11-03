@@ -16,7 +16,6 @@ class HTTPok
 	var client: OkHttpClient? = null
 	var params: Map<String, Any> = HashMap()
 	var requestTag = RequestBodyType.STRING
-	lateinit var response: Response
 
 	init
 	{
@@ -85,15 +84,14 @@ class HTTPok
 
 					override fun onResponse(call: Call, response: Response)
 					{
-						this@HTTPok.response = response
-						listener?.onResponse(HTTPokResponse(response.body()?.byteStream()))
+						listener?.onResponse(HTTPokResponse(response))
 					}
 				})
 	}
 
-	fun connect()
+	fun connect(): HTTPokResponse
 	{
-		response = client!!.newCall(buildRequest()).execute()
+		return HTTPokResponse(client!!.newCall(buildRequest()).execute())
 	}
 
 	private fun buildRequest(): Request
