@@ -147,7 +147,7 @@ class HTTPok
 
 					override fun onResponse(call: Call, response: Response)
 					{
-						listener?.onResponse(HTTPokResponse(response.body().byteStream()))
+						listener?.onResponse(HTTPokResponse(response.body()?.byteStream()))
 					}
 				})
 	}

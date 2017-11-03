@@ -6,7 +6,7 @@ import java.io.*
 /**
  * Created by myste.
  */
-class HTTPokResponse(val inputStream: InputStream)
+class HTTPokResponse(val inputStream: InputStream?)
 {
 	fun <T> getJSON(className: Class<T>): T
 	{

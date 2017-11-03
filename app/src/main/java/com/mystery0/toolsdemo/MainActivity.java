@@ -18,6 +18,7 @@ import vip.mystery0.tools.logs.Logs;
 import vip.mystery0.tools.hTTPok.HTTPok;
 import vip.mystery0.tools.hTTPok.HTTPokResponse;
 import vip.mystery0.tools.hTTPok.HTTPokResponseListener;
+import vip.mystery0.tools.spotsDialog.SpotsDialog;
 
 import java.io.File;
 import java.util.HashMap;
@@ -192,6 +193,9 @@ public class MainActivity extends AppCompatActivity
 			{
 				Snackbar.make(view, "testSnackBar", Snackbar.LENGTH_SHORT)
 						.show();
+				SpotsDialog spotsDialog = new SpotsDialog(MainActivity.this);
+				spotsDialog.setMessage("test");
+				spotsDialog.show();
 			}
 		});
 
