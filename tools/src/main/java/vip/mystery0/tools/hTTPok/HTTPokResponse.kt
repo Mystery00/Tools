@@ -7,7 +7,7 @@ import java.io.*
 /**
  * Created by myste.
  */
-class HTTPokResponse(response: Response)
+class HTTPokResponse(val response: Response)
 {
 	val inputStream: InputStream? = response.body()?.byteStream()
 

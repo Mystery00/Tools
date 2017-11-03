@@ -10,12 +10,12 @@ import java.lang.StringBuilder
  */
 class HTTPok
 {
-	var url = ""//请求地址
-	var requestMethod = 0//请求方式
-	var listener: HTTPokResponseListener? = null
-	var client: OkHttpClient? = null
-	var params: Map<String, Any> = HashMap()
-	var requestTag = RequestBodyType.STRING
+	private var url = ""//请求地址
+	private var requestMethod = 0//请求方式
+	private var listener: HTTPokResponseListener? = null
+	private var client: OkHttpClient? = null
+	private var params: Map<String, Any> = HashMap()
+	private var requestTag = RequestBodyType.STRING
 
 	init
 	{

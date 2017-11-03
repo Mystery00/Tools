@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
 							}
 
 							@Override
-							public void onResponse(@NotNull HTTPokResponse response)
+							public void onResponse(HTTPokResponse response)
 							{
 								Logs.i(TAG, "onResponse: " + response.getMessage());
 							}
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity
 							}
 
 							@Override
-							public void onResponse(@NotNull HTTPokResponse response)
+							public void onResponse(HTTPokResponse response)
 							{
 								Hitokoto hitokoto = response.getJSON(Hitokoto.class);
 								Logs.i(TAG, "onResponse: " + hitokoto);
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
 							}
 
 							@Override
-							public void onResponse(@NotNull HTTPokResponse response)
+							public void onResponse(HTTPokResponse response)
 							{
 								File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Download/test.jpg");
 								Logs.i(TAG, "onResponse: " + response.getFile(file));
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity
 						}
 
 						@Override
-						public void onResponse(@NotNull HTTPokResponse response)
+						public void onResponse(HTTPokResponse response)
 						{
 							Logs.i(TAG, "onResponse: " + response.getMessage());
 						}
