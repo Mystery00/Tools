@@ -10,7 +10,12 @@ class HTTPokResponse(val inputStream: InputStream?)
 {
 	fun <T> getJSON(className: Class<T>): T
 	{
-		return Gson().fromJson(InputStreamReader(inputStream), className)
+		return getJSON(Gson(), className)
+	}
+
+	fun <T> getJSON(gson: Gson, className: Class<T>): T
+	{
+		return gson.fromJson(InputStreamReader(inputStream), className)
 	}
 
 	fun getMessage(): String

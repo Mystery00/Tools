@@ -6,5 +6,5 @@ package vip.mystery0.tools.hTTPok
 interface HTTPokResponseListener
 {
 	fun onError(message: String?)
-	fun onResponse(response: HTTPokResponse)
+	fun onResponse(response: HTTPokResponse?)
 }

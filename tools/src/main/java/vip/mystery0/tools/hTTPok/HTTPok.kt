@@ -10,13 +10,13 @@ import java.lang.StringBuilder
  */
 class HTTPok
 {
-	private val TAG = "HTTPok"
-	private var url = ""//请求地址
-	private var requestMethod = 0//请求方式
-	private var listener: HTTPokResponseListener? = null
-	private var client: OkHttpClient? = null
-	private var params: Map<String, Any> = HashMap()
-	private var requestTag = RequestBodyType.STRING
+	var url = ""//请求地址
+	var requestMethod = 0//请求方式
+	var listener: HTTPokResponseListener? = null
+	var client: OkHttpClient? = null
+	var params: Map<String, Any> = HashMap()
+	var requestTag = RequestBodyType.STRING
+	lateinit var response: Response
 
 	init
 	{
@@ -73,12 +73,35 @@ class HTTPok
 
 	fun open()
 	{
+		if (listener == null)
+			throw HTTPokException("the response listener can not be null")
+		client!!.newCall(buildRequest())
+				.enqueue(object : Callback
+				{
+					override fun onFailure(call: Call, e: IOException)
+					{
+						listener?.onError(e.message)
+					}
+
+					override fun onResponse(call: Call, response: Response)
+					{
+						this@HTTPok.response = response
+						listener?.onResponse(HTTPokResponse(response.body()?.byteStream()))
+					}
+				})
+	}
+
+	fun connect()
+	{
+		response = client!!.newCall(buildRequest()).execute()
+	}
+
+	private fun buildRequest(): Request
+	{
 		if (url == "")
 			throw HTTPokException("the url can not be null")
 		if (requestMethod == 0)
 			throw HTTPokException("the request method can not be null")
-		if (listener == null)
-			throw HTTPokException("the response listener can not be null")
 		if (client == null)
 			throw HTTPokException("client can not be null")
 		val requestBuilder = Request.Builder()
@@ -136,19 +159,9 @@ class HTTPok
 				requestBuilder.url(urlBuilder.toString())
 				requestBuilder.get()
 			}
+			else ->
+				throw HTTPokException("the request method may be error")
 		}
-		client!!.newCall(requestBuilder.build())
-				.enqueue(object : Callback
-				{
-					override fun onFailure(call: Call, e: IOException)
-					{
-						listener?.onError(e.message)
-					}
-
-					override fun onResponse(call: Call, response: Response)
-					{
-						listener?.onResponse(HTTPokResponse(response.body()?.byteStream()))
-					}
-				})
+		return requestBuilder.build()
 	}
 }
