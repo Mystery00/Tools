@@ -34,42 +34,70 @@ class HTTPok
 		val FILE = 2
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun setParams(params: Map<String, Any>): HTTPok
 	{
 		this.params = params
 		return this
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun setOkHttpClient(client: OkHttpClient): HTTPok
 	{
 		this.client = client
 		return this
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun setURL(url: String): HTTPok
 	{
 		this.url = url
 		return this
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun setRequestMethod(requestMethod: Int): HTTPok
 	{
 		this.requestMethod = requestMethod
 		return this
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun isFileRequest(): HTTPok
 	{
 		requestTag = RequestBodyType.FILE
 		return this
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun setListener(listener: HTTPokResponseListener): HTTPok
 	{
 		this.listener = listener
 		return this
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun open()
 	{
 		if (listener == null)
@@ -89,11 +117,19 @@ class HTTPok
 				})
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	fun connect(): HTTPokResponse
 	{
 		return HTTPokResponse(client!!.newCall(buildRequest()).execute())
 	}
 
+	/**
+	 * @deprecated
+	 * 使用OKhttp+Retrofit吧
+	 */
 	private fun buildRequest(): Request
 	{
 		if (url == "")
