@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Created by Mystery0 on 17-12-26 下午11:29.
   ~ Copyright (c) 2017. All Rights reserved.
   ~
@@ -9,11 +8,15 @@
 <resources>
     <declare-styleable name="HeaderPage">
         <attr name="item_type">
-            <enum name="header" value="1"/>
-            <enum name="content" value="2"/>
+            <enum name="header" value="1" />
+            <enum name="content" value="2" />
         </attr>
     </declare-styleable>
     <declare-styleable name="IPictureChooser">
-        <attr name="img_resource" format="reference"/>
+        <attr name="img_resource" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="FlexibleCardView">
+        <attr name="minHeight" format="dimension" />
+        <attr name="maxHeight" format="dimension" />
     </declare-styleable>
 </resources>

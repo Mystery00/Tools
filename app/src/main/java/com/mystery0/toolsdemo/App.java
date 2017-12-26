@@ -13,15 +13,13 @@ import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.logs.Logs;
 import vip.mystery0.tools.snackBar.ASnackBar;
 
-public class App extends Application
-{
-	private static final String TAG = "App";
+public class App extends Application {
+    private static final String TAG = "App";
 
-	@Override
-	public void onCreate()
-	{
-		super.onCreate();
-		Logs.setLevel(Logs.LogLevel.Debug);
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Logs.setLevel(Logs.INSTANCE.getDebug());
 //		CrashHandler.getInstance(this)
 //				.setDirectory("test")
 //				.setPrefixName("log")
@@ -67,5 +65,5 @@ public class App extends Application
 //				})
 //				.init();
 //		ASnackBar.disableAccessibility(this);
-	}
+    }
 }

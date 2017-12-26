@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Created by Mystery0 on 17-12-26 下午11:29.
   ~ Copyright (c) 2017. All Rights reserved.
   ~
   ~ Last modified 17-10-12 下午6:45
   -->
 
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,62 +22,96 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
+        <vip.mystery0.tools.flexibleCardView.FlexibleCardView
+            android:id="@+id/flexibleCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:minHeight="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/colorAccent" />
+
+            </LinearLayout>
+
+        </vip.mystery0.tools.flexibleCardView.FlexibleCardView>
+
         <Button
             android:id="@+id/picture_chooser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/picture_chooser"/>
+            android:text="@string/picture_chooser" />
 
         <Button
             android:id="@+id/sendHttp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sendHttp"/>
+            android:text="@string/sendHttp" />
 
         <Button
             android:id="@+id/sendHttpGetJson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sendHttpGetJson"/>
+            android:text="@string/sendHttpGetJson" />
 
         <Button
             android:id="@+id/sendFileHttp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sendfilehttp"/>
+            android:text="@string/sendfilehttp" />
 
         <Button
             android:id="@+id/testDownloadFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/downloadfile"/>
+            android:text="@string/downloadfile" />
 
         <Button
             android:id="@+id/testLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/testLog"/>
+            android:text="@string/testLog" />
 
         <Button
             android:id="@+id/testCrash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/testCrash"/>
+            android:text="@string/testCrash" />
 
         <Button
             android:id="@+id/testSnackBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/testsnackbar"/>
+            android:text="@string/testsnackbar" />
 
         <Button
             android:id="@+id/testHeaderPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/testHeaderPage"/>
+            android:text="@string/testHeaderPage" />
 
     </LinearLayout>
-
 
 </android.support.v4.widget.NestedScrollView>
     

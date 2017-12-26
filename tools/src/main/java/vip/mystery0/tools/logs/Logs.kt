@@ -21,6 +21,7 @@ object Logs {
 
     private var SET: Int = 0
 
+    @JvmStatic
     fun setLevel(level: Int) {
         SET = level
     }

@@ -9,18 +9,16 @@ package com.mystery0.toolsdemo;
 
 import android.content.Intent;
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.fileUtil.FileUtil;
+import vip.mystery0.tools.flexibleCardView.FlexibleCardView;
 import vip.mystery0.tools.logs.Logs;
 import vip.mystery0.tools.spotsDialog.SpotsDialog;
 
@@ -28,36 +26,40 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity
-{
-	private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
 //		setTitle(getString(R.string.app_name) + "-" + getString(R.string.app_version) + "-" + getString(R.string.app_version_code));
 
-		Button picture_chooser = findViewById(R.id.picture_chooser);
-		Button send = findViewById(R.id.sendHttp);
-		Button sendJson = findViewById(R.id.sendHttpGetJson);
-		Button sendFileHttp = findViewById(R.id.sendFileHttp);
-		Button downloadFile = findViewById(R.id.testDownloadFile);
-		Button testLog = findViewById(R.id.testLog);
-		Button testCrash = findViewById(R.id.testCrash);
-		Button testHeaderPage = findViewById(R.id.testHeaderPage);
-		Button testSnackBar = findViewById(R.id.testSnackBar);
+        Button picture_chooser = findViewById(R.id.picture_chooser);
+        Button send = findViewById(R.id.sendHttp);
+        Button sendJson = findViewById(R.id.sendHttpGetJson);
+        Button sendFileHttp = findViewById(R.id.sendFileHttp);
+        Button downloadFile = findViewById(R.id.testDownloadFile);
+        Button testLog = findViewById(R.id.testLog);
+        Button testCrash = findViewById(R.id.testCrash);
+        Button testHeaderPage = findViewById(R.id.testHeaderPage);
+        Button testSnackBar = findViewById(R.id.testSnackBar);
+        final FlexibleCardView flexibleCardView=findViewById(R.id.flexibleCardView);
 
-		picture_chooser.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				startActivity(new Intent(MainActivity.this, PictureChooserDemoActivity.class));
-			}
-		});
+        flexibleCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flexibleCardView.showAnime();
+            }
+        });
+
+        picture_chooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PictureChooserDemoActivity.class));
+            }
+        });
 
 //		send.setOnClickListener(new View.OnClickListener()
 //		{
@@ -160,65 +162,54 @@ public class MainActivity extends AppCompatActivity
 //			}
 //		});
 
-		testLog.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Logs.v(TAG, "verbose");
-				Logs.i(TAG, "info");
-				Logs.d(TAG, "debug");
-				Logs.w(TAG, "warning");
-				Logs.e(TAG, "error");
-			}
-		});
+        testLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logs.v(TAG, "verbose");
+                Logs.i(TAG, "info");
+                Logs.d(TAG, "debug");
+                Logs.w(TAG, "warning");
+                Logs.e(TAG, "error");
+            }
+        });
 
-		testCrash.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				int temp = Integer.parseInt("test");
-				Logs.i(TAG, String.valueOf(temp));
-			}
-		});
-		testHeaderPage.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
-			}
-		});
-		testSnackBar.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Snackbar.make(view, "testSnackBar", Snackbar.LENGTH_SHORT)
-						.show();
-				SpotsDialog spotsDialog = new SpotsDialog(MainActivity.this);
-				spotsDialog.setMessage("test");
-				spotsDialog.show();
-			}
-		});
+        testCrash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = Integer.parseInt("test");
+                Logs.i(TAG, String.valueOf(temp));
+            }
+        });
+        testHeaderPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
+            }
+        });
+        testSnackBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//				Snackbar.make(view, "testSnackBar", Snackbar.LENGTH_SHORT)
+//						.show();
+                SpotsDialog spotsDialog = new SpotsDialog(MainActivity.this);
+                spotsDialog.setMessage("test");
+                spotsDialog.show();
+            }
+        });
 
-		CrashHandler.getInstance(getApplicationContext())
-				.clean(new AutoCleanListener()
-				{
-					@Override
-					public void done()
-					{
-						Logs.i(TAG, "done: ");
-					}
+        CrashHandler.getInstance(getApplicationContext())
+                .clean(new AutoCleanListener() {
+                    @Override
+                    public void done() {
+                        Logs.i(TAG, "done: ");
+                    }
 
-					@Override
-					public void error(String message)
-					{
-						Logs.i(TAG, "error: " + message);
-					}
-				});
-	}
+                    @Override
+                    public void error(String message) {
+                        Logs.i(TAG, "error: " + message);
+                    }
+                });
+    }
 
 //	@Override
 //	protected void onActivityResult(int requestCode, int resultCode, Intent data)
