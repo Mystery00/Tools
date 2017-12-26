@@ -1,3 +1,10 @@
+<!--
+  ~ Created by Mystery0 on 17-12-26 下午11:29.
+  ~ Copyright (c) 2017. All Rights reserved.
+  ~
+  ~ Last modified 17-10-12 下午12:39
+  -->
+
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

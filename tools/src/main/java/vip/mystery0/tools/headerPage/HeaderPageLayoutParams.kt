@@ -1,3 +1,10 @@
+/*
+ * Created by Mystery0 on 17-12-26 下午11:29.
+ * Copyright (c) 2017. All Rights reserved.
+ *
+ * Last modified 17-10-22 下午6:19
+ */
+
 package vip.mystery0.tools.headerPage
 
 import android.content.Context

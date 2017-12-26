@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Mystery0 on 17-12-26 下午11:29.
+  ~ Copyright (c) 2017. All Rights reserved.
+  ~
+  ~ Last modified 17-10-20 下午5:14
+  -->
+
 <resources>
     <dimen name="mystery0_i_picture_chooser_item_size">180dp</dimen>
     <dimen name="mystery0_i_picture_chooser_item_margin">5dp</dimen>

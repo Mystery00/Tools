@@ -1,3 +1,10 @@
+/*
+ * Created by Mystery0 on 17-12-26 下午11:29.
+ * Copyright (c) 2017. All Rights reserved.
+ *
+ * Last modified 17-11-2 上午2:44
+ */
+
 package vip.mystery0.tools.spotsDialog
 
 import android.animation.ObjectAnimator
