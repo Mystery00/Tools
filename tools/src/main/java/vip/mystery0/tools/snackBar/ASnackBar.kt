@@ -16,32 +16,27 @@ import android.view.accessibility.AccessibilityManager
 import vip.mystery0.tools.logs.Logs
 import vip.mystery0.tools.R
 
-object ASnackBar
-{
-	private val TAG = "ASnackBar"
+object ASnackBar {
+    private val TAG = "ASnackBar"
 
-	@JvmStatic
-	fun disableAccessibility(context: Context)
-	{
-		try
-		{
-			val contextThemeWrapper = ContextThemeWrapper(context, R.style.Theme_AppCompat)
-			val view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.mystery0_snack_bar_coordinator_layout, null)
-			Snackbar.make(view, "SnackBar", Snackbar.LENGTH_SHORT)
-					.apply {
-						val mAccessibilityManagerField = BaseTransientBottomBar::class.java.getDeclaredField("mAccessibilityManager")
-						mAccessibilityManagerField.isAccessible = true
-						val accessibilityManager = mAccessibilityManagerField.get(this)
-						val mIsEnabledField = AccessibilityManager::class.java.getDeclaredField("mIsEnabled")
-						mIsEnabledField.isAccessible = true
-						mIsEnabledField.setBoolean(accessibilityManager, false)
-						mAccessibilityManagerField.set(this, accessibilityManager)
-					}
-		}
-		catch (e: Exception)
-		{
-			Logs.e(TAG, "disableAccessibility: 禁用无障碍服务失败")
-			e.printStackTrace()
-		}
-	}
+    @JvmStatic
+    fun disableAccessibility(context: Context) {
+        try {
+            val contextThemeWrapper = ContextThemeWrapper(context, R.style.Theme_AppCompat)
+            val view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.mystery0_snack_bar_coordinator_layout, null)
+            Snackbar.make(view, "SnackBar", Snackbar.LENGTH_SHORT)
+                    .apply {
+                        val mAccessibilityManagerField = BaseTransientBottomBar::class.java.getDeclaredField("mAccessibilityManager")
+                        mAccessibilityManagerField.isAccessible = true
+                        val accessibilityManager = mAccessibilityManagerField.get(this)
+                        val mIsEnabledField = AccessibilityManager::class.java.getDeclaredField("mIsEnabled")
+                        mIsEnabledField.isAccessible = true
+                        mIsEnabledField.setBoolean(accessibilityManager, false)
+                        mAccessibilityManagerField.set(this, accessibilityManager)
+                    }
+        } catch (e: Exception) {
+            Logs.e(TAG, "disableAccessibility: 禁用无障碍服务失败")
+            e.printStackTrace()
+        }
+    }
 }

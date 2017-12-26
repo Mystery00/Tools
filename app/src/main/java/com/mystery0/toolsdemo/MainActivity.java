@@ -22,9 +22,6 @@ import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.fileUtil.FileUtil;
 import vip.mystery0.tools.logs.Logs;
-import vip.mystery0.tools.hTTPok.HTTPok;
-import vip.mystery0.tools.hTTPok.HTTPokResponse;
-import vip.mystery0.tools.hTTPok.HTTPokResponseListener;
 import vip.mystery0.tools.spotsDialog.SpotsDialog;
 
 import java.io.File;
@@ -62,106 +59,106 @@ public class MainActivity extends AppCompatActivity
 			}
 		});
 
-		send.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Map<String, String> map = new HashMap<>();
-				map.put("test", "hello");
-				new HTTPok()
-						.setURL("http://123.206.186.70/test.php")
-						.setRequestMethod(HTTPok.Companion.getPOST())
-						.setParams(map)
-						.setListener(new HTTPokResponseListener()
-						{
-							@Override
-							public void onError(String message)
-							{
-								Logs.i(TAG, "onError: " + message);
-							}
-
-							@Override
-							public void onResponse(HTTPokResponse response)
-							{
-								Logs.i(TAG, "onResponse: " + response.getMessage());
-							}
-						})
-						.open();
-			}
-		});
-
-
-		sendJson.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Map<String, String> map = new HashMap<>();
-				map.put("test", "hello");
-				new HTTPok()
-						.setURL("http://123.206.186.70/php/hitokoto.php")
-						.setRequestMethod(HTTPok.Companion.getGET())
-						.setParams(map)
-						.setListener(new HTTPokResponseListener()
-						{
-							@Override
-							public void onError(@Nullable String message)
-							{
-								Logs.e(TAG, "onError: " + message);
-							}
-
-							@Override
-							public void onResponse(HTTPokResponse response)
-							{
-								Hitokoto hitokoto = response.getJSON(Hitokoto.class);
-								Logs.i(TAG, "onResponse: " + hitokoto);
-								Logs.i(TAG, "onResponse: " + hitokoto.getContent());
-							}
-						})
-						.open();
-			}
-		});
-
-		sendFileHttp.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("*/*");
-				intent.addCategory(Intent.CATEGORY_OPENABLE);
-				startActivityForResult(intent, 2333);
-			}
-		});
-
-		downloadFile.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				new HTTPok()
-						.setURL("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
-						.isFileRequest()
-						.setRequestMethod(HTTPok.Companion.getGET())
-						.setListener(new HTTPokResponseListener()
-						{
-							@Override
-							public void onError(@Nullable String message)
-							{
-								Logs.e(TAG, "onError: " + message);
-							}
-
-							@Override
-							public void onResponse(HTTPokResponse response)
-							{
-								File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Download/test.jpg");
-								Logs.i(TAG, "onResponse: " + response.getFile(file));
-							}
-						})
-						.open();
-			}
-		});
+//		send.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View v)
+//			{
+//				Map<String, String> map = new HashMap<>();
+//				map.put("test", "hello");
+//				new HTTPok()
+//						.setURL("http://123.206.186.70/test.php")
+//						.setRequestMethod(HTTPok.Companion.getPOST())
+//						.setParams(map)
+//						.setListener(new HTTPokResponseListener()
+//						{
+//							@Override
+//							public void onError(String message)
+//							{
+//								Logs.i(TAG, "onError: " + message);
+//							}
+//
+//							@Override
+//							public void onResponse(HTTPokResponse response)
+//							{
+//								Logs.i(TAG, "onResponse: " + response.getMessage());
+//							}
+//						})
+//						.open();
+//			}
+//		});
+//
+//
+//		sendJson.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View v)
+//			{
+//				Map<String, String> map = new HashMap<>();
+//				map.put("test", "hello");
+//				new HTTPok()
+//						.setURL("http://123.206.186.70/php/hitokoto.php")
+//						.setRequestMethod(HTTPok.Companion.getGET())
+//						.setParams(map)
+//						.setListener(new HTTPokResponseListener()
+//						{
+//							@Override
+//							public void onError(@Nullable String message)
+//							{
+//								Logs.e(TAG, "onError: " + message);
+//							}
+//
+//							@Override
+//							public void onResponse(HTTPokResponse response)
+//							{
+//								Hitokoto hitokoto = response.getJSON(Hitokoto.class);
+//								Logs.i(TAG, "onResponse: " + hitokoto);
+//								Logs.i(TAG, "onResponse: " + hitokoto.getContent());
+//							}
+//						})
+//						.open();
+//			}
+//		});
+//
+//		sendFileHttp.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View view)
+//			{
+//				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//				intent.setType("*/*");
+//				intent.addCategory(Intent.CATEGORY_OPENABLE);
+//				startActivityForResult(intent, 2333);
+//			}
+//		});
+//
+//		downloadFile.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View view)
+//			{
+//				new HTTPok()
+//						.setURL("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
+//						.isFileRequest()
+//						.setRequestMethod(HTTPok.Companion.getGET())
+//						.setListener(new HTTPokResponseListener()
+//						{
+//							@Override
+//							public void onError(@Nullable String message)
+//							{
+//								Logs.e(TAG, "onError: " + message);
+//							}
+//
+//							@Override
+//							public void onResponse(HTTPokResponse response)
+//							{
+//								File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Download/test.jpg");
+//								Logs.i(TAG, "onResponse: " + response.getFile(file));
+//							}
+//						})
+//						.open();
+//			}
+//		});
 
 		testLog.setOnClickListener(new View.OnClickListener()
 		{
@@ -223,36 +220,36 @@ public class MainActivity extends AppCompatActivity
 				});
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if (requestCode == 2333 && data != null)
-		{
-			String path = FileUtil.getPath(MainActivity.this, data.getData());
-			Logs.i(TAG, "onActivityResult: " + path);
-			Map<String, Object> map = new HashMap<>();
-			map.put("file", new File(path));
-			map.put("test", "test hello");
-			new HTTPok()
-					.setURL("http://123.206.186.70/test.php")
-					.setRequestMethod(HTTPok.Companion.getPOST())
-					.isFileRequest()
-					.setParams(map)
-					.setListener(new HTTPokResponseListener()
-					{
-						@Override
-						public void onError(String message)
-						{
-							Logs.i(TAG, "onError: " + message);
-						}
-
-						@Override
-						public void onResponse(HTTPokResponse response)
-						{
-							Logs.i(TAG, "onResponse: " + response.getMessage());
-						}
-					})
-					.open();
-		}
-	}
+//	@Override
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+//	{
+//		if (requestCode == 2333 && data != null)
+//		{
+//			String path = FileUtil.getPath(MainActivity.this, data.getData());
+//			Logs.i(TAG, "onActivityResult: " + path);
+//			Map<String, Object> map = new HashMap<>();
+//			map.put("file", new File(path));
+//			map.put("test", "test hello");
+//			new HTTPok()
+//					.setURL("http://123.206.186.70/test.php")
+//					.setRequestMethod(HTTPok.Companion.getPOST())
+//					.isFileRequest()
+//					.setParams(map)
+//					.setListener(new HTTPokResponseListener()
+//					{
+//						@Override
+//						public void onError(String message)
+//						{
+//							Logs.i(TAG, "onError: " + message);
+//						}
+//
+//						@Override
+//						public void onResponse(HTTPokResponse response)
+//						{
+//							Logs.i(TAG, "onResponse: " + response.getMessage());
+//						}
+//					})
+//					.open();
+//		}
+//	}
 }

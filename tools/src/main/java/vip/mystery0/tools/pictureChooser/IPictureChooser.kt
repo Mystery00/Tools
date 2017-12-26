@@ -24,48 +24,42 @@ import vip.mystery0.tools.R
 
 import java.util.ArrayList
 
-class IPictureChooser(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs)
-{
-	private val recyclerView: RecyclerView
-	private val showList = ArrayList<String>()
-	private var adapter: IPictureChooserAdapter? = null
-	@DrawableRes private var imgResource: Int
+class IPictureChooser(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs) {
+    private val recyclerView: RecyclerView
+    private val showList = ArrayList<String>()
+    private var adapter: IPictureChooserAdapter? = null
+    @DrawableRes private var imgResource: Int
 
-	companion object Code
-	{
-		val IMG_CHOOSE = 22
-	}
+    companion object Code {
+        val IMG_CHOOSE = 22
+    }
 
-	var list: List<String>
-		get() = showList
-		set(list)
-		{
-			showList.clear()
-			showList.addAll(list)
-			adapter!!.notifyDataSetChanged()
-		}
+    var list: List<String>
+        get() = showList
+        set(list) {
+            showList.clear()
+            showList.addAll(list)
+            adapter!!.notifyDataSetChanged()
+        }
 
-	init
-	{
-		val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IPictureChooser)
-		imgResource = typedArray.getResourceId(R.styleable.IPictureChooser_img_resource, R.drawable.mystery0_i_picture_chooser_add)
-		typedArray.recycle()
-		LayoutInflater.from(context).inflate(R.layout.mystery0_i_picture_chooser_main, this)
-		recyclerView = findViewById(R.id.i_picture_chooser_layout)
-	}
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IPictureChooser)
+        imgResource = typedArray.getResourceId(R.styleable.IPictureChooser_img_resource, R.drawable.mystery0_i_picture_chooser_add)
+        typedArray.recycle()
+        LayoutInflater.from(context).inflate(R.layout.mystery0_i_picture_chooser_main, this)
+        recyclerView = findViewById(R.id.i_picture_chooser_layout)
+    }
 
-	fun setDataList(listener: IPictureChooserListener)
-	{
-		recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-		adapter = IPictureChooserAdapter(showList, imgResource, context, listener)
-		recyclerView.adapter = adapter
-		recyclerView.itemAnimator = DefaultItemAnimator()
-	}
+    fun setDataList(listener: IPictureChooserListener) {
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adapter = IPictureChooserAdapter(showList, imgResource, context, listener)
+        recyclerView.adapter = adapter
+        recyclerView.itemAnimator = DefaultItemAnimator()
+    }
 
-	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
-	fun setUpdatedPicture(uri: Uri)
-	{
-		showList.add(FileUtil.getPath(context, uri)!!)
-		adapter!!.notifyDataSetChanged()
-	}
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    fun setUpdatedPicture(uri: Uri) {
+        showList.add(FileUtil.getPath(context, uri)!!)
+        adapter!!.notifyDataSetChanged()
+    }
 }

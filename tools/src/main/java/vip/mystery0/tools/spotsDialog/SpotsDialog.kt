@@ -23,81 +23,73 @@ import vip.mystery0.tools.logs.Logs
 /**
  * Created by myste.
  */
-class SpotsDialog : AlertDialog
-{
-	private var spotsCount = 2
-	private var circlePosition = 50F
-	private lateinit var spots: Array<ImageView>
-	private var message = ""
+class SpotsDialog : AlertDialog {
+    private var spotsCount = 2
+    private var circlePosition = 50F
+    private lateinit var spots: Array<ImageView>
+    private var message = ""
 
-	companion object
-	{
-		private val TAG = "SpotsDialog"
-	}
+    companion object {
+        private val TAG = "SpotsDialog"
+    }
 
-	constructor(context: Context) : super(context)
-	constructor(context: Context, @StyleRes themeResId: Int) : super(context, themeResId)
-	constructor(context: Context, cancelable: Boolean,
-				cancelListener: DialogInterface.OnCancelListener) : super(context, cancelable, cancelListener)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, @StyleRes themeResId: Int) : super(context, themeResId)
+    constructor(context: Context, cancelable: Boolean,
+                cancelListener: DialogInterface.OnCancelListener) : super(context, cancelable, cancelListener)
 
-	override fun onCreate(savedInstanceState: Bundle?)
-	{
-		Logs.i(TAG, "onCreate: ")
-		super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Logs.i(TAG, "onCreate: ")
+        super.onCreate(savedInstanceState)
 
-		setContentView(R.layout.mystery0_spots_dialog)
-		setCanceledOnTouchOutside(false)
+        setContentView(R.layout.mystery0_spots_dialog)
+        setCanceledOnTouchOutside(false)
 
-		initAnimation()
-		showAnimation()
-	}
+        initAnimation()
+        showAnimation()
+    }
 
-	override fun setMessage(message: CharSequence?)
-	{
-		Logs.i(TAG, "setMessage: ")
-		this.message = message.toString()
+    override fun setMessage(message: CharSequence?) {
+        Logs.i(TAG, "setMessage: ")
+        this.message = message.toString()
 //		(findViewById<TextView>(R.id.spots_message) as TextView).text = message
-	}
+    }
 
-	override fun show()
-	{
-		Logs.i(TAG, "show: ")
+    override fun show() {
+        Logs.i(TAG, "show: ")
 //		(findViewById<TextView>(R.id.spots_message) as TextView).text = message
-		super.show()
-	}
+        super.show()
+    }
 
-	private fun initAnimation()
-	{
-		spots = Array(spotsCount, { ImageView(context) })
-		for (i in 0 until spots.size)
-		{
-			val view = spots[i]
-			view.setImageResource(R.drawable.mystery0_ic_point)
-			view.x = circlePosition
-			view.y = 0F
-			view.pivotX = circlePosition
-			view.pivotY = circlePosition
+    private fun initAnimation() {
+        spots = Array(spotsCount, { ImageView(context) })
+        for (i in 0 until spots.size) {
+            val view = spots[i]
+            view.setImageResource(R.drawable.mystery0_ic_point)
+            view.x = circlePosition
+            view.y = 0F
+            view.pivotX = circlePosition
+            view.pivotY = circlePosition
 //			frameLayout.addView(view)
-			(findViewById<FrameLayout>(R.id.frameLayout) as FrameLayout).addView(view, 20, 20)
-		}
-	}
+            (findViewById<FrameLayout>(R.id.frameLayout) as FrameLayout).addView(view, 20, 20)
+        }
+    }
 
-	private fun showAnimation()
-	{
-		val frameLayout = findViewById<FrameLayout>(R.id.frameLayout) as FrameLayout
-		val params = frameLayout.layoutParams
-		params.width = 500
-		params.height = 500
-		frameLayout.layoutParams = params
-		val animators = Array<ObjectAnimator>(spotsCount, { i ->
-			val animator = ObjectAnimator.ofFloat(spots[i], "rotation", 0F, 360F, 0F)
-					.setDuration(2000)
-			animator.repeatCount = -1
-			animator
-		})
-		animators.forEachIndexed { index, objectAnimator ->
-			objectAnimator.startDelay = index * 500L
-			objectAnimator.start()
-		}
-	}
+    private fun showAnimation() {
+        val frameLayout = findViewById<FrameLayout>(R.id.frameLayout) as FrameLayout
+        val params = frameLayout.layoutParams
+        params.width = 500
+        params.height = 500
+        frameLayout.layoutParams = params
+        val animators = Array<ObjectAnimator>(spotsCount, { i ->
+            val animator = ObjectAnimator.ofFloat(spots[i], "rotation", 0F, 360F, 0F)
+                    .setDuration(2000)
+            animator.repeatCount = -1
+            animator
+        })
+        animators.forEachIndexed { index, objectAnimator ->
+            objectAnimator.startDelay = index * 500L
+            objectAnimator.start()
+        }
+    }
 }
