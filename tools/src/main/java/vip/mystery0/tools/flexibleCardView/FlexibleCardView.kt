@@ -43,14 +43,14 @@ class FlexibleCardView : CardView {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val sizeHeight = MeasureSpec.getSize(heightMeasureSpec)
+        val modeHeight = MeasureSpec.getMode(heightMeasureSpec)
+        if (minHeight == 0 && modeHeight == MeasureSpec.EXACTLY)
+            minHeight = sizeHeight
         if (maxHeight != 0) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }
-        val sizeHeight = MeasureSpec.getSize(heightMeasureSpec)
-        val modeHeight = MeasureSpec.getMode(heightMeasureSpec)
-        if (modeHeight == MeasureSpec.EXACTLY && minHeight == 0)
-            minHeight = sizeHeight
 
         //如果当前ViewGroup的宽高为wrap_content的情况
         var height = 0//自己测量的高度
@@ -83,23 +83,30 @@ class FlexibleCardView : CardView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
+    fun getMinHeight(): Int = minHeight
+    fun getMaxHeight(): Int = maxHeight
+
     fun showAnime() {
-        setExpand(this, !isExpand)
+        val animeArray = Array(31, { i -> ((maxHeight - minHeight) / 30F) * i + minHeight })
+        showAnime(animeArray, 8)
     }
 
-    private fun setExpand(view: View, isExpand: Boolean) {
+    fun showAnime(animeArray: Array<Float>, itemTime: Long) {
+        setExpand(this, !isExpand, animeArray, itemTime)
+    }
+
+    private fun setExpand(view: View, isExpand: Boolean, animeArray: Array<Float>, itemTime: Long) {
         if (isAnim)
             return
         isAnim = true
         this.isExpand = isExpand
-        val showArray = Array(31, { i -> ((maxHeight - minHeight) / 30F) * i + minHeight })
         if (!isExpand)
-            showArray.reverse()
+            animeArray.reverse()
         val params = view.layoutParams
         Observable.create<Int> { subscriber ->
-            showArray.forEach {
+            animeArray.forEach {
                 subscriber.onNext(it.toInt())
-                Thread.sleep(8)
+                Thread.sleep(itemTime)
             }
             subscriber.onComplete()
         }
