@@ -6,7 +6,6 @@
   -->
 
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,8 +24,7 @@
         <vip.mystery0.tools.flexibleCardView.FlexibleCardView
             android:id="@+id/flexibleCardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:minHeight="20dp">
+            android:layout_height="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,21 +34,29 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorAccent" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorAccent" />
 
             </LinearLayout>
