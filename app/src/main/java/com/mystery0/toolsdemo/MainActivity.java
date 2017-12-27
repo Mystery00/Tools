@@ -8,23 +8,20 @@
 package com.mystery0.toolsdemo;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
 
 import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
-import vip.mystery0.tools.fileUtil.FileUtil;
 import vip.mystery0.tools.flexibleCardView.FlexibleCardView;
 import vip.mystery0.tools.logs.Logs;
+import vip.mystery0.tools.flexibleRecyclerView.FlexibleRecyclerView;
 import vip.mystery0.tools.spotsDialog.SpotsDialog;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -45,8 +42,14 @@ public class MainActivity extends AppCompatActivity {
         Button testCrash = findViewById(R.id.testCrash);
         Button testHeaderPage = findViewById(R.id.testHeaderPage);
         Button testSnackBar = findViewById(R.id.testSnackBar);
-        final FlexibleCardView flexibleCardView=findViewById(R.id.flexibleCardView);
-        flexibleCardView.setShowState(true);
+        final FlexibleCardView flexibleCardView = findViewById(R.id.flexibleCardView);
+        FlexibleRecyclerView numberChooser = findViewById(R.id.numberChooser);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+//        flexibleCardView.setShowState(true);
+        numberChooser.setShowState(true);
+        numberChooser.setClickView(findViewById(R.id.test));
+        numberChooser.setAdapter(new TestAdapter());
 
         flexibleCardView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,7 +16,14 @@
         <attr name="img_resource" format="reference" />
     </declare-styleable>
     <declare-styleable name="FlexibleCardView">
-        <attr name="minHeight" format="dimension" />
-        <attr name="maxHeight" format="dimension" />
+        <attr name="min_height" format="dimension" />
+        <attr name="max_height" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="FlexibleRecyclerView">
+        <attr name="max_size" format="dimension" />
+        <attr name="show_position">
+            <enum name="horizontal" value="1" />
+            <enum name="vertical" value="2" />
+        </attr>
     </declare-styleable>
 </resources>

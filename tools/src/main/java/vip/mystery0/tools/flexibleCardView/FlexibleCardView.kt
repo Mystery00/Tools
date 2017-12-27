@@ -16,14 +16,11 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import vip.mystery0.tools.R
-import vip.mystery0.tools.logs.Logs
 import kotlin.math.max
 
 class FlexibleCardView : CardView {
-    private val TAG = "FlexibleCardView"
     private var maxHeight = -1
     private var minHeight = -1
     private var isExpand = false
@@ -40,8 +37,8 @@ class FlexibleCardView : CardView {
 
     private fun initAttributes(attrs: AttributeSet) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FlexibleCardView)
-        maxHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_maxHeight, -1)
-        minHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_minHeight, -1)
+        maxHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_max_height, -1)
+        minHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_min_height, -1)
         typedArray.recycle()
     }
 
@@ -92,8 +89,6 @@ class FlexibleCardView : CardView {
     fun setShowState(isExpand: Boolean) {
         Observable.create<Int> { subscriber ->
             while (true) {
-                Logs.i(TAG, "setShowState: maxHeight: " + maxHeight)
-                Logs.i(TAG, "setShowState: minHeight: " + minHeight)
                 if (maxHeight != -1 && minHeight != -1)
                     break
             }
@@ -132,17 +127,17 @@ class FlexibleCardView : CardView {
     }
 
     fun showAnime(animeArray: Array<Float>, itemTime: Long) {
-        setExpand(this, !isExpand, animeArray, itemTime)
+        setExpand(!isExpand, animeArray, itemTime)
     }
 
-    private fun setExpand(view: View, isExpand: Boolean, animeArray: Array<Float>, itemTime: Long) {
+    private fun setExpand(isExpand: Boolean, animeArray: Array<Float>, itemTime: Long) {
         if (isAnim)
             return
         isAnim = true
         this.isExpand = isExpand
         if (!isExpand)
             animeArray.reverse()
-        val params = view.layoutParams
+        val params = this@FlexibleCardView.layoutParams
         Observable.create<Int> { subscriber ->
             animeArray.forEach {
                 subscriber.onNext(it.toInt())
@@ -164,7 +159,7 @@ class FlexibleCardView : CardView {
 
                     override fun onNext(t: Int) {
                         params.height = t
-                        view.layoutParams = params
+                        this@FlexibleCardView.layoutParams = params
                     }
 
                     override fun onError(e: Throwable) {
