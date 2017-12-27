@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Button testHeaderPage = findViewById(R.id.testHeaderPage);
         Button testSnackBar = findViewById(R.id.testSnackBar);
         final FlexibleCardView flexibleCardView=findViewById(R.id.flexibleCardView);
+        flexibleCardView.setShowState(true);
 
         flexibleCardView.setOnClickListener(new View.OnClickListener() {
             @Override

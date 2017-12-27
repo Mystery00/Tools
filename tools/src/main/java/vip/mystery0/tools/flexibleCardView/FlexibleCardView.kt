@@ -16,13 +16,16 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import vip.mystery0.tools.R
+import vip.mystery0.tools.logs.Logs
 import kotlin.math.max
 
 class FlexibleCardView : CardView {
-    private var maxHeight = 0
-    private var minHeight = 0
+    private val TAG = "FlexibleCardView"
+    private var maxHeight = -1
+    private var minHeight = -1
     private var isExpand = false
     private var isAnim = false
 
@@ -37,17 +40,17 @@ class FlexibleCardView : CardView {
 
     private fun initAttributes(attrs: AttributeSet) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FlexibleCardView)
-        maxHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_maxHeight, 0)
-        minHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_minHeight, 0)
+        maxHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_maxHeight, -1)
+        minHeight = typedArray.getDimensionPixelSize(R.styleable.FlexibleCardView_minHeight, -1)
         typedArray.recycle()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val sizeHeight = MeasureSpec.getSize(heightMeasureSpec)
         val modeHeight = MeasureSpec.getMode(heightMeasureSpec)
-        if (minHeight == 0 && modeHeight == MeasureSpec.EXACTLY)
+        if (minHeight == -1 && modeHeight == MeasureSpec.EXACTLY)
             minHeight = sizeHeight
-        if (maxHeight != 0) {
+        if (maxHeight != -1) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }
@@ -85,6 +88,43 @@ class FlexibleCardView : CardView {
 
     fun getMinHeight(): Int = minHeight
     fun getMaxHeight(): Int = maxHeight
+
+    fun setShowState(isExpand: Boolean) {
+        Observable.create<Int> { subscriber ->
+            while (true) {
+                Logs.i(TAG, "setShowState: maxHeight: " + maxHeight)
+                Logs.i(TAG, "setShowState: minHeight: " + minHeight)
+                if (maxHeight != -1 && minHeight != -1)
+                    break
+            }
+            subscriber.onNext(if (isExpand) maxHeight else minHeight)
+            this.isExpand = isExpand
+            subscriber.onComplete()
+        }
+                .subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Int> {
+                    override fun onSubscribe(d: Disposable) {
+                        isAnim = true
+                    }
+
+                    override fun onNext(t: Int) {
+                        val params = this@FlexibleCardView.layoutParams
+                        params.height = t
+                        this@FlexibleCardView.layoutParams = params
+                    }
+
+                    override fun onComplete() {
+                        isAnim = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        e.printStackTrace()
+                        isAnim = false
+                    }
+                })
+    }
 
     fun showAnime() {
         val animeArray = Array(31, { i -> ((maxHeight - minHeight) / 30F) * i + minHeight })
@@ -128,6 +168,7 @@ class FlexibleCardView : CardView {
                     }
 
                     override fun onError(e: Throwable) {
+                        e.printStackTrace()
                         isAnim = false
                     }
                 })
