@@ -54,12 +54,12 @@ class FlexibleRecyclerView : RecyclerView {
     }
 
     private fun initLayoutManager() {
-        val layoutManager = FlexibleLinearLayoutManager(context, when (showOrientation) {
-            HORIZONTAL -> LinearLayoutManager.HORIZONTAL
-            VERTICAL -> LinearLayoutManager.VERTICAL
-            else -> throw NullPointerException("The show position can not be null! ")
-        })
-        this@FlexibleRecyclerView.layoutManager = layoutManager
+//        val layoutManager = FlexibleLinearLayoutManager(context, when (showOrientation) {
+//            HORIZONTAL -> LinearLayoutManager.HORIZONTAL
+//            VERTICAL -> LinearLayoutManager.VERTICAL
+//            else -> throw NullPointerException("The show position can not be null! ")
+//        })
+//        this@FlexibleRecyclerView.layoutManager = layoutManager
     }
 
     fun getMaxSize(): Int = maxSize

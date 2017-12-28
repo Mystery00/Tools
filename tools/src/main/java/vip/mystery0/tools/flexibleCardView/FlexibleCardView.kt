@@ -122,20 +122,21 @@ class FlexibleCardView : CardView {
                 })
     }
 
-    fun showAnime() {
+    fun showAnime(isExpandListener: (isExpand: Boolean) -> Unit) {
         val animeArray = Array(31, { i -> ((maxHeight - minHeight) / 30F) * i + minHeight })
-        showAnime(animeArray, 8)
+        showAnime(animeArray, 8, isExpandListener)
     }
 
-    fun showAnime(animeArray: Array<Float>, itemTime: Long) {
-        setExpand(!isExpand, animeArray, itemTime)
+    fun showAnime(animeArray: Array<Float>, itemTime: Long, isExpandListener: (isExpand: Boolean) -> Unit) {
+        setExpand(!this.isExpand, animeArray, itemTime, isExpandListener)
     }
 
-    private fun setExpand(isExpand: Boolean, animeArray: Array<Float>, itemTime: Long) {
+    private fun setExpand(isExpand: Boolean, animeArray: Array<Float>, itemTime: Long, isExpandListener: (isExpand: Boolean) -> Unit) {
         if (isAnim)
             return
         isAnim = true
         this.isExpand = isExpand
+        isExpandListener(isExpand)
         if (!isExpand)
             animeArray.reverse()
         val params = this@FlexibleCardView.layoutParams

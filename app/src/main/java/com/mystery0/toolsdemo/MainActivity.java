@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.flexibleCardView.FlexibleCardView;
@@ -49,12 +51,19 @@ public class MainActivity extends AppCompatActivity {
 //        flexibleCardView.setShowState(true);
         numberChooser.setShowState(true);
         numberChooser.setClickView(findViewById(R.id.test));
+        numberChooser.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         numberChooser.setAdapter(new TestAdapter());
 
         flexibleCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flexibleCardView.showAnime();
+                flexibleCardView.showAnime(new Function1<Boolean, Unit>() {
+                    @Override
+                    public Unit invoke(Boolean aBoolean) {
+
+                        return null;
+                    }
+                });
             }
         });
 

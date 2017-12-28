@@ -14,18 +14,18 @@ import android.view.View.MeasureSpec
 import android.view.ViewGroup
 
 
-class FlexibleLinearLayoutManager(context: Context?, orientation: Int) : LinearLayoutManager(context, orientation, false) {
-    override fun onMeasure(recycler: RecyclerView.Recycler, state: RecyclerView.State?, widthSpec: Int, heightSpec: Int) {
-        var height = 0
-        var width = 0
-        val childCount = itemCount
-        for (i in 0 until childCount) {
-            val child = recycler.getViewForPosition(i)
-            measureChild(child, widthSpec, heightSpec)
-            val lp = child.layoutParams as ViewGroup.MarginLayoutParams
-            height += child.measuredHeight + lp.topMargin + lp.bottomMargin
-            width += child.measuredWidth + lp.leftMargin + lp.rightMargin
-        }
-        setMeasuredDimension(width, height)
-    }
-}
+//class FlexibleLinearLayoutManager(context: Context?, orientation: Int) : LinearLayoutManager(context, orientation, false) {
+//    override fun onMeasure(recycler: RecyclerView.Recycler, state: RecyclerView.State?, widthSpec: Int, heightSpec: Int) {
+//        var height = 0
+//        var width = 0
+//        val childCount = itemCount
+//        for (i in 0 until childCount) {
+//            val child = recycler.getViewForPosition(i)
+//            measureChild(child, widthSpec, heightSpec)
+//            val lp = child.layoutParams as ViewGroup.MarginLayoutParams
+//            height += child.measuredHeight + lp.topMargin + lp.bottomMargin
+//            width += child.measuredWidth + lp.leftMargin + lp.rightMargin
+//        }
+//        setMeasuredDimension(width, height)
+//    }
+//}
