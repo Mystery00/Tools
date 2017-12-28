@@ -85,6 +85,7 @@ class FlexibleCardView : CardView {
 
     fun getMinHeight(): Int = minHeight
     fun getMaxHeight(): Int = maxHeight
+    fun isExpand(): Boolean = isExpand
 
     fun setShowState(isExpand: Boolean) {
         Observable.create<Int> { subscriber ->
