@@ -10,7 +10,6 @@ package vip.mystery0.tools.flexibleCardView
 import android.content.Context
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
-import android.view.View
 import android.view.ViewGroup
 import io.reactivex.Observable
 import io.reactivex.Observer

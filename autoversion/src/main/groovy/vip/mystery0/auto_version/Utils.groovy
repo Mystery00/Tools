@@ -25,4 +25,12 @@ class Utils {
         return 0
     }
 
+    static String getBranchName() {
+        try {
+            return 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+        } catch (Exception e) {
+            e.printStackTrace()
+            return "master"
+        }
+    }
 }

@@ -14,6 +14,7 @@ class AutoVersionExtension {
     int beta = 0
     int alpha = 0
     int build = -1
+    String branch = ""
 
     public <T> void setMajor(T number) {
         major = validate(number)
@@ -25,6 +26,16 @@ class AutoVersionExtension {
 
     public <T> void setBuild(T number) {
         build = validate(number)
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch
+    }
+
+    public def getBranch() {
+        if (branch == "")
+            branch = Utils.branchName
+        return branch
     }
 
     public def getBuild() {
