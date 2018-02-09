@@ -22,10 +22,10 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <vip.mystery0.tools.dirManager.DirManager
-            android:id="@+id/dirManager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <!--<vip.mystery0.tools.dirManager.DirManager-->
+            <!--android:id="@+id/dirManager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
 
         <Button
             android:id="@+id/picture_chooser"
@@ -49,13 +49,13 @@
             android:id="@+id/sendFileHttp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sendfilehttp" />
+            android:text="@string/sendFileHttp" />
 
         <Button
             android:id="@+id/testDownloadFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/downloadfile" />
+            android:text="@string/downloadFile" />
 
         <Button
             android:id="@+id/testLog"
@@ -70,21 +70,16 @@
             android:text="@string/testCrash" />
 
         <Button
-            android:id="@+id/testSnackBar"
+            android:id="@+id/testDirManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/testsnackbar" />
+            android:text="@string/testDirManager" />
 
         <Button
             android:id="@+id/testHeaderPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/testHeaderPage" />
-
-        <Button
-            android:id="@+id/test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

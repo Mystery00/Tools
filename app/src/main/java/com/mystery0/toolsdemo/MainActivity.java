@@ -10,19 +10,14 @@ package com.mystery0.toolsdemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
-import vip.mystery0.tools.flexibleCardView.FlexibleCardView;
+import vip.mystery0.tools.dirManager.DirManagerDialog;
 import vip.mystery0.tools.logs.Logs;
-import vip.mystery0.tools.flexibleRecyclerView.FlexibleRecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -42,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Button testLog = findViewById(R.id.testLog);
         Button testCrash = findViewById(R.id.testCrash);
         Button testHeaderPage = findViewById(R.id.testHeaderPage);
-        Button testSnackBar = findViewById(R.id.testSnackBar);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        Button testDirManager = findViewById(R.id.testDirManager);
 
         picture_chooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 //						.setURL("http://123.206.186.70/test.php")
 //						.setRequestMethod(HTTPok.Companion.getPOST())
 //						.setParams(map)
-//						.setListener(new HTTPokResponseListener()
+//						.setDirSelectedListener(new HTTPokResponseListener()
 //						{
 //							@Override
 //							public void onError(String message)
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 //						.setURL("http://123.206.186.70/php/hitokoto.php")
 //						.setRequestMethod(HTTPok.Companion.getGET())
 //						.setParams(map)
-//						.setListener(new HTTPokResponseListener()
+//						.setDirSelectedListener(new HTTPokResponseListener()
 //						{
 //							@Override
 //							public void onError(@Nullable String message)
@@ -134,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 //						.setURL("http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg")
 //						.isFileRequest()
 //						.setRequestMethod(HTTPok.Companion.getGET())
-//						.setListener(new HTTPokResponseListener()
+//						.setDirSelectedListener(new HTTPokResponseListener()
 //						{
 //							@Override
 //							public void onError(@Nullable String message)
@@ -169,6 +163,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int temp = Integer.parseInt("test");
                 Logs.i(TAG, String.valueOf(temp));
+            }
+        });
+        testDirManager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DirManagerDialog(MainActivity.this)
+                        .show();
             }
         });
         testHeaderPage.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 //					.setRequestMethod(HTTPok.Companion.getPOST())
 //					.isFileRequest()
 //					.setParams(map)
-//					.setListener(new HTTPokResponseListener()
+//					.setDirSelectedListener(new HTTPokResponseListener()
 //					{
 //						@Override
 //						public void onError(String message)

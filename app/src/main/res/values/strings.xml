@@ -14,10 +14,10 @@
     <string name="sendHttpGetJson">SendHttpGetJson</string>
     <string name="testLog">TestLog</string>
     <string name="testCrash">TestCrash</string>
-    <string name="testimageloader">testImageLoader</string>
-    <string name="sendfilehttp">sendFileHttp</string>
-    <string name="downloadfile">DownloadFile</string>
-    <string name="testsnackbar">testSnackBar</string>
+    <string name="testImageLoader">testImageLoader</string>
+    <string name="sendFileHttp">sendFileHttp</string>
+    <string name="downloadFile">DownloadFile</string>
+    <string name="testDirManager">testDirManager</string>
     <string name="testHeaderPage">testHeaderPage</string>
     <string name="long_text">
         讲述了天才少年萧炎在创造了家族空前绝后的修炼纪录后突然成了废人，种种打击接踵而至。就在他即将绝望的时候，一缕灵魂从他手上的戒指里浮现，一扇全新的大门在面前开启，经过艰苦修炼最终成就辉煌的故事。

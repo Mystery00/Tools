@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Created by Mystery0 on 18-2-9 下午6:05.
+  ~ Created by Mystery0 on 18-2-9 下午11:49.
   ~ Copyright (c) 2018. All Rights reserved.
   ~
-  ~ Last modified 18-2-9 下午6:05
+  ~ Last modified 18-2-9 下午11:45
   -->
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerView"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+
+</FrameLayout>
