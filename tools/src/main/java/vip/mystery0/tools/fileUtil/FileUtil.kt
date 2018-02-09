@@ -16,6 +16,7 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
+import java.io.*
 import java.text.DecimalFormat
 
 object FileUtil {
@@ -76,8 +77,8 @@ object FileUtil {
         try {
             cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor != null && cursor.moveToFirst()) {
-                val column_index = cursor.getColumnIndexOrThrow(column)
-                return cursor.getString(column_index)
+                val columnIndex = cursor.getColumnIndexOrThrow(column)
+                return cursor.getString(columnIndex)
             }
         } finally {
             if (cursor != null)
@@ -86,22 +87,42 @@ object FileUtil {
         return null
     }
 
-    fun FormatFileSize(fileSize: Long): String {
-        return FormatFileSize(fileSize, "#.00")
+    fun formatFileSize(fileSize: Long): String {
+        return formatFileSize(fileSize, "#.00")
     }
 
-    fun FormatFileSize(fileSize: Long, format: String): String {
+    fun formatFileSize(fileSize: Long, format: String): String {
         val df = DecimalFormat(format)
         val fileSizeString: String
-        if (fileSize < 1024) {
-            fileSizeString = df.format(fileSize.toDouble()) + "B"
-        } else if (fileSize < 1048576) {
-            fileSizeString = df.format(fileSize.toDouble() / 1024) + "KB"
-        } else if (fileSize < 1073741824) {
-            fileSizeString = df.format(fileSize.toDouble() / 1048576) + "MB"
-        } else {
-            fileSizeString = df.format(fileSize.toDouble() / 1073741824) + "GB"
+        fileSizeString = when {
+            fileSize < 1024 -> df.format(fileSize.toDouble()) + "B"
+            fileSize < 1048576 -> df.format(fileSize.toDouble() / 1024) + "KB"
+            fileSize < 1073741824 -> df.format(fileSize.toDouble() / 1048576) + "MB"
+            else -> df.format(fileSize.toDouble() / 1073741824) + "GB"
         }
         return fileSizeString
+    }
+
+    fun saveFile(inputStream: InputStream?, file: File): Boolean {
+        try {
+            if (!file.parentFile.exists())
+                file.parentFile.mkdirs()
+            if (file.exists())
+                file.delete()
+            val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
+            val dataOutputStream = DataOutputStream(BufferedOutputStream(FileOutputStream(file)))
+            val bytes = ByteArray(1024 * 1024)
+            while (true) {
+                val read = dataInputStream.read(bytes)
+                if (read <= 0)
+                    break
+                dataOutputStream.write(bytes, 0, read)
+            }
+            dataOutputStream.close()
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
     }
 }
