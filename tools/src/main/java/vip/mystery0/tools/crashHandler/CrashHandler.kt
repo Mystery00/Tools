@@ -24,7 +24,7 @@ import java.util.*
  */
 @SuppressLint("StaticFieldLeak")
 object CrashHandler : Thread.UncaughtExceptionHandler {
-    private val TAG = "CrashHandler"
+    private const val TAG = "CrashHandler"
     private var mCrashHandler: CrashHandler? = null
     //log文件存储目录
     private lateinit var dir: File

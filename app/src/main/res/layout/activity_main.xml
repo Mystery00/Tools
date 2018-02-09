@@ -22,47 +22,10 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <vip.mystery0.tools.flexibleCardView.FlexibleCardView
-            android:id="@+id/flexibleCardView"
+        <vip.mystery0.tools.dirManager.DirManager
+            android:id="@+id/dirManager"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorPrimary" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorAccent" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorPrimary" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorAccent" />
-
-            </LinearLayout>
-
-        </vip.mystery0.tools.flexibleCardView.FlexibleCardView>
+            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/picture_chooser"
@@ -122,13 +85,6 @@
             android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <vip.mystery0.tools.flexibleRecyclerView.FlexibleRecyclerView
-            android:id="@+id/numberChooser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:max_size="100dp"
-            app:show_position="horizontal"/>
 
     </LinearLayout>
 

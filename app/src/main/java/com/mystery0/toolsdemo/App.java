@@ -11,7 +11,6 @@ import android.app.Application;
 
 import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.logs.Logs;
-import vip.mystery0.tools.snackBar.ASnackBar;
 
 public class App extends Application {
     private static final String TAG = "App";
@@ -64,6 +63,5 @@ public class App extends Application {
 //					}
 //				})
 //				.init();
-//		ASnackBar.disableAccessibility(this);
     }
 }

@@ -23,7 +23,6 @@ import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.flexibleCardView.FlexibleCardView;
 import vip.mystery0.tools.logs.Logs;
 import vip.mystery0.tools.flexibleRecyclerView.FlexibleRecyclerView;
-import vip.mystery0.tools.spotsDialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -44,28 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Button testCrash = findViewById(R.id.testCrash);
         Button testHeaderPage = findViewById(R.id.testHeaderPage);
         Button testSnackBar = findViewById(R.id.testSnackBar);
-        final FlexibleCardView flexibleCardView = findViewById(R.id.flexibleCardView);
-        FlexibleRecyclerView numberChooser = findViewById(R.id.numberChooser);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-//        flexibleCardView.setShowState(true);
-        numberChooser.setShowState(true);
-        numberChooser.setClickView(findViewById(R.id.test));
-        numberChooser.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        numberChooser.setAdapter(new TestAdapter());
-
-        flexibleCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flexibleCardView.showAnime(new Function1<Boolean, Unit>() {
-                    @Override
-                    public Unit invoke(Boolean aBoolean) {
-
-                        return null;
-                    }
-                });
-            }
-        });
 
         picture_chooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,16 +175,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
-            }
-        });
-        testSnackBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//				Snackbar.make(view, "testSnackBar", Snackbar.LENGTH_SHORT)
-//						.show();
-                SpotsDialog spotsDialog = new SpotsDialog(MainActivity.this);
-                spotsDialog.setMessage("test");
-                spotsDialog.show();
             }
         });
 
