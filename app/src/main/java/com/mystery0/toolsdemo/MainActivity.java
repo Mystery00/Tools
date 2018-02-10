@@ -16,7 +16,6 @@ import android.widget.Button;
 
 import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
-import vip.mystery0.tools.dirManager.DirManagerDialog;
 import vip.mystery0.tools.logs.Logs;
 
 public class MainActivity extends AppCompatActivity {
@@ -168,8 +167,6 @@ public class MainActivity extends AppCompatActivity {
         testDirManager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DirManagerDialog(MainActivity.this)
-                        .show();
             }
         });
         testHeaderPage.setOnClickListener(new View.OnClickListener() {
