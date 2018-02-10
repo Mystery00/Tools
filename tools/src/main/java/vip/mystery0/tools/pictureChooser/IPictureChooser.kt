@@ -28,10 +28,11 @@ class IPictureChooser(context: Context, attrs: AttributeSet) : RelativeLayout(co
     private val recyclerView: RecyclerView
     private val showList = ArrayList<String>()
     private var adapter: IPictureChooserAdapter? = null
-    @DrawableRes private var imgResource: Int
+    @DrawableRes
+    private var imgResource: Int
 
     companion object Code {
-        val IMG_CHOOSE = 22
+        const val IMG_CHOOSE = 22
     }
 
     var list: List<String>

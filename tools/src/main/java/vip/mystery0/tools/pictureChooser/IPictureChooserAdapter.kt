@@ -16,9 +16,9 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import vip.mystery0.tools.R
 
-class IPictureChooserAdapter(private var pathList: ArrayList<String>, private var add_img: Int,
-                             var context: Context,
-                             private var listener: IPictureChooserListener) : RecyclerView.Adapter<IPictureChooserAdapter.ViewHolder>() {
+internal class IPictureChooserAdapter(private var pathList: ArrayList<String>, private var add_img: Int,
+                                      var context: Context,
+                                      private var listener: IPictureChooserListener) : RecyclerView.Adapter<IPictureChooserAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView: ImageView = itemView as ImageView
     }
@@ -35,7 +35,7 @@ class IPictureChooserAdapter(private var pathList: ArrayList<String>, private va
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position == 0) {
             holder.imageView.setImageResource(add_img)
-            holder.imageView.setOnClickListener { listener.MainClick() }
+            holder.imageView.setOnClickListener { listener.onMainClick() }
         } else {
             Glide.with(context)
                     .load(pathList[position - 1])

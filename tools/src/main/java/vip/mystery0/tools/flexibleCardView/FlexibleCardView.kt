@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import vip.mystery0.tools.R
 import kotlin.math.max
 
-class FlexibleCardView : CardView {
+internal class FlexibleCardView : CardView {
     private var maxHeight = -1
     private var minHeight = -1
     private var isExpand = false

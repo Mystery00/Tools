@@ -30,10 +30,10 @@ public class PictureChooserDemoActivity extends AppCompatActivity {
         list.add("http://ww2.sinaimg.cn/orj480/76da98c1gw1f5yhzht65hj20qo1bfgul.jpg");
         pictureChooser.setDataList(new IPictureChooserListener() {
             @Override
-            public void MainClick() {
+            public void onMainClick() {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                startActivityForResult(intent, IPictureChooser.Code.getIMG_CHOOSE());
+                startActivityForResult(intent, IPictureChooser.IMG_CHOOSE);
             }
         });
         pictureChooser.setList(list);
@@ -41,7 +41,7 @@ public class PictureChooserDemoActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == IPictureChooser.Code.getIMG_CHOOSE()) {
+        if (requestCode == IPictureChooser.IMG_CHOOSE) {
             if (data != null) {
                 pictureChooser.setUpdatedPicture(data.getData());
             }

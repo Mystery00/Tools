@@ -16,7 +16,7 @@ import android.widget.TextView
 import vip.mystery0.tools.R
 import java.io.File
 
-class DirAdapter(private val list: List<File>, var rootPath: String) : RecyclerView.Adapter<DirAdapter.ViewHolder>() {
+internal class DirAdapter(private val list: List<File>, var rootPath: String) : RecyclerView.Adapter<DirAdapter.ViewHolder>() {
     var dirSelectedListener: DirSelectedListener? = null
     private var currentFile: File = File(rootPath)
 
