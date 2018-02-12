@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Button testHeaderPage = findViewById(R.id.testHeaderPage);
         Button testDirManager = findViewById(R.id.testDirManager);
 
-        dirManager.setCurrentPath("/sdcard/Android/");
+        dirManager.setCurrentPath("/storage/emulated/0/Android/");
         picture_chooser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

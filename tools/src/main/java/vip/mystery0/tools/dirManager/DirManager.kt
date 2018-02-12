@@ -97,7 +97,7 @@ class DirManager : FrameLayout {
     }
 
     private fun updateList() {
-        if (isRefresh )
+        if (isRefresh)
             return
         isRefresh = true
         Observable.create<Boolean> {
@@ -105,7 +105,7 @@ class DirManager : FrameLayout {
             if (currentPath.absolutePath != rootPath)
                 showList.add(currentPath.parentFile)
             currentPath.listFiles().forEach {
-                if (it.isDirectory)
+                if (it.isDirectory && !showList.contains(it))
                     showList.add(it)
             }
             showList.sort()
