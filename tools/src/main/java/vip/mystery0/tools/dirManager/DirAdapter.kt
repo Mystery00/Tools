@@ -18,7 +18,7 @@ import java.io.File
 
 internal class DirAdapter(private val list: List<File>, var rootPath: String) : RecyclerView.Adapter<DirAdapter.ViewHolder>() {
     var dirSelectedListener: DirSelectedListener? = null
-    private var currentFile: File = File(rootPath)
+    var currentFile: File = File(rootPath)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.mystery0_dir_item, parent, false))

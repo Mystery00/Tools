@@ -85,7 +85,10 @@ class DirManager : FrameLayout {
     }
 
     fun setCurrentPath(currentPath: File) {
+        if (!currentPath.exists())
+            return
         this.currentPath = currentPath
+        dirAdapter.currentFile = currentPath
         updateList()
     }
 
@@ -94,18 +97,17 @@ class DirManager : FrameLayout {
     }
 
     private fun updateList() {
-        if (isRefresh)
+        if (isRefresh )
             return
         isRefresh = true
         Observable.create<Boolean> {
             showList.clear()
             if (currentPath.absolutePath != rootPath)
                 showList.add(currentPath.parentFile)
-            showList.addAll(currentPath.listFiles())
-            val iterator = showList.iterator()
-            while (iterator.hasNext())
-                if (!iterator.next().isDirectory)
-                    iterator.remove()
+            currentPath.listFiles().forEach {
+                if (it.isDirectory)
+                    showList.add(it)
+            }
             showList.sort()
             it.onComplete()
         }

@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import vip.mystery0.tools.crashHandler.AutoCleanListener;
 import vip.mystery0.tools.crashHandler.CrashHandler;
+import vip.mystery0.tools.dirManager.DirManager;
 import vip.mystery0.tools.logs.Logs;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 //		setTitle(getString(R.string.app_name) + "-" + getString(R.string.app_version) + "-" + getString(R.string.app_version_code));
 
+        DirManager dirManager = findViewById(R.id.dirManager);
         Button picture_chooser = findViewById(R.id.picture_chooser);
         Button send = findViewById(R.id.sendHttp);
         Button sendJson = findViewById(R.id.sendHttpGetJson);
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Button testHeaderPage = findViewById(R.id.testHeaderPage);
         Button testDirManager = findViewById(R.id.testDirManager);
 
+        dirManager.setCurrentPath("/sdcard/Android/");
         picture_chooser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

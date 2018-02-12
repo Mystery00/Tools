@@ -22,10 +22,10 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <!--<vip.mystery0.tools.dirManager.DirManager-->
-            <!--android:id="@+id/dirManager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
+        <vip.mystery0.tools.dirManager.DirManager
+            android:id="@+id/dirManager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/picture_chooser"
