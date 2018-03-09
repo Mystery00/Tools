@@ -17,41 +17,41 @@ apply plugin: 'com.android.application'
 //}
 
 android {
-    compileSdkVersion 26
-    defaultConfig {
-        applicationId "vip.mystery0.toolsdemo"
-        minSdkVersion 19
-        targetSdkVersion 26
+	compileSdkVersion 27
+	defaultConfig {
+		applicationId "vip.mystery0.toolsdemo"
+		minSdkVersion 19
+		targetSdkVersion 27
 //        versionCode autoVersion.code
 //        versionName autoVersion.name
-        versionCode 0
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
+		versionCode 0
+		versionName "1.0"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+	}
+	buildTypes {
 //        debug {
 //            resValue "string", "app_version", versionName
 //            resValue "string", "app_version_code", versionCode + ''
 //        }
-        release {
+		release {
 //            resValue "string", "app_version", versionName
 //            resValue "string", "app_version_code", versionCode + ''
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile project(':tools')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	})
+	api project(':tools')
+	implementation 'com.android.support:appcompat-v7:27.1.0'
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+	testCompile 'junit:junit:4.12'
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 //buildscript {
@@ -68,5 +68,5 @@ dependencies {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
