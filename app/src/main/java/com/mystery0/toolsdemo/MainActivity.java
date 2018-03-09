@@ -20,33 +20,33 @@ import vip.mystery0.tools.dirManager.DirManager;
 import vip.mystery0.tools.logs.Logs;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+	private static final String TAG = "MainActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
 //		setTitle(getString(R.string.app_name) + "-" + getString(R.string.app_version) + "-" + getString(R.string.app_version_code));
 
-        DirManager dirManager = findViewById(R.id.dirManager);
-        Button picture_chooser = findViewById(R.id.picture_chooser);
-        Button send = findViewById(R.id.sendHttp);
-        Button sendJson = findViewById(R.id.sendHttpGetJson);
-        Button sendFileHttp = findViewById(R.id.sendFileHttp);
-        Button downloadFile = findViewById(R.id.testDownloadFile);
-        Button testLog = findViewById(R.id.testLog);
-        Button testCrash = findViewById(R.id.testCrash);
-        Button testHeaderPage = findViewById(R.id.testHeaderPage);
-        Button testDirManager = findViewById(R.id.testDirManager);
+		DirManager dirManager = findViewById(R.id.dirManager);
+		Button picture_chooser = findViewById(R.id.picture_chooser);
+		Button send = findViewById(R.id.sendHttp);
+		Button sendJson = findViewById(R.id.sendHttpGetJson);
+		Button sendFileHttp = findViewById(R.id.sendFileHttp);
+		Button downloadFile = findViewById(R.id.testDownloadFile);
+		Button testLog = findViewById(R.id.testLog);
+		Button testCrash = findViewById(R.id.testCrash);
+		Button testHeaderPage = findViewById(R.id.testHeaderPage);
+		Button testDirManager = findViewById(R.id.testDirManager);
 
-        dirManager.setCurrentPath("/storage/emulated/0/Android/");
-        picture_chooser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PictureChooserDemoActivity.class));
-            }
-        });
+		dirManager.setCurrentPath("/storage/emulated/0/Android/");
+		picture_chooser.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(MainActivity.this, PictureChooserDemoActivity.class));
+			}
+		});
 
 //		send.setOnClickListener(new View.OnClickListener()
 //		{
@@ -149,56 +149,56 @@ public class MainActivity extends AppCompatActivity {
 //			}
 //		});
 
-        testLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logs.v(TAG, "verbose");
-                Logs.i(TAG, "info");
-                Logs.d(TAG, "debug");
-                Logs.w(TAG, "warning");
-                Logs.e(TAG, "error");
-            }
-        });
+		testLog.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Logs.v(TAG, "verbose");
+				Logs.i(TAG, "info");
+				Logs.d(TAG, "debug");
+				Logs.w(TAG, "warning");
+				Logs.e(TAG, "error");
+			}
+		});
 
-        testCrash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int temp = Integer.parseInt("test");
-                Logs.i(TAG, String.valueOf(temp));
-            }
-        });
-        testDirManager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-        testHeaderPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
-            }
-        });
+		testCrash.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int temp = Integer.parseInt("test");
+				Logs.i(TAG, String.valueOf(temp));
+			}
+		});
+		testDirManager.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			}
+		});
+		testHeaderPage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				startActivity(new Intent(MainActivity.this, HeaderPageActivity.class));
+			}
+		});
 
-        CrashHandler.getInstance(getApplicationContext())
-                .clean(new AutoCleanListener() {
-                    @Override
-                    public void done() {
-                        Logs.i(TAG, "done: ");
-                    }
+		CrashHandler.getInstance(getApplicationContext())
+				.clean(new AutoCleanListener() {
+					@Override
+					public void done() {
+						Logs.i(TAG, "done: ");
+					}
 
-                    @Override
-                    public void error(String message) {
-                        Logs.i(TAG, "error: " + message);
-                    }
-                });
-    }
+					@Override
+					public void error(String message) {
+						Logs.i(TAG, "error: " + message);
+					}
+				});
+	}
 
 //	@Override
 //	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 //	{
 //		if (requestCode == 2333 && data != null)
 //		{
-//			String path = FileUtil.getPath(MainActivity.this, data.getData());
+//			String path = Mystery0FileUtil.getPath(MainActivity.this, data.getData());
 //			Logs.i(TAG, "onActivityResult: " + path);
 //			Map<String, Object> map = new HashMap<>();
 //			map.put("file", new File(path));

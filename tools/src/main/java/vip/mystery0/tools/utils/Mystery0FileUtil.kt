@@ -1,11 +1,11 @@
 /*
- * Created by Mystery0 on 17-12-26 下午11:29.
- * Copyright (c) 2017. All Rights reserved.
+ * Created by Mystery0 on 18-3-10 上午12:52.
+ * Copyright (c) 2018. All Rights reserved.
  *
- * Last modified 17-10-12 下午1:20
+ * Last modified 18-3-10 上午12:21
  */
 
-package vip.mystery0.tools.fileUtil
+package vip.mystery0.tools.utils
 
 import android.content.ContentUris
 import android.content.Context
@@ -19,7 +19,7 @@ import android.support.annotation.RequiresApi
 import java.io.*
 import java.text.DecimalFormat
 
-object FileUtil {
+object Mystery0FileUtil {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @JvmStatic
     fun getPath(context: Context, uri: Uri): String? {

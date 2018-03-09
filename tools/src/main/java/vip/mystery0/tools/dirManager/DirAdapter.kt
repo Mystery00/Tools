@@ -17,37 +17,45 @@ import vip.mystery0.tools.R
 import java.io.File
 
 internal class DirAdapter(private val list: List<File>, var rootPath: String) : RecyclerView.Adapter<DirAdapter.ViewHolder>() {
-    var dirSelectedListener: DirSelectedListener? = null
-    var currentFile: File = File(rootPath)
+	var dirSelectedListener: DirSelectedListener? = null
+	var currentFile: File = File(rootPath)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.mystery0_dir_item, parent, false))
-    }
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+		return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.mystery0_dir_item, parent, false))
+	}
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+	override fun getItemCount(): Int {
+		return list.size
+	}
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val file = list[position]
-        if (file.absolutePath == currentFile.parentFile.absolutePath)
-            holder.textViewTitle.text = ".."
-        else
-            holder.textViewTitle.text = file.name
-        holder.itemView.setOnClickListener {
-            currentFile = file
-            if (dirSelectedListener != null) {
-                dirSelectedListener!!.onSelected(file)
-            }
-        }
-    }
+	fun setDirSelectedListener(listener: (File) -> Unit) {
+		dirSelectedListener = object : DirSelectedListener {
+			override fun onSelected(selectedFile: File) {
+				listener(selectedFile)
+			}
+		}
+	}
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView = itemView.findViewById<ImageView>(R.id.imageView)
-        val textViewTitle = itemView.findViewById<TextView>(R.id.textView_title)
-    }
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+		val file = list[position]
+		if (file.absolutePath == currentFile.parentFile.absolutePath)
+			holder.textViewTitle.text = ".."
+		else
+			holder.textViewTitle.text = file.name
+		holder.itemView.setOnClickListener {
+			currentFile = file
+			if (dirSelectedListener != null) {
+				dirSelectedListener!!.onSelected(file)
+			}
+		}
+	}
 
-    interface DirSelectedListener {
-        fun onSelected(selectedFile: File)
-    }
+	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+		val imageView = itemView.findViewById<ImageView>(R.id.imageView)
+		val textViewTitle = itemView.findViewById<TextView>(R.id.textView_title)
+	}
+
+	interface DirSelectedListener {
+		fun onSelected(selectedFile: File)
+	}
 }

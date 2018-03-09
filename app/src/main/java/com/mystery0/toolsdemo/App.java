@@ -9,11 +9,9 @@ package com.mystery0.toolsdemo;
 
 import android.app.Application;
 
-import vip.mystery0.tools.crashHandler.CrashHandler;
 import vip.mystery0.tools.logs.Logs;
 
 public class App extends Application {
-    private static final String TAG = "App";
 
     @Override
     public void onCreate() {
